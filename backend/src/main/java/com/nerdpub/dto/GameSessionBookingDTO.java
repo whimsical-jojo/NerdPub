@@ -7,12 +7,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TableBookingDTO {
+public class GameSessionBookingDTO {
     private int id;
 
-    private int pubTableId;
+    private int sessionId;
 
     private int memberId;
-
-    private LocalDate date;
 }

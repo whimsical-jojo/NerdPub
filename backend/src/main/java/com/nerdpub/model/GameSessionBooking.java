@@ -25,18 +25,16 @@ import lombok.Data;
 
 @Data
 @Entity
-public class TableBooking {
+public class GameSessionBooking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "table_id")
-    private PubTable table;
+    @JoinColumn(name = "session_id")
+    private GameSession session;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
-
-    private LocalDate date;
 }

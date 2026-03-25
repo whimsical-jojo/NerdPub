@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nerdpub.dto.TableBookingDTO;
+import com.nerdpub.dto.GameSessionBookingDTO;
 import com.nerdpub.exception.BookingException;
 import com.nerdpub.exception.TableNotAvailableException;
-import com.nerdpub.model.TableBooking;
+import com.nerdpub.model.GameSessionBooking;
 import com.nerdpub.service.TableBookingService;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -26,9 +26,9 @@ public class TableBookingAPI {
     private TableBookingService tableBookingService;
 
     @PostMapping
-    public ResponseEntity<?> createBooking(@RequestBody TableBookingDTO bookingDto) {
+    public ResponseEntity<?> createBooking(@RequestBody GameSessionBookingDTO bookingDto) {
         try {
-            TableBookingDTO savedBooking = tableBookingService.bookTable(bookingDto);
+            GameSessionBookingDTO savedBooking = tableBookingService.bookTable(bookingDto);
             return ResponseEntity.ok(savedBooking);
         } catch (TableNotAvailableException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

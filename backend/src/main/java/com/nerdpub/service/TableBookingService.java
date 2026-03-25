@@ -1,14 +1,16 @@
 package com.nerdpub.service;
 
-import com.nerdpub.dto.TableBookingDTO;
+import com.nerdpub.dto.GameSessionBookingDTO;
 import com.nerdpub.exception.BookingException;
 import com.nerdpub.exception.TableNotAvailableException;
-import com.nerdpub.mapper.TableBoookingMapper;
+import com.nerdpub.mapper.GameSessionBoookingMapper;
 import com.nerdpub.model.Member;
 import com.nerdpub.model.PubTable;
-import com.nerdpub.model.TableBooking;
+import com.nerdpub.model.GameSession;
+import com.nerdpub.model.GameSessionBooking;
 import com.nerdpub.repository.MemberRepository;
-import com.nerdpub.repository.TableBookingRepository;
+import com.nerdpub.repository.GameSessionBookingRepository;
+import com.nerdpub.repository.GameSessionRepository;
 import com.nerdpub.repository.TableRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -21,47 +23,49 @@ import org.springframework.stereotype.Service;
 @Service
 public class TableBookingService {
     @Autowired
-    private TableBookingRepository tableBookingRepository;
+    private GameSessionBookingRepository bookingRepository;
 
     @Autowired
-    private TableRepository tableRepository;
+    private GameSessionRepository sessionRepository;
 
     @Autowired
     private MemberRepository memberRepository;
 
     @Autowired
-    private TableBoookingMapper bookingMapper;
+    private GameSessionBoookingMapper bookingMapper;
 
 
     @Transactional
-    public TableBookingDTO bookTable(TableBookingDTO bookingDto) {
+    public GameSessionBookingDTO bookTable(GameSessionBookingDTO bookingDto) {
         Member member = memberRepository.findById(bookingDto.getMemberId())
                 .orElseThrow(() -> new EntityNotFoundException("Member not found"));
 
-        PubTable table = tableRepository.findById(bookingDto.getPubTableId())
-                .orElseThrow(() -> new EntityNotFoundException("Table not found"));
+        GameSession session = sessionRepository.findById(bookingDto.getSessionId())
+                .orElseThrow(() -> new EntityNotFoundException("Session not found"));
+
+        PubTable table = session.getTable();
 
         if (!table.isAvailable()) {
             throw new TableNotAvailableException("Table is unavailable");
         }
 
         //How many places are available?
-        int numOfPeople = tableBookingRepository.getAvailableSpots(bookingDto.getPubTableId(), bookingDto.getDate());
+        int numOfPeople = bookingRepository.getOccupiedSpots(session.getId());
         if (numOfPeople >= table.getCapacity()) {
             throw new TableNotAvailableException("Table is full");
         }
         
-        int numOfBookings = tableBookingRepository.getMembersBookingsInDate(bookingDto.getMemberId(), bookingDto.getDate());
+        int numOfBookings = bookingRepository.getMembersBookingsInDate(member.getId(), session.getDate());
         if (numOfBookings > 0) {
             throw new BookingException("Cannot book more than one table per day");
         }
-        //TODO one person cannot make a booking two times on the same day
-        TableBooking booking = bookingMapper.toEntity(bookingDto);
+        
+        GameSessionBooking booking = bookingMapper.toEntity(bookingDto);
 
         booking.setMember(member);
-        booking.setTable(table);
+        booking.setSession(session);
 
-        tableBookingRepository.save(booking);
+        bookingRepository.save(booking);
 
         return bookingMapper.toDTO(booking);
     }

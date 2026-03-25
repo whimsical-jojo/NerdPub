@@ -10,5 +10,5 @@ public class PubTableDTO {
     
     private String tableName;
     private int capacity;
-    private boolean isAvailable;
+    private boolean available;
 }
