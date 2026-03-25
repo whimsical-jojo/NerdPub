@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
@@ -12,12 +13,15 @@ import com.nerdpub.model.TableBooking;
 
 @Mapper (componentModel = "spring")
 public interface TableBoookingMapper {
+    @Mapping(target = "tableId", source = "table.id")
+    @Mapping(target = "memberId", source = "member.id")
     public TableBookingDTO toDTO (TableBooking tableBooking);
     public List<TableBookingDTO> toDTOs (List<TableBooking> tableBookings);
 
+    @Mapping(target = "table.id", source = "tableId")
+    @Mapping(target = "member.id", source = "memberId")
     public TableBooking toEntity (TableBookingDTO dto);
     public List<TableBooking> toEntities (List<TableBookingDTO> dtos);
-
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateFromDTO(TableBookingDTO dto, @MappingTarget TableBooking tableBooking);
