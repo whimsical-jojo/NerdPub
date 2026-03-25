@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Entity
@@ -17,4 +19,7 @@ public class PubTable {
     private int capacity;
     private boolean available;
 
+    @ManyToOne
+    @JoinColumn(name = "pub_id")
+    private Pub pub;
 }

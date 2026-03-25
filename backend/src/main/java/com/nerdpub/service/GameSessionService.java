@@ -97,4 +97,8 @@ public class GameSessionService {
         LocalDate parsedDate = LocalDate.parse(date);
         return mapper.toDTOs(gameSessionRepo.findByDate(parsedDate));
     }
+
+    public List<GameSessionDTO> findByCity(String city) {
+        return mapper.toDTOs(gameSessionRepo.findByCity(city));
+    }
 }

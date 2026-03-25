@@ -56,11 +56,13 @@ public class GameSessionAPI {
         return ResponseEntity.ok(gameSessionService.findById(id));
     }
 
+
     @GetMapping
     public ResponseEntity<List<GameSessionDTO>> search(
             @RequestParam(required = false) Integer gameId,
             @RequestParam(required = false) Integer tableId,
-            @RequestParam(required = false) String date
+            @RequestParam(required = false) String date,
+            @RequestParam(required = false) String city
     ) {
         if (gameId != null) {
             return ResponseEntity.ok(gameSessionService.findByGameId(gameId));
@@ -72,6 +74,10 @@ public class GameSessionAPI {
 
         if (date != null) {
             return ResponseEntity.ok(gameSessionService.findByDate(date));
+        }
+
+        if (city != null) {
+            return ResponseEntity.ok(gameSessionService.findByCity(city));
         }
 
         return ResponseEntity.ok(gameSessionService.findAll());

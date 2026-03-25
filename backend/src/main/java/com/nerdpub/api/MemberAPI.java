@@ -35,7 +35,7 @@ public class MemberAPI {
      * @param username
      * @return
      */
-    @GetMapping("/search-by-username")
+    @GetMapping
     public List<MemberDTO> findByUsernameContaining(@RequestParam String username) {
         return service.findByUsernameContaining(username);
     }
