@@ -1,7 +1,11 @@
 package com.nerdpub.api;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.nerdpub.service.TableBookingService;
 
 @RestController
 @RequestMapping("np/api/bookings")
@@ -10,7 +14,7 @@ public class TableBookingAPI {
     private TableBookingService tableBookingService;
 
     @PostMapping
-    public ResponseEntity<?> createBooking(@RequestBody TableBookingDTO bookingDto) {
+    public ResponseEntity<TableBooking> createBooking(@RequestBody TableBookingDTO bookingDto) {
         try {
             TableBooking savedBooking = tableBookingService.bookTable(bookingDto);
             return ResponseEntity.ok(savedBooking);
