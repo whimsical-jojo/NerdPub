@@ -12,7 +12,7 @@ import lombok.Setter;
 public class TableBookingDTO {
     private int id;
 
-    private int tableId;
+    private int pubTableId;
 
     private int memberId;
 

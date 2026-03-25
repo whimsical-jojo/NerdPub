@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Table {
+public class PubTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private int id;

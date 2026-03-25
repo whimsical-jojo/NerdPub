@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nerdpub.dto.TableBookingDTO;
+import com.nerdpub.exception.BookingException;
 import com.nerdpub.exception.TableNotAvailableException;
 import com.nerdpub.model.TableBooking;
 import com.nerdpub.service.TableBookingService;
@@ -18,7 +19,7 @@ import com.nerdpub.service.TableBookingService;
 import jakarta.persistence.EntityNotFoundException;
 
 @RestController
-@RequestMapping("np/api/bookings")
+@RequestMapping("/api/bookings")
 @CrossOrigin(origins = "http://localhost:4200")
 public class TableBookingAPI {
     @Autowired
@@ -33,6 +34,8 @@ public class TableBookingAPI {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (BookingException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred");
         }

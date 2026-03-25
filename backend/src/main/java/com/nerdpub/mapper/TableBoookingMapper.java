@@ -13,12 +13,12 @@ import com.nerdpub.model.TableBooking;
 
 @Mapper (componentModel = "spring")
 public interface TableBoookingMapper {
-    @Mapping(target = "tableId", source = "table.id")
+    @Mapping(target = "pubTableId", source = "table.id")
     @Mapping(target = "memberId", source = "member.id")
     public TableBookingDTO toDTO (TableBooking tableBooking);
     public List<TableBookingDTO> toDTOs (List<TableBooking> tableBookings);
 
-    @Mapping(target = "table.id", source = "tableId")
+    @Mapping(target = "table.id", source = "pubTableId")
     @Mapping(target = "member.id", source = "memberId")
     public TableBooking toEntity (TableBookingDTO dto);
     public List<TableBooking> toEntities (List<TableBookingDTO> dtos);

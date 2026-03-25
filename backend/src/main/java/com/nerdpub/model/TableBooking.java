@@ -32,7 +32,7 @@ public class TableBooking {
 
     @ManyToOne
     @JoinColumn(name = "table_id")
-    private Table table;
+    private PubTable table;
 
     @ManyToOne
     @JoinColumn(name = "member_id")

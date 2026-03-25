@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TableDTO {
+public class PubTableDTO {
     private int id;
     
     private String tableName;

@@ -13,5 +13,7 @@ public class MemberDTO {
     private String firstName;
     private String lastName;
 
+    private String username;
+
     private LocalDate dob;
 }

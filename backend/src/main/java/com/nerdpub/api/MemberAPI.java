@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nerdpub.dto.MemberDTO;
 import com.nerdpub.service.MemberService;
 
-@RequestMapping("np/api/members")
+@RequestMapping("/api/members")
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class MemberAPI {
