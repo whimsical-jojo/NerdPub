@@ -11,7 +11,7 @@ import com.nerdpub.model.GameSessionBooking;
 import com.nerdpub.repository.MemberRepository;
 import com.nerdpub.repository.GameSessionBookingRepository;
 import com.nerdpub.repository.GameSessionRepository;
-import com.nerdpub.repository.TableRepository;
+import com.nerdpub.repository.PubTableRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class TableBookingService {
+public class GameSessionBookingService {
     @Autowired
     private GameSessionBookingRepository bookingRepository;
 

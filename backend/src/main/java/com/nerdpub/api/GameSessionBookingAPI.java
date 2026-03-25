@@ -14,21 +14,21 @@ import com.nerdpub.dto.GameSessionBookingDTO;
 import com.nerdpub.exception.BookingException;
 import com.nerdpub.exception.TableNotAvailableException;
 import com.nerdpub.model.GameSessionBooking;
-import com.nerdpub.service.TableBookingService;
+import com.nerdpub.service.GameSessionBookingService;
 
 import jakarta.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/api/bookings")
 @CrossOrigin(origins = "http://localhost:4200")
-public class TableBookingAPI {
+public class GameSessionBookingAPI {
     @Autowired
-    private TableBookingService tableBookingService;
+    private GameSessionBookingService bookingService;
 
     @PostMapping
     public ResponseEntity<?> createBooking(@RequestBody GameSessionBookingDTO bookingDto) {
         try {
-            GameSessionBookingDTO savedBooking = tableBookingService.bookTable(bookingDto);
+            GameSessionBookingDTO savedBooking = bookingService.bookTable(bookingDto);
             return ResponseEntity.ok(savedBooking);
         } catch (TableNotAvailableException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
