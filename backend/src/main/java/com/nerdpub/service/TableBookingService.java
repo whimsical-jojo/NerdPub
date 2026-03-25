@@ -1,8 +1,20 @@
 package com.nerdpub.service;
 
+import com.nerdpub.dto.TableBookingDTO;
+import com.nerdpub.exception.TableNotAvailableException;
+import com.nerdpub.mapper.TableBoookingMapper;
+import com.nerdpub.model.Member;
+import com.nerdpub.model.Table;
+import com.nerdpub.model.TableBooking;
+import com.nerdpub.repository.MemberRepository;
+import com.nerdpub.repository.TableBookingRepository;
 import com.nerdpub.repository.TableRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.nerdpub.repository.TableRepository;
 
@@ -17,28 +29,36 @@ public class TableBookingService {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private TableBoookingMapper bookingMapper;
+
+
     @Transactional
-    public TableBooking bookTable(TableBookingDTO bookingDto) {
+    public TableBookingDTO bookTable(TableBookingDTO bookingDto) {
         Member member = memberRepository.findById(bookingDto.getMemberId())
-                .orElseThrow(() -> new ResourceNotFoundException("Member not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Member not found"));
 
         Table table = tableRepository.findById(bookingDto.getTableId())
-                .orElseThrow(() -> new ResourceNotFoundException("Table not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Table not found"));
 
         if (!table.isAvailable()) {
-            throw new TableNotAvailableException("Table is already booked for this time slot");
+            throw new TableNotAvailableException("Table is unavailable");
         }
 
-        TableBooking booking = new TableBooking();
-        booking.setUser(user);
+        //How many places are available?
+        int numOfPeople = tableBookingRepository.getAvailableSpots(bookingDto.getTableId(), bookingDto.getDate());
+        if (numOfPeople >= table.getCapacity()) {
+            throw new TableNotAvailableException("Table is full");
+        }
+        
+        TableBooking booking = bookingMapper.toEntity(bookingDto);
+
+        booking.setMember(member);
         booking.setTable(table);
-        booking.setBookingTime(bookingDto.getBookingTime());
-        booking.setNumberOfPeople(bookingDto.getNumberOfPeople());
 
-        table.setAvailable(false);
-        tableRepository.save(table);
+        tableBookingRepository.save(booking);
 
-        return tableBookingRepository.save(booking);
+        return bookingMapper.toDTO(booking);
     }
 
 }
