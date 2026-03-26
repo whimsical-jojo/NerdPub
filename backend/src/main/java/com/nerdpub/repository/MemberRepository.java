@@ -11,8 +11,8 @@ import com.nerdpub.model.Member;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Integer>{
 
-    Optional<Member> findByUsername(String membername);
+    Optional<Member> findByUsername(String username);
 
-    List<Member> findByUsernameContaining(String membername);
+    List<Member> findByUsernameContaining(String username);
     
 }
