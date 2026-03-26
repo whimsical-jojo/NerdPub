@@ -1,5 +1,6 @@
 package com.nerdpub.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +20,12 @@ public class PubTable {
     private int capacity;
     private boolean available;
 
-    @ManyToOne
+    @ManyToOne (cascade = {
+        CascadeType.DETACH,
+        CascadeType.MERGE,
+        CascadeType.REFRESH,
+        CascadeType.PERSIST
+    })
     @JoinColumn(name = "pub_id")
     private Pub pub;
 }

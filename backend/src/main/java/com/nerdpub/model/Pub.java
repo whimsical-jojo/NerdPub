@@ -2,8 +2,11 @@ package com.nerdpub.model;
 
 import java.util.List;
 
+import jakarta.annotation.Generated;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -15,6 +18,7 @@ import lombok.Data;
 @Entity
 public class Pub {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
@@ -22,7 +26,7 @@ public class Pub {
     private String city;
 
     //A table can only belong to one pub
-    @OneToMany (mappedBy = "pub")
+    @OneToMany (mappedBy = "pub", cascade = CascadeType.ALL)
     private List<PubTable> tables;
 
     //Many pubs can have many games

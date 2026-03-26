@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nerdpub.dto.GameSessionDTO;
+import com.nerdpub.exception.TableNotAvailableException;
 import com.nerdpub.mapper.GameSessionMapper;
 import com.nerdpub.model.Game;
 import com.nerdpub.model.GameSession;
@@ -52,6 +53,11 @@ public class GameSessionService {
         PubTable table = tableRepo.findById(dto.getTableId())
                 .orElseThrow(() -> new EntityNotFoundException("Table not found with id: " + dto.getTableId()));
 
+        //If there already is a session on that day on that table, throw TableNotAvailableException
+        if (gameSessionRepo.findByDateAndTableId(session.getDate(),table.getId()).size() > 0)
+            throw new TableNotAvailableException("Table already has an ongoin session on that day");
+
+        
         session.setGame(game);
         session.setTable(table);
 
@@ -81,6 +87,9 @@ public class GameSessionService {
             session.setTable(table);
         }
 
+        if (gameSessionRepo.findByDateAndTableId(session.getDate(),dto.getTableId()).size() > 0)
+            throw new TableNotAvailableException("Table already has an ongoing session on that day");
+
         session = gameSessionRepo.save(session);
         return mapper.toDTO(session);
     }
@@ -88,15 +97,6 @@ public class GameSessionService {
 
     public List<GameSessionDTO> findByGameId(int gameId) {
         return mapper.toDTOs(gameSessionRepo.findByGameId(gameId));
-    }
-
-    public List<GameSessionDTO> findByTableId(int tableId) {
-        return mapper.toDTOs(gameSessionRepo.findByTableId(tableId));
-    }
-
-    public List<GameSessionDTO> findByDate(String date) {
-        LocalDate parsedDate = LocalDate.parse(date);
-        return mapper.toDTOs(gameSessionRepo.findByDate(parsedDate));
     }
 
     public List<GameSessionDTO> findByCity(String city) {

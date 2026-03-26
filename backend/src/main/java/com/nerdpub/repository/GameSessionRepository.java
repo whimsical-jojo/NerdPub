@@ -36,9 +36,7 @@ public interface GameSessionRepository extends JpaRepository<GameSession, Intege
 
     List<GameSession> findByGameId(int gameId);
 
-    List<GameSession> findByTableId(int tableId);
-
-    List<GameSession> findByDate(LocalDate parsedDate);
+    List<GameSession> findByDateAndTableId(LocalDate parsedDate, int tableId);
 
     @Query("SELECT gs FROM GameSession gs JOIN gs.table t JOIN t.pub p WHERE p.city = ?1")
     List<GameSession> findByCity(String city);

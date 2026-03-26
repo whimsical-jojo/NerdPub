@@ -8,7 +8,9 @@ import lombok.Setter;
 public class PubTableDTO {
     private int id;
     
-    private String tableName;
+    private String name;
     private int capacity;
     private boolean available;
+
+    private int pubId;
 }
