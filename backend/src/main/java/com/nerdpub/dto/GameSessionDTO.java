@@ -14,6 +14,6 @@ public class GameSessionDTO {
     int id;
 
     private int gameId;
-    private LocalDate day;
+    private LocalDate date;
     private int tableId;
 }

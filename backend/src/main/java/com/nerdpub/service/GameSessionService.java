@@ -3,6 +3,7 @@ package com.nerdpub.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -101,4 +102,13 @@ public class GameSessionService {
     public List<GameSessionDTO> findByCity(String city) {
         return mapper.toDTOs(gameSessionRepo.findByCity(city));
     }
+
+    public List<GameSessionDTO> search(String game, Integer days, String city) {
+        return mapper.toDTOs(gameSessionRepo.search(game, days, city));
+    }
+
+    public List<GameSessionDTO> gamesTonight(String city) {
+        return mapper.toDTOs(gameSessionRepo.gamesTonight(city));
+    }
+
 }

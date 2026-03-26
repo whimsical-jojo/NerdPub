@@ -59,27 +59,22 @@ public class GameSessionAPI {
 
     @GetMapping
     public ResponseEntity<List<GameSessionDTO>> search(
-            @RequestParam(required = false) Integer gameId,
-            @RequestParam(required = false) Integer tableId,
-            @RequestParam(required = false) String date,
+            @RequestParam(required = false) String game,
+            @RequestParam(required = false) Integer days,
             @RequestParam(required = false) String city
     ) {
-        if (gameId != null) {
-            return ResponseEntity.ok(gameSessionService.findByGameId(gameId));
+        List<GameSessionDTO> results = gameSessionService.search(game, days, city);
+        if (results.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(results);
+    }
 
-        if (tableId != null) {
-            return ResponseEntity.ok(gameSessionService.findByTableId(tableId));
-        }
-
-        if (date != null) {
-            return ResponseEntity.ok(gameSessionService.findByDate(date));
-        }
-
-        if (city != null) {
-            return ResponseEntity.ok(gameSessionService.findByCity(city));
-        }
-
-        return ResponseEntity.ok(gameSessionService.findAll());
+    @GetMapping("/tonight/{city}")
+    public ResponseEntity<List<GameSessionDTO>> gamesTonight(@PathVariable String city) {
+        List<GameSessionDTO> results = gameSessionService.gamesTonight(city);
+        if (results.isEmpty())
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(results);
     }
 }
