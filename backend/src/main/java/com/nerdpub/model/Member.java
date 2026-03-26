@@ -2,8 +2,6 @@ package com.nerdpub.model;
 
 import java.time.LocalDate;
 
-import javax.annotation.processing.Generated;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
