@@ -11,15 +11,17 @@ export class GameService {
   url= 'http//localhost:8080/api/games';
 
 
-  // GET /games — recupero lista di giochi
-  getGames(): Observable<Game[]> {
-    return this.http.get<Game[]>(this.url);
-  }
+  
+  // GET /games?title={title}&pub={pubName} — recupero lista di giochi, filtrabili per titolo e nome pub
+  getGames(title?: string,pubName?:string): Observable<Game[]> {
 
-  // GET /games?title={title} — recupero lista di giochi con titolo simile
-  getGamesByTitle(title: string): Observable<Game[]> {
-
-    return this.http.get<Game[]>(this.url+'?title='+title);
+    if(!title && !pubName)
+      return this.http.get<Game[]>(this.url);
+    if(title && !pubName)
+      return this.http.get<Game[]>(this.url+'?title='+title);
+    if(!title && pubName)
+      return this.http.get<Game[]>(this.url+'?pub='+pubName);
+    return this.http.get<Game[]>(this.url+'?title='+title+"&pub="+pubName);
   }
 
   // GET /games/{id} — recupero gioco con questo id
