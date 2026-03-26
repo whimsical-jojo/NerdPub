@@ -1,0 +1,21 @@
+<div class="w3-container list-container">
+  <div class="w3-padding-32 w3-center">
+    <h1 class="list-title">Prossime Sessioni</h1>
+    <p class="w3-text-grey">Scegli una partita e unisciti al tavolo!</p>
+  </div>
+
+  <!-- Griglia delle sessioni -->
+  <div class="w3-row-padding">
+    @if (gameSessions().length === 0 ) {
+        <div class="w3-panel w3-pale-yellow w3-border w3-border-yellow w3-center w3-padding-32">
+            <p><i class="fa fa-info-circle"></i> Nessuna sessione di gioco prevista per oggi.</p>
+        </div>
+    }
+    @for (sessione of gameSessions(); track sessione.id) {
+      <div class="w3-col l4 m6 s12 w3-margin-bottom">
+        <!-- QUI PASSIAMO IL DATO: [gameSession]="sessione" -->
+        <app-game-session-preview [gameSession]="sessione"></app-game-session-preview>
+      </div>
+    } 
+  </div>
+</div>

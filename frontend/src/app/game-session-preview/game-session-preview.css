@@ -1,0 +1,108 @@
+/*palette colori e font*/
+:root {
+  --color-bg:        #0f0d0a;
+  --color-surface:   #f4f1ec;
+  --color-card:      #f4f1ec;
+  --color-border:    #e0ddd5;
+  --color-accent:    #d4933a; 
+  --color-text:      #0f0d0a; 
+  --color-muted:     #8a826e;
+  --font-display:    'Playfair Display', serif;
+  --font-body:       'DM Sans', sans-serif;
+  --radius:          30px;
+}
+
+/* Container Principale */
+.dice-card {
+  background-color: var(--color-card);
+  color: var(--color-text);
+  border-radius: var(--radius);
+  overflow: hidden; /* Per mantenere il raggio sugli angoli degli header */
+  border: 1px solid var(--color-border);
+  font-family: var(--font-body);
+  transition: transform 0.3s ease;
+}
+
+.dice-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Header della Card */
+.dice-header {
+  background-color: var(--color-bg);
+  color: var(--color-surface);
+  padding: 24px 16px;
+}
+
+.game-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin: 8px 0 4px 0;
+  letter-spacing: 0.5px;
+  color: var(--color-surface);
+}
+
+.game-desc {
+  color: var(--color-muted);
+  margin-top: 0;
+  line-height: 1.4;
+}
+
+/* Badge "Sessione Disponibile" */
+.dice-badge {
+  background-color: var(--color-accent) !important;
+  color: var(--color-bg) !important;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* Info Pub */
+.pub-name {
+  font-family: var(--font-display);
+  margin: 0;
+  font-weight: 600;
+}
+
+.pub-info {
+  margin: 4px 0;
+  color: var(--color-muted);
+  line-height: 1.2;
+}
+
+/* Icona segnaposto (se vuoi metterci un'icona font-awesome o simili) */
+.dice-icon::before {
+  content: ""; /* Esempio visuale */
+  font-size: 2rem;
+  color: var(--color-accent);
+}
+
+/* Divisore e Grid */
+.dice-divider {
+  border-top: 1px solid var(--color-border);
+  margin: 16px 0;
+}
+
+.info-grid {
+  padding-bottom: 8px;
+}
+
+.info-label {
+  display: block;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  color: var(--color-muted);
+  margin-bottom: 4px;
+}
+
+.info-value {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.info-value.accent {
+  color: var(--color-accent);
+}

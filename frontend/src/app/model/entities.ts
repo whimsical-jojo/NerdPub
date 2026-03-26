@@ -1,0 +1,45 @@
+export interface Member{
+    id?:number,
+    firstName:string,
+    lastName:string,
+    username:string,
+    dob:Date
+}
+
+export interface PubTable{
+    id?:number,
+    capacity:number,
+    available:boolean
+    pub:Pub
+}
+
+export interface Game{
+    id?:number,
+    title:string,
+    description:string
+
+}
+
+export interface GameSession{
+    id?:number,
+    date:Date,
+    game:Game,
+    table:PubTable
+}
+
+export interface GameSessionBooking{
+    id?:number,
+    member:Member,
+    gameSession:GameSession,
+    date:Date
+}
+
+export interface Pub{
+    id?:number,
+    name:string,
+    address:string,
+    city:string,
+    phone:string,
+    score:number
+
+}

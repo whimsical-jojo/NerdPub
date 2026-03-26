@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=DM+Sans:wght@500;700&display=swap');
+
+:host {
+  display: block;
+  background-color: #f4f1ec; /* Sfondo scuro taverna */
+  min-height: 100vh;
+}
+
+/* RENDIAMO FISSA L'INTESTAZIONE (Il div che contiene titolo e sottotitolo) */
+.w3-container > .w3-center {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #0f0d0a; /* Copre le card che scorrono sotto */
+  padding: 20px 0 !important;
+  border-bottom: 2px solid #d4933a; /* Linea arancione NerdPub */
+}
+
+/* Stile del Titolo (Prossime Sessioni) */
+.list-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem !important;
+  color: #8a826e !important; /* Colore tenue */
+  margin: 0 !important;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* STILE DEL TESTO FISSO (Quello che devono fare) */
+.w3-text-grey {
+  color: #d4933a !important; /* Arancione NerdPub */
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 5px 0 0 0 !important;
+}
+
+/* CREIAMO SPAZIO PER NON FAR COPRIRE LE CARD DALLA BARRA FISSA */
+.w3-row-padding {
+  padding-top: 140px !important; 
+  max-width: 1200px;
+  margin: 0 auto;
+}
