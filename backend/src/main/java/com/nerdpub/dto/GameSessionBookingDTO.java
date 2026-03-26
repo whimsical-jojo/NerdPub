@@ -1,7 +1,5 @@
 package com.nerdpub.dto;
 
-import java.time.LocalDate;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +8,9 @@ import lombok.Setter;
 public class GameSessionBookingDTO {
     private int id;
 
-    private int sessionId;
+    private GameSessionDTO session;
+    private MemberDTO member;
 
+    private int sessionId;
     private int memberId;
 }

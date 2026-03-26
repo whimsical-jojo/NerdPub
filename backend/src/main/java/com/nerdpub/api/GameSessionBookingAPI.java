@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nerdpub.dto.GameSessionBookingDTO;
 import com.nerdpub.exception.BookingException;
 import com.nerdpub.exception.TableNotAvailableException;
-import com.nerdpub.model.GameSessionBooking;
 import com.nerdpub.service.GameSessionBookingService;
 
 import jakarta.persistence.EntityNotFoundException;

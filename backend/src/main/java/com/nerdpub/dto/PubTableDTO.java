@@ -1,5 +1,7 @@
 package com.nerdpub.dto;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,8 +11,16 @@ public class PubTableDTO {
     private int id;
     
     private String name;
-    private int capacity;
+    @Min(1)
+    @NotNull
+    private Integer capacity;
     private boolean available;
 
-    private int pubId;
+    //Response
+    private PubDTO pub;
+
+    //Request
+    @Min(1)
+    @NotNull
+    private Integer pubId;
 }

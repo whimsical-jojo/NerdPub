@@ -13,16 +13,25 @@ import com.nerdpub.model.GameSessionBooking;
 
 @Mapper (componentModel = "spring")
 public interface GameSessionBoookingMapper {
-    @Mapping(target = "sessionId", source = "session.id")
-    @Mapping(target = "memberId", source = "member.id")
+    @Mapping(target = "sessionId", ignore = true)
+    @Mapping(target = "memberId", ignore = true)
+    @Mapping(target = "session.gameId", ignore = true)
+    @Mapping(target = "session.tableId", ignore = true)
+    @Mapping(target = "session.table.pubId", ignore = true)
     public GameSessionBookingDTO toDTO (GameSessionBooking tableBooking);
     public List<GameSessionBookingDTO> toDTOs (List<GameSessionBooking> bookings);
 
     @Mapping(target = "session.id", source = "sessionId")
     @Mapping(target = "member.id", source = "memberId")
+    @Mapping(target = "session", ignore = true)
+    @Mapping(target = "member", ignore = true)
     public GameSessionBooking toEntity (GameSessionBookingDTO dto);
     public List<GameSessionBooking> toEntities (List<GameSessionBookingDTO> dtos);
 
+    @Mapping(target = "session.id", source = "sessionId")
+    @Mapping(target = "member.id", source = "memberId")
+    @Mapping(target = "session", ignore = true)
+    @Mapping(target = "member", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateFromDTO(GameSessionBookingDTO dto, @MappingTarget GameSessionBooking booking);
 }

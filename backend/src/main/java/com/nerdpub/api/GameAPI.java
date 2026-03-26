@@ -60,11 +60,16 @@ public class GameAPI {
 
     @GetMapping
     public ResponseEntity<List<GameDTO>> search(
-            @RequestParam(required = false) String title
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String pubName
     )
     {
         if (title != null) {
             return ResponseEntity.ok(gameService.findByTitleContaining(title));
+        }
+
+        if (pubName != null) {
+            return ResponseEntity.ok(gameService.findByPubName(pubName));
         }
 
         return ResponseEntity.ok(gameService.findAll());

@@ -3,11 +3,17 @@ package com.nerdpub.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.nerdpub.model.Game;
 
+@Repository
 public interface GameRepository extends JpaRepository<Game, Integer>{
 
     List<Game> findByTitleContaining(String title);
+
+    @Query("SELECT g FROM Game g JOIN g.pubs p WHERE p.name = ?1")
+    List<Game> findByPubName(String pubName);
 
 }

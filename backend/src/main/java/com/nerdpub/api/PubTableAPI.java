@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nerdpub.dto.PubTableDTO;
 import com.nerdpub.service.PubTableService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("api/tables")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -27,7 +29,7 @@ public class PubTableAPI {
     private PubTableService tableService;
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody PubTableDTO dto) {
+    public ResponseEntity<?> create(@RequestBody @Valid PubTableDTO dto) {
         try {
             return ResponseEntity.status(201).body(tableService.create(dto));
         } catch (Exception e) {

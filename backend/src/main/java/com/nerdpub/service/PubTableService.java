@@ -8,12 +8,17 @@ import org.springframework.stereotype.Service;
 import com.nerdpub.dto.PubTableDTO;
 import com.nerdpub.mapper.PubTableMapper;
 import com.nerdpub.model.PubTable;
+import com.nerdpub.repository.PubRepository;
 import com.nerdpub.repository.PubTableRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 
 @Service
 public class PubTableService {
+
+    @Autowired
+    private PubRepository pubRepo;
 
     @Autowired
     private PubTableRepository tableRepo;
@@ -31,8 +36,12 @@ public class PubTableService {
         return mapper.toDTO(table);
     }
 
-    public PubTableDTO create(PubTableDTO dto) {
+    public PubTableDTO create(@Valid PubTableDTO dto) {
         PubTable table = mapper.toEntity(dto);
+
+        if (pubRepo.findById(dto.getPubId()).isEmpty())
+            throw new EntityNotFoundException("Pub not found with id: " + dto.getPubId());
+
         table = tableRepo.save(table);
         return mapper.toDTO(table);
     }
@@ -41,6 +50,9 @@ public class PubTableService {
         PubTable table = tableRepo.findById(dto.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Table not found."));
 
+        if (pubRepo.findById(dto.getPubId()).isEmpty())
+            throw new EntityNotFoundException("Pub not found with id: " + dto.getPubId());
+        
         mapper.updateFromDTO(dto, table);
         table = tableRepo.save(table);
 

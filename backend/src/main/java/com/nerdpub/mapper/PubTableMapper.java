@@ -14,7 +14,7 @@ import com.nerdpub.model.PubTable;
 @Mapper(componentModel = "spring")
 public interface PubTableMapper {
     
-    @Mapping(target = "pubId", source = "pub.id")
+    @Mapping(target = "pubId", ignore = true)
     public PubTableDTO toDTO(PubTable table);
     public List<PubTableDTO> toDTOs(List<PubTable> tables);
 
@@ -22,6 +22,7 @@ public interface PubTableMapper {
     public PubTable toEntity(PubTableDTO tableDTO);
     public List<PubTable> toEntities(List<PubTableDTO> tableDTOs);
 
+    @Mapping(target = "pub.id", source = "pubId")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateFromDTO(PubTableDTO tableDTO, @MappingTarget PubTable table);
 }

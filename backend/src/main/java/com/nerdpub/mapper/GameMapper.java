@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
@@ -15,9 +16,11 @@ public interface GameMapper {
     public GameDTO toDTO(Game game);
     List<GameDTO> toDTOs(List<Game> games);
 
+    @Mapping(target = "pubs", ignore = true)
     Game toEntity(GameDTO gameDTO);
     List<Game> toEntities(List<GameDTO> gameDTOs);
 
+    @Mapping(target = "pubs", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateFromDTO(GameDTO gameDTO, @MappingTarget Game game);
 }

@@ -13,8 +13,9 @@ import com.nerdpub.model.GameSession;
 
 @Mapper(componentModel = "spring")
 public interface GameSessionMapper {
-    @Mapping(target = "gameId", source = "game.id")
-    @Mapping(target = "tableId", source = "table.id")
+    @Mapping(target = "gameId", ignore = true)
+    @Mapping(target = "tableId", ignore = true)
+    @Mapping(target = "table.pubId", ignore = true)
     public GameSessionDTO toDTO(GameSession session);
     public List<GameSessionDTO> toDTOs(List<GameSession> sessions);
 

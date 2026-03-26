@@ -2,6 +2,7 @@ package com.nerdpub.service;
 
 import java.util.List;
 
+import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,5 +56,10 @@ public class GameService {
         game = gameRepo.save(game);
 
         return mapper.toDTO(game);
+    }
+
+    public List<GameDTO> findByPubName(String pubName) {
+        List<GameDTO> games = mapper.toDTOs(gameRepo.findByPubName(pubName));
+        return games;
     }
 }

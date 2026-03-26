@@ -18,10 +18,11 @@ public class GameSession {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
+    private LocalDate date;
+
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
-    private LocalDate date;
 
     @ManyToOne
     @JoinColumn(name = "table_id")

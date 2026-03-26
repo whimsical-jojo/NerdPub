@@ -2,9 +2,6 @@ package com.nerdpub.dto;
 
 import java.time.LocalDate;
 
-import com.nerdpub.model.Game;
-import com.nerdpub.model.PubTable;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +10,11 @@ import lombok.Setter;
 public class GameSessionDTO {
     int id;
 
-    private int gameId;
+    private GameDTO game;
     private LocalDate date;
+    private PubTableDTO table;
+
+    private int gameId;
     private int tableId;
+
 }
