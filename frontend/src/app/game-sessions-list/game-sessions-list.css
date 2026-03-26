@@ -8,11 +8,6 @@
 
 /* RENDIAMO FISSA L'INTESTAZIONE (Il div che contiene titolo e sottotitolo) */
 .w3-container > .w3-center {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
   background-color: #0f0d0a; /* Copre le card che scorrono sotto */
   padding: 20px 0 !important;
   border-bottom: 2px solid #d4933a; /* Linea arancione NerdPub */

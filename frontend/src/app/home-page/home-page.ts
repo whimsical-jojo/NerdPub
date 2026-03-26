@@ -1,24 +1,46 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, model, OnInit, signal } from '@angular/core';
 import { GameSessionsList } from "../game-sessions-list/game-sessions-list";
 import { GameSession } from '../model/entities';
 import { GameSessionService } from '../service/game-session-service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home-page',
-  imports: [GameSessionsList],
+  imports: [GameSessionsList, FormsModule, CommonModule],
   templateUrl: './home-page.html',
   styleUrl: './home-page.css',
 })
-export class HomePage implements OnInit{
-  gameSessions=signal<GameSession[]>([]);
-  service=inject(GameSessionService);
+export class HomePage implements OnInit {
+  gameSessions = signal<GameSession[]>([]); // sessions to display
+  searchCity = model<string>('');
+  searchPerformed = false;                // track if search has been done
+
+  service = inject(GameSessionService);
 
   ngOnInit(): void {
-    this.service.getGameSessions('Bologna').subscribe({
+    // Do NOT fetch anything by default
+  }
+
+  searchSessions() {
+    const query = this.searchCity().trim();
+    if (!query) {
+      this.gameSessions.set([]);
+      this.searchPerformed = true;
+      return;
+    }
+
+    // Fetch sessions from service by city
+    this.service.getGameSessions(query).subscribe({
       next: (sessions) => {
-        console.log(sessions);
-        this.gameSessions.set(sessions)},
-      error: (err) => console.error('Error fetching game sessions:', err)
+        this.gameSessions.set(sessions);
+        this.searchPerformed = true;
+      },
+      error: (err) => {
+        console.error('Error fetching game sessions:', err);
+        this.gameSessions.set([]);
+        this.searchPerformed = true;
+      }
     });
   }
 }
