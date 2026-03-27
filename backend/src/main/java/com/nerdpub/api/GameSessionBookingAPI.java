@@ -1,5 +1,7 @@
 package com.nerdpub.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.query.JpqlQueryBuilder.Entity;
 import org.springframework.http.HttpStatus;
@@ -63,8 +65,8 @@ public class GameSessionBookingAPI {
     @GetMapping("/user-bookings")
     public ResponseEntity<?> getUserBookedSessionIds(Authentication authentication) {
         try {
-            bookingService.getUserBookedSesssionsIds(authentication.getName());
-            return ResponseEntity.ok().build();
+            List<Integer> bookedSessionIds = bookingService.getUserBookedSesssionsIds(authentication.getName());
+            return ResponseEntity.ok(bookedSessionIds);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }

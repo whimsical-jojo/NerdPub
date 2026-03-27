@@ -8,6 +8,7 @@ import { GameSessionBookingService } from '../service/game-session-booking-servi
 import { AuthService } from '../service/auth-service';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login';
+import { BookingStore } from '../injectables/session-booking-store';
 
 @Component({
   selector: 'app-game-sessions-list',
@@ -19,17 +20,15 @@ export class GameSessionsList{
   private bookingService = inject(GameSessionBookingService);
   private authService = inject(AuthService);
   private dialog = inject(MatDialog);
+  private bookingStore = inject(BookingStore);
 
   //The gameSessions that the list will display should be inputed from the parent component
   gameSessions=input.required<GameSession[]>();
 
-  //This gets filled onInit if there is a logged user
-  bookedSessionIds = signal<number[]>([]);
-
   //Helper: check if booked
   isSessionBooked(sessionId: number | undefined): boolean {
     if (!sessionId) return false;
-    return this.bookedSessionIds().includes(sessionId);
+    return this.bookingStore.bookedSessionIds().includes(sessionId);
   }
 
   //Handle child event
@@ -46,9 +45,8 @@ export class GameSessionsList{
       this.bookingService.bookGameSession(sessionId).subscribe({
         next: () => {
           console.log('Booking successful');
-
-          //optimistic update
-          this.bookedSessionIds.update(ids => [...ids, sessionId]);
+          //Updates 
+          this.bookingStore.addBooking(sessionId);
         },
         error: err => console.error('Booking failed', err)
       });
@@ -58,10 +56,7 @@ export class GameSessionsList{
         next: () => {
           console.log('Booking cancelled');
 
-          //optimistic update
-          this.bookedSessionIds.update(ids =>
-            ids.filter(id => id !== sessionId)
-          );
+          this.bookingStore.removeBooking(sessionId);
         },
         error: err => console.error('Cancel failed', err)
       });

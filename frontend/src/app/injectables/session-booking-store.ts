@@ -10,6 +10,8 @@ export class BookingStore {
 
   loadUserBookings() {
     this.bookingService.getUserBookings().subscribe(ids => {
+      console.log("These are the ids:");
+      console.log(ids);
       this.bookedSessionIds.set(ids);
     });
   }

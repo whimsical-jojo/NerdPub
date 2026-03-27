@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, OnInit, signal } from '@angular/core';
 import { Observable, switchMap, tap } from 'rxjs';
 import { Member } from '../model/entities';
+import { BookingStore } from '../injectables/session-booking-store';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,8 @@ export class AuthService{
   http = inject(HttpClient);
   private _currentUser = signal<Member | null>(null);
   currentUser = this._currentUser.asReadonly();
+  bookingStore = inject(BookingStore);
+
 
   login(username: string, password: string) {
     //Maybe I can change this at a later date to have only one post
@@ -60,6 +63,10 @@ export class AuthService{
     return this.http.get<Member>(this.apiURL + '/current-user')
       .pipe(
         tap(user => {
+          console.log("Setting current user based on jwt");
+          console.log(user);
+          //Sets the user boking ids whenever the user is set so that we know what is actually booked.
+          this.bookingStore.loadUserBookings();
           this._currentUser.set(user);
         })
       );

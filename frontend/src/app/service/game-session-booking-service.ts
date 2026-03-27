@@ -18,10 +18,11 @@ export class GameSessionBookingService {
  //This cancels the booking FOR THE CURRENT USER (derived from the authentication in the backend)
  // DELETE /bookings/{id} — cancellazione prenotazione di sessione gioco
  cancelBooking(sessionId: number) {
-    return this.http.post<void>(this.url, sessionId);
+    return this.http.delete<void>(this.url+'/'+sessionId);
   }
 
   getUserBookings() {
+    console.log("Getting user bookings");
     return this.http.get<number[]>(this.url+'/user-bookings');
   }
 }

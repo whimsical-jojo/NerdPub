@@ -25,6 +25,6 @@ export class App {
         console.error(e);
         this.authService.logout();
       }
-  } 
+    } 
   }
 }
