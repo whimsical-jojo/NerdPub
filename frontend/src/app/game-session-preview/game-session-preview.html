@@ -14,7 +14,7 @@
       </div>
       <div class="w3-col s10">
         <!-- Assumendo che table abbia un riferimento al Pub -->
-        <h4 class="pub-name">{{ gameSession().table!.pub.name }}</h4>
+        <h4 class="pub-name">{{ gameSession().table!.pub!.name }}</h4>
         <p class="pub-info">
           {{ gameSession().table!.pub.address }} — {{ gameSession().table!.pub.city }}<br>
           <small>📞 {{ gameSession().table!.pub.phone }}</small>

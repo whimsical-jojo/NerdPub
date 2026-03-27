@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class GameService {
   http = inject(HttpClient)
-  url= 'http//localhost:8080/api/games';
+  url= 'http://localhost:8080/api/games';
 
 
   

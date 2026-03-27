@@ -8,7 +8,11 @@ import { Observable } from 'rxjs';
 })
 export class AccountManagementService {
   http=inject(HttpClient);
-  url = 'http://localhost:8080/api/accounts';
+  url = 'http://localhost:8080/api/account';
+
+  register(member:Member):Observable<Member>{
+    return this.http.post<Member>(this.url+"/register",member);
+  }
   /*
   private _loggedUser = signal<Member| null>(this.getUserFromStorage());
     loggedUser = this._loggedUser.asReadonly();
