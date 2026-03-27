@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nerdpub.dto.LoginDTO;
 import com.nerdpub.dto.MemberDTO;
+import com.nerdpub.dto.TokenDTO;
 import com.nerdpub.service.AccountManagementService;
 
 @RestController
@@ -27,8 +28,12 @@ public class AccountManagementAPI
 	AccountManagementService service;
 	
 	@PostMapping("/login")
-    public String login(@RequestBody LoginDTO loginDTO) {
-        return service.login(loginDTO);
+    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
+        String jwt = service.login(loginDTO);
+        if (jwt == null) {
+            return ResponseEntity.status(401).body("Invalid username or password");
+        }
+        return ResponseEntity.ok(new TokenDTO(jwt));
     }
 
     @PostMapping("/register")

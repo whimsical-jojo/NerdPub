@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.query.JpqlQueryBuilder.Entity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,9 +26,9 @@ public class GameSessionBookingAPI {
     private GameSessionBookingService bookingService;
 
     @PostMapping
-    public ResponseEntity<?> createBooking(@RequestBody GameSessionBookingDTO bookingDto) {
+    public ResponseEntity<?> createBooking(@RequestBody int sessionId, Authentication authentication) {
         try {
-            GameSessionBookingDTO savedBooking = bookingService.bookTable(bookingDto);
+            GameSessionBookingDTO savedBooking = bookingService.bookTable(sessionId, authentication.getName());
             return ResponseEntity.ok(savedBooking);
         } catch (TableNotAvailableException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

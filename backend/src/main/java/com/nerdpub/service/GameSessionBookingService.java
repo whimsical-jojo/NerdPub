@@ -36,11 +36,11 @@ public class GameSessionBookingService {
 
 
     @Transactional
-    public GameSessionBookingDTO bookTable(GameSessionBookingDTO bookingDto) {
-        Member member = memberRepository.findById(bookingDto.getMemberId())
+    public GameSessionBookingDTO bookTable(int sessionId, String username) {
+        Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("Member not found"));
 
-        GameSession session = sessionRepository.findById(bookingDto.getSessionId())
+        GameSession session = sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new EntityNotFoundException("Session not found"));
 
         PubTable table = session.getTable();
@@ -60,8 +60,7 @@ public class GameSessionBookingService {
             throw new BookingException("Cannot book more than one table per day");
         }
         
-        GameSessionBooking booking = bookingMapper.toEntity(bookingDto);
-
+        GameSessionBooking booking = new GameSessionBooking();
         booking.setMember(member);
         booking.setSession(session);
 

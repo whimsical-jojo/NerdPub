@@ -18,9 +18,10 @@ export class AuthService{
   login(username: string, password: string) {
     //Maybe I can change this at a later date to have only one post
     console.log("Login called!");
-    let obs: Observable<any> = this.http.post<any>(this.apiURL + '/login', { username, password })
+    let obs: Observable<Member> = this.http.post<any>(this.apiURL + '/login', { username, password })
       .pipe(
         tap(response => {
+          console.log(response);
           this.storeToken(response.token);
         }),
         switchMap(() => {
