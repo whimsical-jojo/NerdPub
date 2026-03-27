@@ -11,46 +11,29 @@ import { LoginComponent } from '../login/login';
 
 @Component({
   selector: 'app-game-session-preview',
+  standalone: true,
   imports: [FormsModule,CommonModule],
   templateUrl: './game-session-preview.html',
   styleUrl: './game-session-preview.css',
 })
 export class GameSessionPreview {
+  //required session input
   gameSession = input.required<GameSession>();
-  gameService = inject(GameService);
-  tableService = inject(PubTableService);
-  bookingService = inject(GameSessionBookingService);
-  authService = inject(AuthService);
-  dialog = inject(MatDialog);
 
-    // Evento per gestire il click sulla card (es. per aprire il dettaglio)
+  //whether user booked this session
+  isBooked = input<boolean>(false);
+
+  //emit action to parent
+  actionClicked = output<{
+    session: GameSession;
+    action: 'book' | 'cancel';
+  }>();
+
   onBookClick() {
-    if (!this.authService.isLoggedIn()) {
-      console.log("User is not logged in!");
-      this.openLoginDialog();
-    } else {
-      console.log("User is logged in! Booking session!");
-      this.bookSession();
-    }
-  }
-
-  openLoginDialog() {
-    console.log("Opening login dialog!");
-    this.dialog.open(LoginComponent, {
-      width: '400px'
-    });
-  }
-
-  bookSession() {
-    const sessionId : number = this.gameSession().id!;
-
-    this.bookingService.bookGameSession(sessionId).subscribe({
-      next: () => {
-        console.log('Booking successful');
-      },
-      error: (err) => {
-        console.error('Booking failed', err);
-      }
+    console.log("Clicked on book/ cancel!");
+    this.actionClicked.emit({
+      session: this.gameSession(),
+      action: this.isBooked() ? 'cancel' : 'book'
     });
   }
 }

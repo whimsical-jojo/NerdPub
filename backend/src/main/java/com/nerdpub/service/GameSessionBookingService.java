@@ -16,6 +16,8 @@ import com.nerdpub.repository.PubTableRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,6 +69,31 @@ public class GameSessionBookingService {
         bookingRepository.save(booking);
 
         return bookingMapper.toDTO(booking);
+    }
+
+
+    public void deleteBooking(int sessionId, String name) {
+        Member member = memberRepository.findByUsername(name)
+            .orElseThrow(() -> new EntityNotFoundException("Member not found"));
+
+        GameSession session = sessionRepository.findById(sessionId)
+            .orElseThrow(() -> new EntityNotFoundException("Session not found"));
+
+        GameSessionBooking booking = bookingRepository.findByMemberAndSession(member, session)
+            .orElseThrow(() -> new EntityNotFoundException("Booking not found"));
+
+        bookingRepository.delete(booking);
+    }
+
+
+    public List<Integer> getUserBookedSesssionsIds(String name) {
+        Member member = memberRepository.findByUsername(name)
+            .orElseThrow(() -> new EntityNotFoundException("Member not found"));
+
+        return bookingRepository.findByMember(member.getId())
+            .stream()
+            .map(b -> b.getSession().getId())
+            .toList();
     }
 
 }

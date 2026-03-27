@@ -14,4 +14,14 @@ export class GameSessionBookingService {
  bookGameSession(sessionId : number):Observable<GameSessionBooking>{
   return this.http.post<GameSessionBooking>(this.url,sessionId);
  }
+
+ //This cancels the booking FOR THE CURRENT USER (derived from the authentication in the backend)
+ // DELETE /bookings/{id} — cancellazione prenotazione di sessione gioco
+ cancelBooking(sessionId: number) {
+    return this.http.post<void>(this.url, sessionId);
+  }
+
+  getUserBookings() {
+    return this.http.get<number[]>(this.url+'/user-bookings');
+  }
 }

@@ -4,6 +4,10 @@ import { GameSessionService } from '../service/game-session-service';
 import { GameSession } from '../model/entities';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { GameSessionBookingService } from '../service/game-session-booking-service';
+import { AuthService } from '../service/auth-service';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from '../login/login';
 
 @Component({
   selector: 'app-game-sessions-list',
@@ -12,5 +16,55 @@ import { CommonModule } from '@angular/common';
   styleUrl: './game-sessions-list.css',
 })
 export class GameSessionsList{
+  private bookingService = inject(GameSessionBookingService);
+  private authService = inject(AuthService);
+  private dialog = inject(MatDialog);
+
+  //The gameSessions that the list will display should be inputed from the parent component
   gameSessions=input.required<GameSession[]>();
+
+  //This gets filled onInit if there is a logged user
+  bookedSessionIds = signal<number[]>([]);
+
+  //Helper: check if booked
+  isSessionBooked(sessionId: number | undefined): boolean {
+    if (!sessionId) return false;
+    return this.bookedSessionIds().includes(sessionId);
+  }
+
+  //Handle child event
+  handleAction(event: { session: GameSession; action: 'book' | 'cancel' }) {
+    console.log("Called the handling function for the event!");
+    if (!this.authService.isLoggedIn()) {
+      this.dialog.open(LoginComponent, { width: '400px' });
+      return;
+    }
+
+    const sessionId = event.session.id!;
+    
+    if (event.action === 'book') {
+      this.bookingService.bookGameSession(sessionId).subscribe({
+        next: () => {
+          console.log('Booking successful');
+
+          //optimistic update
+          this.bookedSessionIds.update(ids => [...ids, sessionId]);
+        },
+        error: err => console.error('Booking failed', err)
+      });
+
+    } else {
+      this.bookingService.cancelBooking(sessionId).subscribe({
+        next: () => {
+          console.log('Booking cancelled');
+
+          //optimistic update
+          this.bookedSessionIds.update(ids =>
+            ids.filter(id => id !== sessionId)
+          );
+        },
+        error: err => console.error('Cancel failed', err)
+      });
+    }
+  }
 }

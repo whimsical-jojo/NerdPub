@@ -56,7 +56,7 @@ export class AuthService{
     return localStorage.getItem(this.tokenKey);
   }
 
-  setCurrentUser() {
+  setCurrentUser() : Observable<Member>{
     return this.http.get<Member>(this.apiURL + '/current-user')
       .pipe(
         tap(user => {

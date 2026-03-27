@@ -34,6 +34,7 @@ public class GameSessionService {
     @Autowired
     private PubTableRepository tableRepo;
 
+
     public List<GameSessionDTO> findAll() {
         return mapper.toDTOs(gameSessionRepo.findAll());
     }
