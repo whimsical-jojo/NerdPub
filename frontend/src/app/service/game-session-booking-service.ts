@@ -11,7 +11,7 @@ export class GameSessionBookingService {
   url = 'http://localhost:8080/api/bookings';
 
 // POST /bookings/{id} — creazione prenotazione di sessione gioco
- bookGameSession(gameSessionBooking:GameSessionBooking):Observable<GameSessionBooking>{
-  return this.http.post<GameSessionBooking>(this.url,gameSessionBooking);
+ bookGameSession(sessionId : number):Observable<GameSessionBooking>{
+  return this.http.post<GameSessionBooking>(this.url,sessionId);
  }
 }
