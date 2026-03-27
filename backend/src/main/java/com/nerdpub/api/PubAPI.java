@@ -67,4 +67,13 @@ public class PubAPI {
 
         return ResponseEntity.ok(pubService.findAll());
     }
+
+    @GetMapping("/cities")
+    public ResponseEntity<List<String>> getCities() {
+        List<String> cities = pubService.getCities();
+        if (cities.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(cities);
+    }
 }

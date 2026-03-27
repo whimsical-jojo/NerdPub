@@ -6,17 +6,11 @@
         <p class="w3-center">Discover and play a variety of games with your friends.</p>
 
         <!-- SEARCH BAR -->
-        <div class="w3-center w3-padding-16">
-          <input
-            type="text"
-            class="w3-input w3-border"
-            placeholder="Enter city name..."
-            [(ngModel)]="searchCity"
-            (keyup.enter)="searchSessions()"
-          />
-          <button class="w3-button w3-blue w3-margin-top" (click)="searchSessions()">
-            Search
-          </button>
+        <div class="w3-center">
+          <app-city-picker [(city)]="searchCity"/>
+            <button class="w3-button w3-blue w3-margin-top" (click)="searchSessions()">
+              Search
+            </button>
         </div>
       </div>
     </div>

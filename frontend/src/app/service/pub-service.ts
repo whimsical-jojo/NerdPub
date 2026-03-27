@@ -34,4 +34,8 @@ export class PubService {
   deletePub(id:number):Observable<void>{
     return this.http.delete<void>(this.url+'/'+id);
   }
+
+  getCities(): Observable<string[]> {
+    return this.http.get<string[]>(this.url + '/cities');
+  }
 }
