@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
@@ -12,6 +13,7 @@ import com.nerdpub.model.Member;
 
 @Mapper(componentModel = "spring")
 public interface MemberMapper {
+    @Mapping(target = "password", ignore = true)
     public MemberDTO toDTO(Member member);
     public List<MemberDTO> toDTOs(List<Member> members);
 

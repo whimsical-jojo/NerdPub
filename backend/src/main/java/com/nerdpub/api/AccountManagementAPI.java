@@ -3,8 +3,10 @@ package com.nerdpub.api;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -55,4 +57,17 @@ public class AccountManagementAPI
         service.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/current-user")
+    public ResponseEntity<MemberDTO> getCurrentUser(Authentication authentication) {
+        //What to do if there is no authentication? Is this really the best way to get the user details? 
+        //What if someone tries to call the endpoint without being logged in?
+        //TODO ask Ferdinando
+        MemberDTO userDetails = service.getCurrentUser(authentication.getName());
+        if (userDetails == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(service.getCurrentUser(authentication.getName()));
+    }
+
 }
