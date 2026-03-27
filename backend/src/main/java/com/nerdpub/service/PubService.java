@@ -56,4 +56,8 @@ public class PubService {
     public List<PubDTO> findByCity(String city) {
         return mapper.toDTOs(pubRepo.findByCity(city));
     }
+
+    public List<String> getCities() {
+        return pubRepo.getCities();
+    }
 }

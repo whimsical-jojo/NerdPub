@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Dice & Draft — Pub con Giochi da Tavolo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* =============================================
+     VARIABILI — modifica qui colori e font
+     ============================================= */
+  :root {
+    --color-bg:        #0f0d0a;
+    --color-surface:   #1a1712;
+    --color-card:      #221f19;
+    --color-border:    #2e2a22;
+    --color-accent:    #d4933a;   /* arancione ambra — colore principale */
+    --color-accent2:   #7a3f1e;   /* marrone scuro — colore secondario */
+    --color-text:      #f0ebe0;
+    --color-muted:     #8a826e;
+    --color-success:   #4caf50;
+    --font-display:    'Playfair Display', serif;
+    --font-body:       'DM Sans', sans-serif;
+    --radius:          12px;
+    --radius-sm:       8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* =============================================
+     NAVIGAZIONE
+     ============================================= */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    background: rgba(15, 13, 10, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--color-accent);
+    letter-spacing: 0.02em;
+  }
+  .nav-logo span { color: var(--color-text); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--color-accent); }
+
+  .nav-cta {
+    background: var(--color-accent);
+    color: var(--color-bg) !important;
+    padding: 0.5rem 1.25rem;
+    border-radius: 100px;
+    font-weight: 500 !important;
+  }
+
+  /* =============================================
+     HERO
+     ============================================= */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Pattern decorativo sfondo — modifica background-image */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(122, 63, 30, 0.18) 0%, transparent 70%),
+      repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(212,147,58,0.03) 40px, rgba(212,147,58,0.03) 41px);
+    pointer-events: none;
+  }
+
+  .hero-content { max-width: 620px; position: relative; }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(212, 147, 58, 0.12);
+    border: 1px solid rgba(212, 147, 58, 0.3);
+    color: var(--color-accent);
+    padding: 0.35rem 1rem;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--color-text);
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--color-accent);
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--color-muted);
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    padding: 0.85rem 2rem;
+    border-radius: 100px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #e8a84a; transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--color-text);
+    padding: 0.85rem 2rem;
+    border-radius: 100px;
+    border: 1px solid var(--color-border);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--color-accent); color: var(--color-accent); }
+
+  /* Decorazione destra hero */
+  .hero-dice {
+    position: absolute;
+    right: 6%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    opacity: 0.15;
+    pointer-events: none;
+  }
+  .dice-block {
+    width: 80px; height: 80px;
+    border: 2px solid var(--color-accent);
+    border-radius: 16px;
+  }
+
+  /* =============================================
+     STATISTICHE
+     ============================================= */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+
+  .stat {
+    padding: 2rem 3rem;
+    text-align: center;
+    border-right: 1px solid var(--color-border);
+  }
+  .stat:last-child { border-right: none; }
+
+  .stat-number {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 0.25rem;
+  }
+
+  /* =============================================
+     SEZIONI GENERALI
+     ============================================= */
+  .section {
+    padding: 5rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    color: var(--color-muted);
+    font-size: 1rem;
+    max-width: 500px;
+    margin-bottom: 3rem;
+  }
+
+  /* =============================================
+     CATALOGO GIOCHI
+     ============================================= */
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .game-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.15s;
+    cursor: pointer;
+  }
+  .game-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-3px);
+  }
+
+  /* Placeholder immagine gioco — sostituire con <img src="..."> */
+  .game-img {
+    height: 140px;
+    background: var(--color-surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .game-info { padding: 1rem 1.25rem; }
+
+  .game-name {
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .game-meta {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.75rem;
+  }
+
+  .tag {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 100px;
+    background: rgba(212, 147, 58, 0.1);
+    color: var(--color-accent);
+    border: 1px solid rgba(212, 147, 58, 0.2);
+    font-weight: 400;
+  }
+
+  .difficulty {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.05);
+    color: var(--color-muted);
+    border: 1px solid var(--color-border);
+  }
+
+  /* =============================================
+     SEZIONE PRENOTAZIONE
+     ============================================= */
+  #prenotazione {
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .booking-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .booking-info .info-block {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .info-icon {
+    width: 44px; height: 44px;
+    border-radius: var(--radius-sm);
+    background: rgba(212, 147, 58, 0.1);
+    border: 1px solid rgba(212, 147, 58, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    color: var(--color-accent);
+  }
+
+  .info-title {
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+  }
+  .info-desc {
+    font-size: 0.88rem;
+    color: var(--color-muted);
+  }
+
+  /* Form prenotazione */
+  .booking-form {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 2rem 2.25rem;
+  }
+
+  .form-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1.75rem;
+    color: var(--color-text);
+  }
+
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  /* Input, select, textarea — stile unificato */
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--color-accent);
+  }
+  .form-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238a826e' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .form-note {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .btn-full {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  /* Conferma prenotazione (nascosta di default) */
+  .booking-confirm {
+    display: none;
+    text-align: center;
+    padding: 2rem 0;
+  }
+  .confirm-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--color-success);
+  }
+  .confirm-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .confirm-text { color: var(--color-muted); font-size: 0.95rem; }
+
+  /* =============================================
+     MENÙ / OFFERTE
+     ============================================= */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .menu-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    transition: border-color 0.2s;
+  }
+  .menu-card:hover { border-color: var(--color-accent); }
+
+  .menu-icon {
+    font-size: 2rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .menu-name {
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  .menu-desc { font-size: 0.85rem; color: var(--color-muted); }
+  .menu-price {
+    font-weight: 500;
+    color: var(--color-accent);
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  /* =============================================
+     FOOTER
+     ============================================= */
+  footer {
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    padding: 3rem;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .footer-brand .nav-logo { font-size: 1.2rem; margin-bottom: 0.75rem; display: block; }
+  .footer-brand p { font-size: 0.88rem; color: var(--color-muted); max-width: 260px; }
+
+  .footer-col h4 {
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    margin-bottom: 1rem;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.6rem; }
+  .footer-col ul li a {
+    text-decoration: none;
+    color: var(--color-text);
+    font-size: 0.9rem;
+    opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .footer-col ul li a:hover { opacity: 1; color: var(--color-accent); }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 2rem auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+    color: var(--color-muted);
+  }
+
+  /* =============================================
+     RESPONSIVE — adattamento mobile
+     ============================================= */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .hero-dice { display: none; }
+    .stats { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--color-border); }
+    .section { padding: 3.5rem 1.5rem; }
+    .booking-wrapper { grid-template-columns: 1fr; gap: 2.5rem; padding: 3.5rem 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGAZIONE ===== -->
+<nav>
+  <div class="nav-logo">The Dice <span>&amp; Draft</span></div>
+  <ul class="nav-links">
+    <li><a href="#giochi">Giochi</a></li>
+    <li><a href="#menu">Menù</a></li>
+    <li><a href="#prenotazione">Prenotazioni</a></li>
+    <li><a href="#orari">Orari</a></li>
+    <li><a href="#prenotazione" class="nav-cta">Prenota Ora</a></li>
+  </ul>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-badge">🎲 Pub · Giochi da Tavolo · Birra Artigianale</span>
+    <h1>Gioca.<br>Bevi.<br><em>Vinci.</em></h1>
+    <p>Oltre 200 titoli a disposizione, birre artigianali e una cucina che non delude. Il posto giusto per una serata diversa.</p>
+    <div class="hero-actions">
+      <a href="#prenotazione" class="btn-primary">Prenota un Tavolo</a>
+      <a href="#giochi" class="btn-outline">Scopri i Giochi</a>
+    </div>
+  </div>
+  <!-- Decorazione geometrica — rimovibile -->
+  <div class="hero-dice">
+    <div class="dice-block"></div><div class="dice-block"></div>
+    <div class="dice-block"></div><div class="dice-block"></div>
+    <div class="dice-block"></div><div class="dice-block"></div>
+  </div>
+</section>
+
+<!-- ===== STATISTICHE ===== -->
+<div class="stats">
+  <div class="stat">
+    <span class="stat-number">200+</span>
+    <span class="stat-label">Giochi disponibili</span>
+  </div>
+  <div class="stat">
+    <span class="stat-number">30+</span>
+    <span class="stat-label">Birre artigianali</span>
+  </div>
+  <div class="stat">
+    <span class="stat-number">12</span>
+    <span class="stat-label">Tavoli prenotabili</span>
+  </div>
+</div>
+
+<!-- ===== CATALOGO GIOCHI ===== -->
+<div id="giochi">
+  <div class="section">
+    <span class="section-label">Luditeca</span>
+    <h2 class="section-title">I Nostri Giochi</h2>
+    <p class="section-sub">Dai classici intramontabili alle ultime uscite. Un ludotecario ti aiuta sempre a scegliere.</p>
+
+    <div class="games-grid">
+      <!-- Scheda gioco — replica questo blocco per aggiungere giochi -->
+      <div class="game-card">
+        <div class="game-img">🏰</div>
+        <div class="game-info">
+          <div class="game-name">Catan</div>
+          <div style="font-size:0.83rem; color:var(--color-muted);">2–4 giocatori · 60–120 min</div>
+          <div class="game-meta">
+            <span class="tag">Strategia</span>
+            <span class="difficulty">Medio</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="game-img">🗺️</div>
+        <div class="game-info">
+          <div class="game-name">Ticket to Ride</div>
+          <div style="font-size:0.83rem; color:var(--color-muted);">2–5 giocatori · 45–90 min</div>
+          <div class="game-meta">
+            <span class="tag">Famiglia</span>
+            <span class="difficulty">Facile</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="game-img">🌙</div>
+        <div class="game-info">
+          <div class="game-name">Twilight Imperium</div>
+          <div style="font-size:0.83rem; color:var(--color-muted);">3–6 giocatori · 6–8 ore</div>
+          <div class="game-meta">
+            <span class="tag">Epic</span>
+            <span class="difficulty">Esperto</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="game-img">🃏</div>
+        <div class="game-info">
+          <div class="game-name">Codenames</div>
+          <div style="font-size:0.83rem; color:var(--color-muted);">4–8 giocatori · 15–30 min</div>
+          <div class="game-meta">
+            <span class="tag">Party</span>
+            <span class="difficulty">Facile</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="game-img">🔮</div>
+        <div class="game-info">
+          <div class="game-name">Azul</div>
+          <div style="font-size:0.83rem; color:var(--color-muted);">2–4 giocatori · 30–45 min</div>
+          <div class="game-meta">
+            <span class="tag">Astratto</span>
+            <span class="difficulty">Medio</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="game-img">🧩</div>
+        <div class="game-info">
+          <div class="game-name">Pandemic</div>
+          <div style="font-size:0.83rem; color:var(--color-muted);">2–4 giocatori · 45–60 min</div>
+          <div class="game-meta">
+            <span class="tag">Cooperativo</span>
+            <span class="difficulty">Medio</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:2.5rem;">
+      <a href="#" class="btn-outline">Vedi tutto il catalogo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MENÙ ===== -->
+<div id="menu" style="background:var(--color-surface); border-top:1px solid var(--color-border); border-bottom:1px solid var(--color-border);">
+  <div class="section">
+    <span class="section-label">Cucina &amp; Bar</span>
+    <h2 class="section-title">Cosa Serviamo</h2>
+    <p class="section-sub">Birre artigianali, cocktail, taglieri e molto altro per accompagnare le tue partite.</p>
+
+    <div class="menu-grid">
+      <!-- Voce menù — replica per aggiungere prodotti -->
+      <div class="menu-card">
+        <span class="menu-icon">🍺</span>
+        <div>
+          <div class="menu-name">Birra Artigianale alla Spina</div>
+          <div class="menu-desc">Selezione rotante di 8 birre craft locali e internazionali</div>
+          <div class="menu-price">da €5.00</div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <span class="menu-icon">🍷</span>
+        <div>
+          <div class="menu-name">Vini Selezionati</div>
+          <div class="menu-desc">Carta vini con etichette italiane e biologiche</div>
+          <div class="menu-price">da €4.50</div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <span class="menu-icon">🧀</span>
+        <div>
+          <div class="menu-name">Tagliere dei Campioni</div>
+          <div class="menu-desc">Formaggi, salumi, giardiniera e pane artigianale</div>
+          <div class="menu-price">€14.00</div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <span class="menu-icon">🍕</span>
+        <div>
+          <div class="menu-name">Pizza al Trancio</div>
+          <div class="menu-desc">Tranci di pizza in teglia con farciture della settimana</div>
+          <div class="menu-price">da €3.50</div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <span class="menu-icon">🥤</span>
+        <div>
+          <div class="menu-name">Cocktail della Casa</div>
+          <div class="menu-desc">Aperitivi e long drink con ingredienti freschi</div>
+          <div class="menu-price">da €7.00</div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <span class="menu-icon">☕</span>
+        <div>
+          <div class="menu-name">Caffetteria</div>
+          <div class="menu-desc">Espresso, cappuccino, tè e tisane calde</div>
+          <div class="menu-price">da €1.50</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PRENOTAZIONE ===== -->
+<section id="prenotazione">
+  <div class="booking-wrapper">
+
+    <!-- Info a sinistra -->
+    <div class="booking-info">
+      <span class="section-label">Prenota</span>
+      <h2 class="section-title">Assicurati il Tuo Tavolo</h2>
+      <p class="section-sub">Scegli data, orario e numero di persone. Puoi anche indicare i giochi che preferisci e li prepariamo per te.</p>
+
+      <div class="info-block">
+        <div class="info-icon">📅</div>
+        <div>
+          <div class="info-title">Prenotazioni fino a 30 giorni prima</div>
+          <div class="info-desc">Pianifica in anticipo, soprattutto nel weekend.</div>
+        </div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-icon">🎲</div>
+        <div>
+          <div class="info-title">Giochi preparati al tuo arrivo</div>
+          <div class="info-desc">Indica i titoli preferiti e li troviamo noi per te.</div>
+        </div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-icon">⏰</div>
+        <div>
+          <div class="info-title" id="orari">Orari di apertura</div>
+          <div class="info-desc">Lun–Gio: 17:00–01:00 &nbsp;·&nbsp; Ven–Dom: 15:00–02:00</div>
+        </div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-icon">📞</div>
+        <div>
+          <div class="info-title">Contatti</div>
+          <div class="info-desc">Tel: 010 000 0000 &nbsp;·&nbsp; info@dicedraft.it</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form prenotazione a destra -->
+    <div>
+      <div class="booking-form" id="bookingForm">
+        <div class="form-title">Nuova Prenotazione</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome</label>
+            <input type="text" placeholder="Mario">
+          </div>
+          <div class="form-group">
+            <label>Cognome</label>
+            <input type="text" placeholder="Rossi">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="mario@email.com">
+        </div>
+
+        <div class="form-group">
+          <label>Telefono</label>
+          <input type="tel" placeholder="+39 000 000 0000">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Data</label>
+            <input type="date">
+          </div>
+          <div class="form-group">
+            <label>Orario</label>
+            <select>
+              <option value="">Seleziona</option>
+              <option>17:00</option><option>17:30</option>
+              <option>18:00</option><option>18:30</option>
+              <option>19:00</option><option>19:30</option>
+              <option>20:00</option><option>20:30</option>
+              <option>21:00</option><option>21:30</option>
+              <option>22:00</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Numero di persone</label>
+            <select>
+              <option>1</option><option>2</option><option selected>3</option>
+              <option>4</option><option>5</option><option>6</option>
+              <option>7</option><option>8</option><option>9+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Durata stimata</label>
+            <select>
+              <option>2 ore</option><option>3 ore</option>
+              <option>4 ore</option><option>Intera serata</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Giochi preferiti (opzionale)</label>
+          <input type="text" placeholder="es. Catan, Azul, Ticket to Ride...">
+        </div>
+
+        <div class="form-group">
+          <label>Note aggiuntive</label>
+          <textarea rows="3" placeholder="Allergie, richieste speciali, festeggiamenti..."></textarea>
+        </div>
+
+        <p class="form-note">
+          Riceverai una email di conferma entro pochi minuti. 
+          Il tavolo è garantito per 15 minuti oltre l'orario prenotato.
+        </p>
+
+        <button class="btn-primary btn-full" onclick="submitBooking()">
+          Conferma Prenotazione
+        </button>
+      </div>
+
+      <!-- Messaggio di conferma -->
+      <div class="booking-confirm" id="bookingConfirm">
+        <div class="confirm-icon">✓</div>
+        <div class="confirm-title">Prenotazione Confermata!</div>
+        <p class="confirm-text">
+          Ti abbiamo inviato un'email di riepilogo.<br>
+          Ti aspettiamo!
+        </p>
+        <button class="btn-outline" style="margin-top:1.5rem;" onclick="resetForm()">
+          Nuova Prenotazione
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="nav-logo">The Dice <span style="color:var(--color-text)">&amp; Draft</span></span>
+      <p>Il pub genovese dove ogni serata è un'avventura. Giochi, birre e buona compagnia.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Navigazione</h4>
+      <ul>
+        <li><a href="#giochi">Catalogo Giochi</a></li>
+        <li><a href="#menu">Menù</a></li>
+        <li><a href="#prenotazione">Prenota</a></li>
+        <li><a href="#">Chi Siamo</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Orari</h4>
+      <ul>
+        <li><a href="#">Lun–Gio: 17–01</a></li>
+        <li><a href="#">Venerdì: 15–02</a></li>
+        <li><a href="#">Sabato: 15–02</a></li>
+        <li><a href="#">Domenica: 15–01</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contatti</h4>
+      <ul>
+        <li><a href="tel:+390100000000">010 000 0000</a></li>
+        <li><a href="mailto:info@dicedraft.it">info@dicedraft.it</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2025 The Dice &amp; Draft — Via Roma 0, Genova</span>
+    <span>Privacy Policy · Cookie Policy</span>
+  </div>
+</footer>
+
+<!-- ===== JAVASCRIPT MINIMO ===== -->
+<script>
+  /* Simulazione invio prenotazione */
+  function submitBooking() {
+    document.getElementById('bookingForm').style.display = 'none';
+    document.getElementById('bookingConfirm').style.display = 'block';
+  }
+
+  function resetForm() {
+    document.getElementById('bookingForm').style.display = 'block';
+    document.getElementById('bookingConfirm').style.display = 'none';
+  }
+
+  /* Scroll fluido per i link interni */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  /* Data minima = oggi nel campo data prenotazione */
+  const dateInput = document.querySelector('input[type="date"]');
+  if (dateInput) {
+    dateInput.min = new Date().toISOString().split('T')[0];
+  }
+</script>
+
+</body>
+</html>
