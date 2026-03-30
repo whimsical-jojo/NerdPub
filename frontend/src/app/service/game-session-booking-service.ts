@@ -23,6 +23,6 @@ export class GameSessionBookingService {
 
   getUserBookings() {
     console.log("Getting user bookings");
-    return this.http.get<number[]>(this.url+'/user-bookings');
+    return this.http.get<GameSessionBooking[]>(this.url+'/user-bookings');
   }
 }

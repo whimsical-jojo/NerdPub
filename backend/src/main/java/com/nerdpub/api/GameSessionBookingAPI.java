@@ -63,9 +63,9 @@ public class GameSessionBookingAPI {
      * @return A list of session ids that the user has booked (and which are not in the past)
      */
     @GetMapping("/user-bookings")
-    public ResponseEntity<?> getUserBookedSessionIds(Authentication authentication) {
+    public ResponseEntity<?> getUserBookings(Authentication authentication) {
         try {
-            List<Integer> bookedSessionIds = bookingService.getUserBookedSesssionsIds(authentication.getName());
+            List<GameSessionBookingDTO> bookedSessionIds = bookingService.getUserBookings(authentication.getName());
             return ResponseEntity.ok(bookedSessionIds);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

@@ -86,14 +86,11 @@ public class GameSessionBookingService {
     }
 
 
-    public List<Integer> getUserBookedSesssionsIds(String name) {
+    public List<GameSessionBookingDTO> getUserBookings(String name) {
         Member member = memberRepository.findByUsername(name)
             .orElseThrow(() -> new EntityNotFoundException("Member not found"));
 
-        return bookingRepository.findByMember(member.getId())
-            .stream()
-            .map(b -> b.getSession().getId())
-            .toList();
+        return bookingMapper.toDTOs(bookingRepository.findByMember(member.getId()));
     }
 
 }

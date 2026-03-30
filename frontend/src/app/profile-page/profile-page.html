@@ -1,0 +1,50 @@
+<div class="profile-container">
+
+  <!-- HEADER -->
+  <div class="w3-container profile-header w3-center">
+    <div class="avatar">👤</div>
+    <h1 class="profile-title">Il tuo profilo</h1>
+    <p class="profile-subtitle">Gestisci le tue informazioni e sessioni</p>
+  </div>
+
+  <!-- ACCOUNT SECTION -->
+  <div class="w3-container section-container">
+    <h2 class="section-title">Account</h2>
+
+    <div class="account-card">
+      <div class="form-row">
+        <label>Username</label>
+        <input type="text" placeholder="Il tuo username" />
+      </div>
+
+      <div class="form-row">
+        <label>Email</label>
+        <input type="email" placeholder="La tua email" />
+      </div>
+
+      <div class="form-row">
+        <label>Nuova Password</label>
+        <input type="password" placeholder="••••••••" />
+      </div>
+
+      <div class="form-actions">
+        <button mat-raised-button color="primary">Salva modifiche</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOOKED SESSIONS -->
+  <div class="w3-container list-container">
+    <div class="w3-padding-32 w3-center list-header">
+      <h1 class="list-title">Le tue sessioni</h1>
+      <p class="w3-text-grey">Sessioni a cui sei iscritto</p>
+    </div>
+
+    <div class="w3-row-padding">
+      <app-game-sessions-list
+        [gameSessions]="gameSessions()">
+      </app-game-sessions-list>
+    </div>
+  </div>
+
+</div>

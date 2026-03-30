@@ -48,10 +48,10 @@ export class GameSessionsList{
     
     if (event.action === 'book') {
       this.bookingService.bookGameSession(sessionId).subscribe({
-        next: () => {
+        next: booking => {
           console.log('Booking successful');
           //Updates 
-          this.bookingStore.addBooking(sessionId);
+          this.bookingStore.addBooking(booking);
         },
         error: err => console.error('Booking failed', err)
       });

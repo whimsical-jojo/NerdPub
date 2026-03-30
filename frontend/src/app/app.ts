@@ -1,10 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { HomePage } from './home-page/home-page';
 import { AuthService } from './service/auth-service';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [HomePage],
+  imports: [HomePage, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
