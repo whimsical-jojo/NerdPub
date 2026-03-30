@@ -1,0 +1,60 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: var(--color-bg, #0f0d0a);
+  color: var(--color-text, #f0ebe0);
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+}
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  box-sizing: border-box;
+  padding-bottom: 2rem;
+}
+
+.home-hero {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 5.5rem 1.5rem 2rem;
+  text-align: center;
+}
+
+.section-label {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-accent, #d4933a);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.75rem;
+}
+
+.home-title {
+  font-family: var(--font-display, 'Playfair Display', serif);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 0.75rem;
+  color: var(--color-text, #f0ebe0);
+}
+
+.home-title em {
+  font-style: normal;
+  color: var(--color-accent, #d4933a);
+}
+
+.home-sub {
+  margin: 0 0 1.5rem;
+  color: var(--color-muted, #8a826e);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.home-picker {
+  max-width: 420px;
+  margin: 0 auto;
+  width: 100%;
+}

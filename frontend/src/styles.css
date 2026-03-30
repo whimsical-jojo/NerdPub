@@ -1,2 +1,48 @@
-/* You can add global styles to this file, and also import other style files */
-@import url("https://www.w3schools.com/w3css/4/w3.css");
+/* Tema allineato al mockup pub_mockup.html */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap');
+@import url('https://www.w3schools.com/w3css/4/w3.css');
+
+:root {
+  --color-bg: #0f0d0a;
+  --color-surface: #1a1712;
+  --color-card: #221f19;
+  --color-border: #2e2a22;
+  --color-accent: #d4933a;
+  --color-accent2: #7a3f1e;
+  --color-text: #f0ebe0;
+  --color-muted: #8a826e;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* Dialog login: contenitore coerente con il tema pub */
+.login-dialog-panel .mat-mdc-dialog-container {
+  --mat-dialog-container-color: var(--color-card);
+  --mat-dialog-container-shape: 12px;
+  padding: 0;
+}
+
+.login-dialog-panel .mat-mdc-dialog-container .mat-mdc-dialog-surface {
+  background: var(--color-card) !important;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(212, 147, 58, 0.06);
+}

@@ -49,4 +49,3 @@ export class CityPicker {
     return city;
   }
 }
-

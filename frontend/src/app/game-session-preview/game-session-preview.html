@@ -1,55 +1,64 @@
+@if (gameSession().table; as table) {
 <div class="gamesessionpreview w3-card-4 dice-card">
-  <!-- HEADER: Titolo del Gioco -->
   <header class="w3-container dice-header">
-    <span class="w3-tag dice-badge">Sessione Disponibile</span>
+    <span class="w3-tag dice-badge">Sessione disponibile</span>
     <h2 class="game-title">{{ gameSession().game.title }}</h2>
     <p class="game-desc w3-small">{{ gameSession().game.description }}</p>
   </header>
 
-  <!-- CONTENT: Informazioni sul Pub -->
-  <div class="w3-container w3-padding-16">
+  <div class="w3-container w3-padding-16 dice-body">
     <div class="w3-row">
       <div class="w3-col s2 w3-center">
-        <span class="dice-icon">📍</span>
+        <span class="dice-icon" aria-hidden="true">📍</span>
       </div>
       <div class="w3-col s10">
-        <!-- Assumendo che table abbia un riferimento al Pub -->
-        <h4 class="pub-name">{{ gameSession().table!.pub.name }}</h4>
+        <h4 class="pub-name">{{ table.pub.name }}</h4>
         <p class="pub-info">
-          {{ gameSession().table!.pub.address }} — {{ gameSession().table!.pub.city }}<br>
-          <small>📞 {{ gameSession().table!.pub.phone }}</small>
+          {{ table.pub.address }} — {{ table.pub.city }}<br />
+          <small>📞 {{ table.pub.phone }}</small>
         </p>
       </div>
     </div>
 
-    <hr class="dice-divider">
+    <hr class="dice-divider" />
 
-    <!-- INFO GRID: Score, Capacità, Data -->
     <div class="w3-row w3-center info-grid">
       <div class="w3-col s4">
         <span class="info-label">Rating</span>
-        <div class="info-value accent">★ {{ gameSession().table.pub.score }}</div>
+        <div class="info-value accent">★ {{ table.pub.score }}</div>
       </div>
       <div class="w3-col s4">
         <span class="info-label">Posti</span>
-        <div class="info-value">{{ gameSession().table.capacity }}</div>
+        <div class="info-value">{{ table.capacity }}</div>
       </div>
       <div class="w3-col s4">
         <span class="info-label">Data</span>
-        <!-- Il pipe date trasforma l'oggetto Date in una stringa leggibile -->
-        <div class="info-value">{{ gameSession().date | date:'dd MMM yyyy' }}</div>
+        <div class="info-value">{{ gameSession().date | date: 'dd MMM yyyy' }}</div>
       </div>
     </div>
 
-    <hr class="dice-divider">
+    <hr class="dice-divider" />
 
     <div class="w3-container w3-padding-16 w3-center">
-      <button class="w3-button w3-round" [class.w3-green]="!isBooked()" [class.w3-red]="isBooked()"
-        (click)="onBookClick()">
-
+      <button
+        type="button"
+        class="session-cta"
+        [class.session-cta--book]="!isBooked()"
+        [class.session-cta--cancel]="isBooked()"
+        (click)="onBookClick()"
+      >
         {{ isBooked() ? 'Disdici' : 'Prenota' }}
-
       </button>
     </div>
   </div>
 </div>
+} @else {
+<div class="dice-card dice-card--error">
+  <div class="dice-header dice-header--compact">
+    <h2 class="game-title">{{ gameSession().game.title }}</h2>
+  </div>
+  <div class="dice-body dice-body--padded">
+    <p class="pub-info">Dati del tavolo non disponibili per questa sessione.</p>
+  </div>
+</div>
+}

@@ -8,9 +8,11 @@ export interface Member{
 
 export interface PubTable{
     id?:number,
+    name:string,
     capacity:number,
     available:boolean
     pub:Pub
+    pubId:number
 }
 
 export interface Game{
