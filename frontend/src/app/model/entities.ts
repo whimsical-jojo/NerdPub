@@ -4,7 +4,7 @@ export interface Member{
     lastName:string,
     username:string,
     password?:string,
-    email?:string
+    email?:string,
     dob:Date
 }
 

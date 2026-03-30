@@ -2,7 +2,6 @@
   display: block;
   background-color: var(--color-bg, #0f0d0a);
   min-height: 100vh;
-  font-family: var(--font-body, 'DM Sans', sans-serif);
 }
 
 /* HEADER */
@@ -30,12 +29,20 @@
   margin-top: 0.4rem;
 }
 
-/* SECTIONS */
+/* ACTIONS */
 
-.section-container {
+.actions-container {
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem 1rem;
+}
+
+.actions-card {
+  background: var(--color-card, #221f19);
+  border: 1px solid var(--color-border, #2e2a22);
+  border-radius: var(--radius, 12px);
+  padding: 1.5rem;
+  text-align: center;
 }
 
 .section-title {
@@ -44,46 +51,46 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--color-muted, #8a826e);
-  margin-bottom: 1rem;
-}
-
-/* ACCOUNT CARD */
-
-.account-card {
-  background: var(--color-card, #221f19);
-  border: 1px solid var(--color-border, #2e2a22);
-  border-radius: var(--radius, 12px);
-  padding: 1.5rem;
-}
-
-.form-row {
-  display: flex;
-  flex-direction: column;
   margin-bottom: 1.2rem;
 }
 
-.form-row label {
-  font-size: 0.8rem;
-  color: var(--color-muted, #8a826e);
-  margin-bottom: 0.3rem;
+.actions-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.form-row input {
-  background: #14120f;
-  border: 1px solid var(--color-border, #2e2a22);
-  border-radius: 8px;
-  padding: 0.6rem;
-  color: #eee;
-}
+/* LIST (reuse yours) */
 
-.form-row input:focus {
-  outline: none;
-  border-color: var(--color-accent, #d4933a);
-}
-
-/* ACTIONS */
-
-.form-actions {
-  text-align: right;
+.list-container {
   margin-top: 1rem;
+}
+
+.list-header {
+  background-color: var(--color-surface, #1a1712);
+  padding: 1.25rem 0 !important;
+  border-bottom: 1px solid var(--color-border, #2e2a22);
+}
+
+.list-title {
+  font-family: var(--font-display, 'Playfair Display', serif);
+  font-size: 0.85rem !important;
+  color: var(--color-muted, #8a826e) !important;
+  margin: 0 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.w3-text-grey {
+  color: var(--color-accent, #d4933a) !important;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0.35rem 0 0 !important;
+}
+
+.w3-row-padding {
+  padding: 1.5rem 12px 2rem !important;
+  max-width: 1200px;
+  margin: 0 auto;
 }

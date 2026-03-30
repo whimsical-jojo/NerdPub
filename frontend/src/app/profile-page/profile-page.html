@@ -4,33 +4,36 @@
   <div class="w3-container profile-header w3-center">
     <div class="avatar">👤</div>
     <h1 class="profile-title">Il tuo profilo</h1>
-    <p class="profile-subtitle">Gestisci le tue informazioni e sessioni</p>
+    <p class="profile-subtitle">Gestisci il tuo account e le tue sessioni</p>
   </div>
 
-  <!-- ACCOUNT SECTION -->
-  <div class="w3-container section-container">
-    <h2 class="section-title">Account</h2>
+  <!-- ACTIONS -->
+  <div class="w3-container actions-container">
 
-    <div class="account-card">
-      <div class="form-row">
-        <label>Username</label>
-        <input type="text" placeholder="Il tuo username" />
+    <div class="actions-card">
+
+      <h2 class="section-title">Account</h2>
+
+      <div class="actions-buttons">
+
+        <!-- EDIT PROFILE -->
+        <button mat-raised-button
+                color="primary"
+                (click)="openEditProfile()">
+          Modifica account
+        </button>
+
+        <!-- CHANGE PASSWORD -->
+        <button mat-stroked-button
+                color="accent"
+                (click)="changePassword()">
+          Cambia password
+        </button>
+
       </div>
 
-      <div class="form-row">
-        <label>Email</label>
-        <input type="email" placeholder="La tua email" />
-      </div>
-
-      <div class="form-row">
-        <label>Nuova Password</label>
-        <input type="password" placeholder="••••••••" />
-      </div>
-
-      <div class="form-actions">
-        <button mat-raised-button color="primary">Salva modifiche</button>
-      </div>
     </div>
+
   </div>
 
   <!-- BOOKED SESSIONS -->

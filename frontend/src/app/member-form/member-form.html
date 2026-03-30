@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>
+  {{ mode() === 'edit' ? 'Modifica account' : 'Crea account' }}
+</h2>
+
+<form #memberForm="ngForm" class="member-form">
+    <div mat-dialog-content>
+        <label for="firstname">Nome</label>
+        <input type="text" name="firstname" [(ngModel)]="member().firstName" class="w3-input" required />
+
+        <label for="lastname">Cognome</label>
+        <input type="text" name="lastname" [(ngModel)]="member().lastName" class="w3-input" required />
+
+        <label for="username">Nome utente</label>
+        <input type="text" name="username" [(ngModel)]="member().username" class="w3-input" required />
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Data di nascita</mat-label>
+            <input matInput [matDatepicker]="picker" name="dob" [(ngModel)]="member().dob" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+
+        <!-- PASSWORD ONLY ON CREATE -->
+        @if (mode() === 'create') {
+        <label for="password">Password</label>
+        <input type="password" name="password" [(ngModel)]="member().password" class="w3-input" required />
+        }
+    </div>
+
+    <div mat-dialog-actions align="end">
+        <button mat-stroked-button (click)="dialogRef.close()">Annulla</button>
+        <!-- ACTION BUTTON -->
+        <div class="form-actions">
+            <button mat-raised-button color="primary" (click)="mode() === 'create' ? create() : update()"
+                [disabled]="!memberForm.valid">
+
+                {{ mode() === 'create' ? 'Crea account' : 'Salva modifiche' }}
+
+            </button>
+        </div>
+    </div>
+
+</form>

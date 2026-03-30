@@ -7,7 +7,7 @@ import { BookingStore } from '../injectables/session-booking-store';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService{
+export class AuthService {
 
   //TODO set this up so refreshing the page doesn't fuck up everything
   private apiURL = 'http://localhost:8080/api/account';
@@ -61,16 +61,24 @@ export class AuthService{
     return localStorage.getItem(this.tokenKey);
   }
 
-  setCurrentUser() : Observable<Member>{
+  setCurrentUser(): Observable<Member> {
     return this.http.get<Member>(this.apiURL + '/current-user')
       .pipe(
         tap(user => {
           console.log("Setting current user based on jwt");
+          
+          user.dob = this.parseLocalDate(user.dob as unknown as string)!;
           console.log(user);
           //Sets the user boking ids whenever the user is set so that we know what is actually booked.
           this.bookingStore.loadUserBookings();
           this._currentUser.set(user);
         })
       );
+  }
+
+  parseLocalDate(localDateString: string | null): Date | null {
+    if (!localDateString) return null;
+    const [y, m, d] = localDateString.split('-').map(Number);
+    return new Date(y, m - 1, d);
   }
 }

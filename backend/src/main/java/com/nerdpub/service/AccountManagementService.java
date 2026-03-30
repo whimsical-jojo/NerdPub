@@ -72,7 +72,8 @@ public class AccountManagementService {
     public MemberDTO update(MemberDTO memberDTO) {
         Member member = memberRepository.findById(memberDTO.getId())
             .orElseThrow(() -> new EntityNotFoundException("User not found"));
-        memberDTO.setPassword(passwordHasher.toHash(memberDTO.getPassword()));
+        if (memberDTO.getPassword() != null)
+            memberDTO.setPassword(passwordHasher.toHash(memberDTO.getPassword()));
         memberMapper.updateFromDTO(memberDTO, member);
         member = memberRepository.save(member);
         return memberMapper.toDTO(member); 
