@@ -52,9 +52,10 @@ public class PubAPI {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PubDTO> findById(@PathVariable int id) {
-        return ResponseEntity.ok(pubService.findById(id));
+    /** Path letterali prima di /{id}, altrimenti "cities" viene catturato come id e il binding int fallisce. */
+    @GetMapping("/cities")
+    public ResponseEntity<List<String>> getCities() {
+        return ResponseEntity.ok(pubService.getCities());
     }
 
     @GetMapping
@@ -68,12 +69,8 @@ public class PubAPI {
         return ResponseEntity.ok(pubService.findAll());
     }
 
-    @GetMapping("/cities")
-    public ResponseEntity<List<String>> getCities() {
-        List<String> cities = pubService.getCities();
-        if (cities.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(cities);
+    @GetMapping("/{id}")
+    public ResponseEntity<PubDTO> findById(@PathVariable int id) {
+        return ResponseEntity.ok(pubService.findById(id));
     }
 }

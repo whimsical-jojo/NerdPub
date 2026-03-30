@@ -51,11 +51,16 @@ public class GameSessionAPI {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<GameSessionDTO> findById(@PathVariable int id) {
-        return ResponseEntity.ok(gameSessionService.findById(id));
+    /** Path letterali e /upcoming prima di /{id} per evitare match errati. */
+    @GetMapping("/upcoming")
+    public ResponseEntity<List<GameSessionDTO>> upcoming(@RequestParam(required = false) String city) {
+        return ResponseEntity.ok(gameSessionService.findUpcoming(city));
     }
 
+    @GetMapping("/tonight/{city}")
+    public ResponseEntity<List<GameSessionDTO>> gamesTonight(@PathVariable String city) {
+        return ResponseEntity.ok(gameSessionService.findUpcoming(city));
+    }
 
     @GetMapping
     public ResponseEntity<List<GameSessionDTO>> search(
@@ -64,17 +69,11 @@ public class GameSessionAPI {
             @RequestParam(required = false) String city
     ) {
         List<GameSessionDTO> results = gameSessionService.search(game, days, city);
-        if (results.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
         return ResponseEntity.ok(results);
     }
 
-    @GetMapping("/tonight/{city}")
-    public ResponseEntity<List<GameSessionDTO>> gamesTonight(@PathVariable String city) {
-        List<GameSessionDTO> results = gameSessionService.gamesTonight(city);
-        if (results.isEmpty())
-            return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(results);
+    @GetMapping("/{id}")
+    public ResponseEntity<GameSessionDTO> findById(@PathVariable int id) {
+        return ResponseEntity.ok(gameSessionService.findById(id));
     }
 }

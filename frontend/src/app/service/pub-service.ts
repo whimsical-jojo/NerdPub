@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Pub } from '../model/entities';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -36,6 +36,8 @@ export class PubService {
   }
 
   getCities(): Observable<string[]> {
-    return this.http.get<string[]>(this.url + '/cities');
+    return this.http
+      .get<string[]>(this.url + '/cities')
+      .pipe(catchError(() => of([] as string[])));
   }
 }

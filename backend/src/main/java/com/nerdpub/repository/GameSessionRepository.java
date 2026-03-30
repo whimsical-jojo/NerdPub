@@ -16,9 +16,13 @@ public interface GameSessionRepository extends JpaRepository<GameSession, Intege
     @Query("SELECT gs FROM GameSession gs WHERE gs.date >= CURRENT_DATE AND gs.date < :endDate")
     List<GameSession> findWithinDate(@Param("endDate") LocalDate endDate);
 
+    /** Sessioni da oggi in poi (finestra massima), tutte le città. */
+    @Query("SELECT DISTINCT gs FROM GameSession gs JOIN gs.table t JOIN t.pub p WHERE gs.date >= CURRENT_DATE AND gs.date <= :endDate ORDER BY gs.date ASC")
+    List<GameSession> findUpcomingAll(@Param("endDate") LocalDate endDate);
 
-    @Query("SELECT gs FROM GameSession gs JOIN gs.table t JOIN t.pub p WHERE p.city = ?1 AND gs.date = CURRENT_DATE")
-    List<GameSession> gamesTonight(String city);
+    /** Sessioni da oggi in poi per una città (case-insensitive). */
+    @Query("SELECT DISTINCT gs FROM GameSession gs JOIN gs.table t JOIN t.pub p WHERE LOWER(p.city) = LOWER(:city) AND gs.date >= CURRENT_DATE AND gs.date <= :endDate ORDER BY gs.date ASC")
+    List<GameSession> findUpcomingByCity(@Param("city") String city, @Param("endDate") LocalDate endDate);
     
     default List<GameSession> search(String game, int days, String city)
     {

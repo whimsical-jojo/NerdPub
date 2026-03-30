@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { GameSession } from '../model/entities';
 
 @Injectable({
@@ -45,9 +45,17 @@ export class GameSessionService {
     return this.http.get<GameSession[]>(this.url+'?game='+game+'&days='+days+'&city='+city);
   }
 
-  //GET /game-sessions/tonight/{city} — recupero lista sessioni di gioco di stasera in quella città
-  getGameSessions(city:string):Observable<GameSession[]>{
-    return this.http.get<GameSession[]>(this.url +'/tonight/'+city);
+  /**
+   * Sessioni future (fino a 365 gg) filtrate per città se indicata.
+   * GET /game-sessions/upcoming?city=… (parametro opzionale, niente path encoding ambigui).
+   */
+  getGameSessions(city: string): Observable<GameSession[]> {
+    const trimmed = (city ?? '').trim();
+    const params =
+      trimmed.length > 0 ? new HttpParams().set('city', trimmed) : new HttpParams();
+    return this.http
+      .get<GameSession[]>(`${this.url}/upcoming`, { params })
+      .pipe(catchError(() => of([] as GameSession[])));
   }
 
   //GET /game-sessions/{id} — recupero sessione di gioco tramite id

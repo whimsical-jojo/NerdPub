@@ -1,9 +1,7 @@
 package com.nerdpub.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
-import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +17,12 @@ import com.nerdpub.repository.PubTableRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
+import java.time.LocalDate;
+
 @Service
 public class GameSessionService {
+
+    private static final int UPCOMING_WINDOW_DAYS = 365;
 
     @Autowired
     private GameSessionRepository gameSessionRepo;
@@ -109,7 +111,16 @@ public class GameSessionService {
     }
 
     public List<GameSessionDTO> gamesTonight(String city) {
-        return mapper.toDTOs(gameSessionRepo.gamesTonight(city));
+        return findUpcoming(city);
+    }
+
+    /** Città null/blank = tutte le città; altrimenti filtro case-insensitive. */
+    public List<GameSessionDTO> findUpcoming(String city) {
+        LocalDate end = LocalDate.now().plusDays(UPCOMING_WINDOW_DAYS);
+        if (city == null || city.isBlank()) {
+            return mapper.toDTOs(gameSessionRepo.findUpcomingAll(end));
+        }
+        return mapper.toDTOs(gameSessionRepo.findUpcomingByCity(city.trim(), end));
     }
 
 }
