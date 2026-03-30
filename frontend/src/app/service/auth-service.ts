@@ -37,6 +37,8 @@ export class AuthService{
   logout() {
     localStorage.removeItem(this.tokenKey);
     this._currentUser.set(null);
+    //Brute force it is
+    window.location.reload();
   }
 
   //TODO fix this later

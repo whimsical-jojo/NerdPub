@@ -19,15 +19,16 @@ import com.nerdpub.dto.MemberDTO;
 import com.nerdpub.dto.TokenDTO;
 import com.nerdpub.service.AccountManagementService;
 
+import io.jsonwebtoken.JwtException;
+
 @RestController
 @RequestMapping("/api/account")
 @CrossOrigin(origins = "http://localhost:4200")
-public class AccountManagementAPI
-{
-	@Autowired
-	AccountManagementService service;
-	
-	@PostMapping("/login")
+public class AccountManagementAPI {
+    @Autowired
+    AccountManagementService service;
+
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
         String jwt = service.login(loginDTO);
         if (jwt == null) {
@@ -64,15 +65,21 @@ public class AccountManagementAPI
     }
 
     @GetMapping("/current-user")
-    public ResponseEntity<MemberDTO> getCurrentUser(Authentication authentication) {
-        //What to do if there is no authentication? Is this really the best way to get the user details? 
-        //What if someone tries to call the endpoint without being logged in?
-        //TODO ask Ferdinando
-        MemberDTO userDetails = service.getCurrentUser(authentication.getName());
-        if (userDetails == null) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<?> getCurrentUser(Authentication authentication) {
+        // What to do if there is no authentication? Is this really the best way to get
+        // the user details?
+        // What if someone tries to call the endpoint without being logged in?
+        // TODO ask Ferdinando
+        try {
+            MemberDTO userDetails = service.getCurrentUser(authentication.getName());
+            if (userDetails == null) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(service.getCurrentUser(authentication.getName()));
+        } catch (JwtException e) {
+            return ResponseEntity.status(401).body(e.getMessage());
         }
-        return ResponseEntity.ok(service.getCurrentUser(authentication.getName()));
+
     }
 
 }

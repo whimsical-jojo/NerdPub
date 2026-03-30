@@ -40,6 +40,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter
         
     }
 
+    //TODO fix this throwing exceptions everywhere
     // doFilterInternal: esecuzione del filtro vero e proprio
     // arriva la request (piena), arriva la response (probabilmente vuota)
     // arriva la filterChain, cioè l'elenco dei filtri eseguiti e ancora da eseguire

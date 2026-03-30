@@ -1,6 +1,7 @@
 import { HttpEvent, HttpHandler, HttpHandlerFn, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { catchError, Observable, throwError } from 'rxjs';
+import { AuthService } from './auth-service';
 
 
 export function authInterceptor(req: HttpRequest<unknown>,
@@ -8,16 +9,23 @@ export function authInterceptor(req: HttpRequest<unknown>,
 ): Observable<HttpEvent<unknown>> {
 
   const idToken = localStorage.getItem("id_token");
+  const authService = inject(AuthService);
 
-  if (idToken) {
-    const cloned = req.clone({
-      headers: req.headers.set("Authorization",
-        "Bearer " + idToken)
-    });
 
-    return next(cloned);
-  }
-  else {
-    return next(req);
-  }
+  const request = idToken
+    ? req.clone({
+        headers: req.headers.set("Authorization", "Bearer " + idToken)
+      })
+    : req;
+
+  return next(request).pipe(
+    catchError((err) => {
+      if (err.status === 401 || err.status === 403) {
+        console.warn('Unauthorized, logging out...');
+        authService.logout();
+      }
+
+      return throwError(() => err);
+    })
+  );
 }
