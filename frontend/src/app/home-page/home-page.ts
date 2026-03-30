@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, model, OnInit, signal } from '@angular/core';
 import { GameSessionsList } from '../game-sessions-list/game-sessions-list';
 import { GameSession } from '../model/entities';
 import { GameSessionService } from '../service/game-session-service';
@@ -12,34 +12,35 @@ import { CityPicker } from '../city-picker/city-picker';
   styleUrls: ['./home-page.css'],
 })
 export class HomePage implements OnInit {
-  gameSessions = signal<GameSession[]>([]);
-  /** Legato a CityPicker con [(city)] — deve essere una stringa, non un Signal. */
-  searchCity = '';
+  gameSessions = signal<GameSession[]>([]); // sessions to display
+  searchCity = model<string>('');
+  searchPerformed = false;                // track if search has been done
 
-  private fetchTimer?: ReturnType<typeof setTimeout>;
   service = inject(GameSessionService);
 
   ngOnInit(): void {
-    this.fetchGameSessions();
+    // Do NOT fetch anything by default
   }
 
-  /**
-   * Aggiorna sempre searchCity prima del fetch (con [(city)] + (cityChange) il padre
-   * poteva chiamare il servizio con la città ancora vecchia).
-   */
-  onCityChange(city: string): void {
-    this.searchCity = typeof city === 'string' ? city : '';
-    clearTimeout(this.fetchTimer);
-    this.fetchTimer = setTimeout(() => this.fetchGameSessions(), 350);
-  }
+  searchSessions() {
+    const query = this.searchCity().trim();
+    if (!query) {
+      this.gameSessions.set([]);
+      this.searchPerformed = true;
+      return;
+    }
 
-  fetchGameSessions(): void {
-    this.service.getGameSessions(this.searchCity ?? '').subscribe({
-      next: (sessions) => this.gameSessions.set(sessions),
+    // Fetch sessions from service by city
+    this.service.getGameSessions(query).subscribe({
+      next: (sessions) => {
+        this.gameSessions.set(sessions);
+        this.searchPerformed = true;
+      },
       error: (err) => {
         console.error('Error fetching game sessions:', err);
         this.gameSessions.set([]);
-      },
+        this.searchPerformed = true;
+      }
     });
   }
 }
