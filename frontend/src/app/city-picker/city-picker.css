@@ -1,44 +1,54 @@
-:host {
-  display: block;
-}
-
+/* Container del campo di ricerca */
 .city-search {
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .search-field {
   width: 100%;
+  max-width: 450px;
 }
 
-/* Campo Material su sfondo scuro (mockup) */
-:host ::ng-deep .mat-mdc-form-field {
-  --mdc-filled-text-field-container-color: var(--color-surface, #1a1712);
-  --mdc-filled-text-field-label-text-color: var(--color-muted, #8a826e);
-  --mdc-filled-text-field-input-text-color: var(--color-text, #f0ebe0);
+/* Sfondo scuro e forma della barra */
+::v-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: #1e1e1e !important; /* Colore scuro forzato */
+  border-radius: 12px !important;       /* Arrotondamento moderno */
+  height: 65px !important;
 }
 
-:host ::ng-deep .mat-mdc-text-field-wrapper {
-  border-radius: var(--radius-sm, 8px);
-  border: 1px solid var(--color-border, #2e2a22);
+/* Rimuove l'effetto "overlay" semitrasparente di Material al passaggio del mouse */
+::v-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__ripple {
+  display: none !important;
 }
 
-:host ::ng-deep .mdc-line-ripple::before,
-:host ::ng-deep .mdc-line-ripple::after {
-  border-bottom-color: var(--color-accent, #d4933a) !important;
+/* Testo digitato */
+::v-deep .mat-mdc-input-element {
+  font-size: 1.4rem !important;
+  color: #ffffff !important;           /* Testo bianco per contrasto */
+  padding-top: 10px !important;
 }
 
-/* Pannello autocomplete: evita riquadro bianco vuoto e testo illeggibile sul tema scuro */
-:host ::ng-deep .mat-mdc-autocomplete-panel {
-  background: var(--color-card, #221f19) !important;
-  border: 1px solid var(--color-border, #2e2a22);
-  border-radius: var(--radius-sm, 8px);
+/* LOGICA LABEL: sparisce quando il campo è focalizzato o pieno */
+::v-deep .mat-mdc-form-field.mat-focused .mat-mdc-form-field-label,
+::v-deep .mat-mdc-form-field .mdc-floating-label--float-above {
+  display: none !important;
 }
 
-:host ::ng-deep .mat-mdc-option {
-  color: var(--color-text, #f0ebe0) !important;
+/* Label base (Placeholder centrale quando vuoto) */
+::v-deep .mat-mdc-form-field-label {
+  font-size: 1.2rem !important;
+  color: #888888 !important;           /* Colore grigio tenue */
+  top: 32px !important;
 }
 
-:host ::ng-deep .mat-mdc-option:hover,
-:host ::ng-deep .mat-mdc-option.mat-mdc-option-active {
-  background: rgba(212, 147, 58, 0.12) !important;
+/* Rimuove la linea di focus inferiore e il bordo di default */
+::v-deep .mdc-line-ripple,
+::v-deep .mdc-text-field__bottom-line {
+  display: none !important;
+}
+
+/* Rimuove il bordo standard di Material 3 se presente */
+::v-deep .mdc-notched-outline {
+  display: none !important;
 }
