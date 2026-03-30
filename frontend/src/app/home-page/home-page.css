@@ -1,60 +1,128 @@
-:host {
-  display: block;
+
+/* --- VARIABILI GLOBALI --- */
+:root {
+  --color-bg: #0f0d0a;
+  --color-surface: #1a1712;
+  --color-card: #221f19;
+  --color-border: #2e2a22;
+  --color-accent: #d4933a;
+  --color-accent2: #7a3f1e;
+  --color-text: #f0ebe0;
+  --color-muted: #8a826e;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+/* --- HOMEPAGE LAYOUT --- */
+.homepage {
   min-height: 100vh;
-  background: var(--color-bg, #0f0d0a);
-  color: var(--color-text, #f0ebe0);
-  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-family: var(--font-body);
+  color: var(--color-text);
+  /* Effetto profondità con gradiente radiale */
+  background: radial-gradient(circle at top, var(--color-surface) 0%, var(--color-bg) 100%);
+  background-attachment: fixed;
 }
 
-.home-page {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+.homepage .w3-padding-32 {
+  padding-top: 40px !important;
+  padding-bottom: 0px !important;
+}
+
+/* --- TIPOGRAFIA --- */
+.homepage h1.w3-center {
+  font-family: var(--font-display);
+  color: var(--color-accent) !important;
+  font-size: 3.8rem;
+  font-weight: 800;
+  margin: 0 !important;
+  line-height: 1.1;
+  text-transform: none !important;
+}
+
+.homepage p.w3-center {
+  color: var(--color-muted) !important;
+  font-size: 1.2rem;
+  margin: 10px auto 30px auto !important;
+  line-height: 1.4;
+  max-width: 600px;
+}
+
+/* --- SEARCH BAR (Angular Material Customization) --- */
+::v-deep .mat-mdc-form-field {
   width: 100%;
-  box-sizing: border-box;
-  padding-bottom: 2rem;
-}
-
-.home-hero {
-  max-width: 720px;
+  max-width: 450px;
+  display: block;
   margin: 0 auto;
-  padding: 5.5rem 1.5rem 2rem;
-  text-align: center;
 }
 
-.section-label {
-  display: inline-block;
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: var(--color-accent, #d4933a);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-bottom: 0.75rem;
+/* Contenitore principale della barra */
+::v-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: var(--color-card) !important;
+  border-radius: var(--radius-sm) !important;
+  height: 64px !important;
+  border: 1px solid var(--color-border) !important; /* Un tocco di definizione */
 }
 
-.home-title {
-  font-family: var(--font-display, 'Playfair Display', serif);
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
+/* Rimuove l'effetto hover grigio di Material */
+::v-deep .mdc-text-field--filled .mdc-text-field__ripple {
+  display: none !important;
+}
+
+/* Testo digitato */
+::v-deep .mat-mdc-input-element {
+  font-size: 1.3rem !important;
+  color: var(--color-text) !important;
+  padding-top: 8px !important;
+  caret-color: var(--color-accent) !important; /* Colore del cursore */
+}
+
+/* Logica Label: sparisce al click o quando scrivi */
+::v-deep .mat-mdc-form-field.mat-focused .mat-mdc-form-field-label,
+::v-deep .mat-mdc-form-field .mdc-floating-label--float-above {
+  display: none !important;
+}
+
+/* Stile della label (Placeholder centrale) */
+::v-deep .mat-mdc-form-field-label {
+  font-size: 1.1rem !important;
+  color: var(--color-muted) !important;
+  top: 30px !important;
+}
+
+/* Pulizia linee decorative Material */
+::v-deep .mdc-line-ripple,
+::v-deep .mdc-text-field__bottom-line,
+::v-deep .mdc-notched-outline {
+  display: none !important;
+}
+
+/* --- BOTTONE SEARCH (Versione compatta) --- */
+.homepage .w3-button.w3-blue {
+  background-color: var(--color-accent) !important;
+  color: var(--color-bg) !important;
   font-weight: 700;
-  line-height: 1.15;
-  margin: 0 0 0.75rem;
-  color: var(--color-text, #f0ebe0);
+  font-size: 1.1rem;
+  padding: 10px 35px !important; /* Dimensioni ridotte */
+  margin-top: 20px !important;
+  border-radius: var(--radius-sm) !important;
+  text-transform: uppercase; /* Più grintoso per un bottone piccolo */
+  letter-spacing: 1px;
+  border: none !important;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.home-title em {
-  font-style: normal;
-  color: var(--color-accent, #d4933a);
+.homepage .w3-button.w3-blue:hover {
+  background-color: var(--color-text) !important;
+  color: var(--color-bg) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
-.home-sub {
-  margin: 0 0 1.5rem;
-  color: var(--color-muted, #8a826e);
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.home-picker {
-  max-width: 420px;
-  margin: 0 auto;
-  width: 100%;
+/* --- SEZIONE RISULTATI --- */
+app-game-sessions-list {
+  display: block;
+  margin-top: 40px;
 }
