@@ -34,7 +34,7 @@ export interface GameSession{
 export interface GameSessionBooking{
     id?:number,
     member:Member,
-    gameSession:GameSession,
+    session:GameSession,
     date:Date
 }
 

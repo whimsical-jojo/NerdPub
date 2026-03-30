@@ -1,19 +1,12 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { HomePage } from './home-page/home-page';
 import { AuthService } from './service/auth-service';
-<<<<<<< HEAD
+import { TopMenu } from "./top-menu/top-menu";
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [HomePage, RouterOutlet],
-=======
-import { TopMenu } from "./top-menu/top-menu";
-
-@Component({
-  selector: 'app-root',
-  imports: [HomePage, TopMenu],
->>>>>>> e4d5a8fd9e3a30c257ad4f141c1beebd751138ac
+  imports: [HomePage, TopMenu, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

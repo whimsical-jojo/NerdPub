@@ -18,6 +18,7 @@ public interface GameSessionBoookingMapper {
     @Mapping(target = "session.gameId", ignore = true)
     @Mapping(target = "session.tableId", ignore = true)
     @Mapping(target = "session.table.pubId", ignore = true)
+    @Mapping(target = "member.password", ignore = true)
     public GameSessionBookingDTO toDTO (GameSessionBooking tableBooking);
     public List<GameSessionBookingDTO> toDTOs (List<GameSessionBooking> bookings);
 
