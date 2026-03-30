@@ -1,10 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { HomePage } from './home-page/home-page';
 import { AuthService } from './service/auth-service';
+import { TopMenu } from "./top-menu/top-menu";
 
 @Component({
   selector: 'app-root',
-  imports: [HomePage],
+  imports: [HomePage, TopMenu],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
