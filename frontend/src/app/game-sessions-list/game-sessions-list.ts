@@ -35,7 +35,12 @@ export class GameSessionsList{
   handleAction(event: { session: GameSession; action: 'book' | 'cancel' }) {
     console.log("Called the handling function for the event!");
     if (!this.authService.isLoggedIn()) {
-      this.dialog.open(LoginComponent, { width: '400px' });
+      this.dialog.open(LoginComponent, {
+        width: '420px',
+        maxWidth: '95vw',
+        panelClass: 'login-dialog-panel',
+        autoFocus: 'dialog',
+      });
       return;
     }
 

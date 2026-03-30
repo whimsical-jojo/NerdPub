@@ -2,39 +2,49 @@
 
 :host {
   display: block;
-  background-color: #f4f1ec; /* Sfondo scuro taverna */
+  background-color: var(--color-bg, #0f0d0a);
   min-height: 100vh;
 }
 
-/* RENDIAMO FISSA L'INTESTAZIONE (Il div che contiene titolo e sottotitolo) */
-.w3-container > .w3-center {
-  background-color: #0f0d0a; /* Copre le card che scorrono sotto */
-  padding: 20px 0 !important;
-  border-bottom: 2px solid #d4933a; /* Linea arancione NerdPub */
+.list-header {
+  background-color: var(--color-surface, #1a1712);
+  padding: 1.25rem 0 !important;
+  border-bottom: 1px solid var(--color-border, #2e2a22);
 }
 
-/* Stile del Titolo (Prossime Sessioni) */
 .list-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem !important;
-  color: #8a826e !important; /* Colore tenue */
+  font-family: var(--font-display, 'Playfair Display', serif);
+  font-size: 0.85rem !important;
+  color: var(--color-muted, #8a826e) !important;
   margin: 0 !important;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 0.12em;
 }
 
-/* STILE DEL TESTO FISSO (Quello che devono fare) */
 .w3-text-grey {
-  color: #d4933a !important; /* Arancione NerdPub */
-  font-family: 'DM Sans', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin: 5px 0 0 0 !important;
+  color: var(--color-accent, #d4933a) !important;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0.35rem 0 0 !important;
 }
 
-/* CREIAMO SPAZIO PER NON FAR COPRIRE LE CARD DALLA BARRA FISSA */
 .w3-row-padding {
-  padding-top: 140px !important; 
+  padding: 1.5rem 12px 2rem !important;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.empty-panel {
+  text-align: center;
+  padding: 2rem;
+  margin: 1rem 0;
+  background: var(--color-card, #221f19);
+  border: 1px solid var(--color-border, #2e2a22);
+  border-radius: var(--radius, 12px);
+  color: var(--color-muted, #8a826e);
+}
+
+.empty-icon {
+  margin-right: 0.35rem;
 }

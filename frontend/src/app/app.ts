@@ -1,23 +1,21 @@
-import { Component, inject, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { GameSessionsList } from './game-sessions-list/game-sessions-list';
-import { HomePage } from "./home-page/home-page";
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { HomePage } from './home-page/home-page';
 import { AuthService } from './service/auth-service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, GameSessionsList, HomePage],
+  imports: [HomePage],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
-export class App {
-  protected readonly title = signal('frontend');
+export class App implements OnInit {
+  protected readonly title = signal('NerdPub');
 
   authService = inject(AuthService);
 
-  ngOnInit() {
+  ngOnInit(): void {
     const token = localStorage.getItem('id_token');
-    //TODO check if I need to do something else if the token is expired or invalid
+    // TODO check if I need to do something else if the token is expired or invalid
     if (token) {
       try {
         this.authService.setCurrentUser().subscribe();
@@ -25,6 +23,6 @@ export class App {
         console.error(e);
         this.authService.logout();
       }
-    } 
+    }
   }
 }
