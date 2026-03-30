@@ -1,0 +1,14 @@
+<form #newpubform="ngForm" class="w3-col s12 m10 l8">
+    <label for="name">Nome</label>
+    <input type="text" name="name" [(ngModel)]="newPub.name" class="w3-input" required/>
+    <label for="address">Indirizzo</label>
+    <input type="text" name="address" [(ngModel)]="newPub.address" class="w3-input" required/>
+    <label for="city" name="city">Città</label>
+    <input type="text" name="city" [(ngModel)]="newPub.city" class="w3-input" required/>
+    <label for="phone" name="phone">Telefono</label>
+    <input type="text" name="phone" [(ngModel)]="newPub.phone" class="w3-input" required/>
+    <label for="score" name="score">Recensione</label>
+    <input type="number" name="score" [(ngModel)]="newPub.score" class="w3-input" required max="5" min="0">
+    <input type="button" (click)="save()" class="w3-btn w3-teal w3-input" value="Salva" [disabled]="!newpubform.valid" />
+</form>
+

@@ -1,0 +1,10 @@
+<form #newgamesessionform="ngForm" class="w3-col s12 m10 l8">
+    <label for="gamepicker">Titolo</label>
+    <select id="auto" name="auto">
+        <option value="volvo">Volvo</option>
+    </select>
+    <label for="description">Descrizione</label>
+    <input type="text" name="description" [(ngModel)]="newGame.description" class="w3-input" required/>
+    <input type="button" (click)="save()" class="w3-btn w3-teal w3-input" value="Salva" [disabled]="!newgameform.valid" />
+</form>
+

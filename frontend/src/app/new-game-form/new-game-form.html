@@ -1,0 +1,7 @@
+<form #newgameform="ngForm" class="w3-col s12 m10 l8">
+    <label for="title">Titolo</label>
+    <input type="text" name="title" [(ngModel)]="newGame.title" class="w3-input" required/>
+    <label for="description">Descrizione</label>
+    <input type="text" name="description" [(ngModel)]="newGame.description" class="w3-input" required/>
+    <input type="button" (click)="save()" class="w3-btn w3-teal w3-input" value="Salva" [disabled]="!newgameform.valid" />
+</form>
