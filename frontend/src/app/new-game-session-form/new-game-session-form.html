@@ -1,0 +1,28 @@
+<form #newgamesessionform="ngForm" class="w3-col s12 m10 l8">
+    <label for="date">Data</label>
+    <input type="date" name="date" [(ngModel)]="newGameSession.date" class="w3-input" required/>
+
+    <label for="games">Gioco</label>
+    <select id="games" name="games" [(ngModel)]="newGameSession.game" (ngModelChange)="onGameChange($event)" class="w3-input" required>
+        <option [ngValue]="null" disabled>Seleziona un gioco...</option>
+        
+        @for(game of games(); track game.id) {
+            <option [ngValue]="game">{{game.title}}</option>
+        }
+    </select>
+
+    <label for="tables">Tavolo</label>
+    <select id="tables" name="tables" [(ngModel)]="newGameSession.table" (ngModelChange)="onTableChange($event)" class="w3-input" required>
+        <option [ngValue]="null" disabled>Seleziona un tavolo...</option>
+        
+        @for(table of tables(); track table.id) {
+            <option [ngValue]="table">
+                {{table.name}}: {{table.capacity}} posti, 
+                @if(table.available){ DISPONIBILE } @else { NON DISPONIBILE }, 
+                si trova in {{table.pub.name}}: {{table.pub.address}}, {{table.pub.city}}
+            </option>
+        }
+    </select>
+    
+    <input type="button" (click)="save();newgamesessionform.resetForm();" class="w3-btn w3-teal w3-input" value="Salva" [disabled]="!newgamesessionform.valid" />
+</form>

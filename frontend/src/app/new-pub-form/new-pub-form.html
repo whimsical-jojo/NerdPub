@@ -9,6 +9,6 @@
     <input type="text" name="phone" [(ngModel)]="newPub.phone" class="w3-input" required/>
     <label for="score" name="score">Recensione</label>
     <input type="number" name="score" [(ngModel)]="newPub.score" class="w3-input" required max="5" min="0">
-    <input type="button" (click)="save()" class="w3-btn w3-teal w3-input" value="Salva" [disabled]="!newpubform.valid" />
+    <input type="button" (click)="save();newpubform.resetForm();" class="w3-btn w3-teal w3-input" value="Salva" [disabled]="!newpubform.valid" />
 </form>
 
