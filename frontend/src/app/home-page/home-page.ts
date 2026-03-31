@@ -5,43 +5,49 @@ import { GameSessionService } from '../service/game-session-service';
 import { CommonModule } from '@angular/common';
 import { CityPicker } from '../city-picker/city-picker';
 import { FormsModule } from '@angular/forms';
+import { AdvancedSessionSearchAccordion } from "../advanced-session-search-accordion/advanced-session-search-accordion";
 
 @Component({
   selector: 'app-home-page',
-  imports: [GameSessionsList, CommonModule, CityPicker, FormsModule],
+  imports: [GameSessionsList, CommonModule, CityPicker, FormsModule, AdvancedSessionSearchAccordion],
   templateUrl: './home-page.html',
   styleUrls: ['./home-page.css'],
 })
-export class HomePage implements OnInit {
+export class HomePage{
   gameSessions = signal<GameSession[]>([]); // sessions to display
-  searchCity = model<string>('');
+  city = model<string>('');
+  gameTitle = model<string>('');
+  daysAhead = model<number>(0);
   searchPerformed = false;                // track if search has been done
 
   service = inject(GameSessionService);
 
-  ngOnInit(): void {
-    // Do NOT fetch anything by default
+  searchSessions() {
+  const city = this.city().trim();
+  const game = this.gameTitle().trim();
+  const days = this.daysAhead();
+
+  //Avoids empty search
+  if (!city && !game && !days) {
+    this.gameSessions.set([]);
+    this.searchPerformed = true;
+    return;
   }
 
-  searchSessions() {
-    const query = this.searchCity().trim();
-    if (!query) {
+  this.service.searchGameSessions(
+    game || undefined,
+    days ?? undefined,
+    city || undefined
+  ).subscribe({
+    next: (sessions) => {
+      this.gameSessions.set(sessions);
+      this.searchPerformed = true;
+    },
+    error: (err) => {
+      console.error('Error fetching game sessions:', err);
       this.gameSessions.set([]);
       this.searchPerformed = true;
-      return;
     }
-
-    // Fetch sessions from service by city
-    this.service.getGameSessions(query).subscribe({
-      next: (sessions) => {
-        this.gameSessions.set(sessions);
-        this.searchPerformed = true;
-      },
-      error: (err) => {
-        console.error('Error fetching game sessions:', err);
-        this.gameSessions.set([]);
-        this.searchPerformed = true;
-      }
-    });
-  }
+  });
+}
 }

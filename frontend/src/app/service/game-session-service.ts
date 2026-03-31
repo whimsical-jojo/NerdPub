@@ -11,34 +11,38 @@ export class GameSessionService {
   
   url = 'http://localhost:8080/api/game-sessions';
 
-  //GET /game-sessions/?game={game}&days={days}&city={city} — recupero lista di sessioni gioco filtrabile per gioco, giorni e città
-  searchGameSessions(game?:string,days?:number,city?:string):Observable<GameSession[]>{
-    if(!game && !days && !city){
-      return this.http.get<GameSession[]>(this.url);
-    }
-    if(game && !days && !city){
-      return this.http.get<GameSession[]>(this.url+'?game='+game);
-    } 
-    if(!game && days && !city){
-      return this.http.get<GameSession[]>(this.url+'?days='+days);
-    } 
-    if(!game && !days && city){
-      return this.http.get<GameSession[]>(this.url+'?city='+city);
-    }   
-    if(game && days && !city){  
-      return this.http.get<GameSession[]>(this.url+'?game='+game+'&days='+days);
-    }
-    if(!game && days && city){
-      return this.http.get<GameSession[]>(this.url+'?days='+days+'&city='+city);
-    }
-    return this.http.get<GameSession[]>(this.url+'?game='+game+'&days='+days+'&city='+city);
+  searchGameSessions(
+  game?: string,
+  days?: number,
+  city?: string
+): Observable<GameSession[]> {
+
+  //If ONLY city is provided it calls the default games tonight
+  if (city && !game && !days) {
+    return this.gamesTonight(city);
   }
 
+  let params = new HttpParams();
+
+  if (game) {
+    params = params.set('game', game);
+  }
+
+  if (days !== undefined && days !== null) {
+    params = params.set('days', days);
+  }
+
+  if (city) {
+    params = params.set('city', city);
+  }
+
+  return this.http.get<GameSession[]>(this.url, { params });
+}
+
   /**
-   * Sessioni future (fino a 365 gg) filtrate per città se indicata.
-   * GET /game-sessions/upcoming?city=… (parametro opzionale, niente path encoding ambigui).
+   * Returns the game sessions tonight in a given city
    */
-  getGameSessions(city: string): Observable<GameSession[]> {
+  gamesTonight(city: string): Observable<GameSession[]> {
     return this.http.get<GameSession[]>(this.url +'/tonight/'+city);
   }
 

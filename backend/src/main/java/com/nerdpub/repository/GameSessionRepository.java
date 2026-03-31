@@ -25,10 +25,10 @@ public interface GameSessionRepository extends JpaRepository<GameSession, Intege
         // game potrebbe essere sia l'id del gioco sia un pezzo del testo del gioco 
         List<GameSession> sessions = findWithinDate(LocalDate.now().plusDays(days));
         if (game != null)
-            sessions.stream().filter(x->x.getGame().getTitle().contains(game) || (x.getGame().getId()+"").equals(game)).toList();
+            sessions = sessions.stream().filter(x->x.getGame().getTitle().contains(game) || (x.getGame().getId()+"").equals(game)).toList();
 
         if (city != null)
-            sessions.stream().filter(x->x.getTable().getPub().getCity().equals(city)).toList();
+            sessions = sessions.stream().filter(x->x.getTable().getPub().getCity().equals(city)).toList();
 
         return sessions;
 

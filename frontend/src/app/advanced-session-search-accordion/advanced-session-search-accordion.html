@@ -1,0 +1,43 @@
+<mat-accordion multi>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Ricerca avanzata
+      </mat-panel-title>
+
+      <mat-panel-description>
+        Scegli gioco e giorni
+        <mat-icon>tune</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Titolo del gioco</mat-label>
+    <input matInput
+           type="text"
+           name="gameTitle"
+           [(ngModel)]="gameTitle" />
+    </mat-form-field>
+
+    <!-- Slider -->
+    <div class="slider-container">
+      <label>Giorni avanti: {{ daysAhead() }}</label>
+
+      <mat-slider
+        min="0"
+        max="60"
+        step="1"
+        thumbLabel
+      >
+        <input
+          matSliderThumb
+          [value]="daysAhead()"
+          (valueChange)="daysAhead.set($event)"
+        />
+      </mat-slider>
+    </div>
+
+  </mat-expansion-panel>
+
+</mat-accordion>

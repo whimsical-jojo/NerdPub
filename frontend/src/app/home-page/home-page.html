@@ -7,26 +7,26 @@
 
         <!-- SEARCH BAR -->
         <div class="w3-center">
-          <app-city-picker [(city)]="searchCity"/>
-            <button class="w3-button w3-blue w3-margin-top" (click)="searchSessions()">
-              Search
-            </button>
+          <app-city-picker [(city)]="city" />
+          <button class="w3-button w3-blue w3-margin-top" (click)="searchSessions()">
+            Search
+          </button>
+          <app-advanced-session-search-accordion [(gameTitle)]="gameTitle" [(daysAhead)]="daysAhead" />
         </div>
       </div>
     </div>
   </div>
 
-  <!--<div class="w3-padding-32 w3-center list-header">
-    <h1 class="list-title">Prossime Sessioni</h1>
-    <p class="w3-text-grey">Scegli una partita e unisciti al tavolo!</p>
-  </div>-->
   <!-- Only show list after search -->
-  <ng-container *ngIf="gameSessions() && gameSessions().length > 0">
-    <app-game-sessions-list [gameSessions]="gameSessions()"></app-game-sessions-list>
-  </ng-container>
+  @if(gameSessions() && gameSessions().length > 0) {
+  <app-game-sessions-list [gameSessions]="gameSessions()"></app-game-sessions-list>
+  }
 
   <!-- Optional: show message if search returned empty -->
-  <div *ngIf="searchPerformed && (!gameSessions() || gameSessions().length === 0)" class="w3-center w3-padding">
-    No sessions found for "{{ searchCity() }}".
+  @if(searchPerformed && (!gameSessions() || gameSessions().length === 0)){
+  <div class="w3-center w3-padding">
+    No sessions found for "{{ city() }}".
   </div>
+  }
+
 </div>

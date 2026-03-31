@@ -1,0 +1,13 @@
+<form class="city-search">
+  <mat-form-field class="search-field">
+    <mat-label>Gioco</mat-label>
+
+    <input type="text" matInput name="game" [(ngModel)]="game" [matAutocomplete]="auto">
+
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      @for (option of games(); track option) {
+        <mat-option [value]="option">{{option.title}}</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
