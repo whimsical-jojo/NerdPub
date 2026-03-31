@@ -1,0 +1,56 @@
+<div class="adminpage">
+     <!-- HEADER -->
+  <div class="w3-container profile-header w3-center">
+    <div class="avatar">👤</div>
+    <h1 class="profile-title">Pannello di controllo dell'amministratore</h1>
+    <p class="profile-subtitle">Gestisci tutti gli account, i pub, i tavoli e le sessioni</p>
+  </div>
+
+  <!-- ACTIONS -->
+   <div class="tabs-container">
+        <mat-tab-group dynamicHeight>
+            <mat-tab label="Nuovo pub">
+                <app-new-pub-form></app-new-pub-form>
+            </mat-tab>
+            <mat-tab label="Nuovo tavolo">
+                <app-new-table-form></app-new-table-form>
+            </mat-tab>
+            <mat-tab label="Nuovo gioco">
+                <app-new-game-form></app-new-game-form>
+            </mat-tab>
+            <mat-tab label="Nuova sessione di gioco">
+                <app-new-game-session-form></app-new-game-session-form>
+            </mat-tab>
+            <mat-tab label="Nuovo utente">
+                <app-member-form></app-member-form>
+            </mat-tab>
+        </mat-tab-group>
+   </div>
+  <div class="w3-container actions-container">
+
+    <div class="actions-card">
+
+      <h2 class="section-title">Il mio Account</h2>
+
+      <div class="actions-buttons">
+
+        <!-- EDIT PROFILE -->
+        <button mat-raised-button
+                color="primary"
+                (click)="openEditProfile()">
+          Modifica account
+        </button>
+
+        <!-- CHANGE PASSWORD -->
+        <button mat-stroked-button
+                color="accent"
+                (click)="changePassword()">
+          Cambia password
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

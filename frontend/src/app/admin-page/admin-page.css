@@ -1,0 +1,113 @@
+/* --- ADMINPAGE LAYOUT --- */
+.adminpage {
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: radial-gradient(circle at top, var(--color-surface) 0%, var(--color-bg) 100%);
+  background-attachment: fixed;
+}
+
+/* --- TIPOGRAFIA --- */
+.adminpage h1.w3-center {
+  font-family: var(--font-display);
+  color: var(--color-accent) !important;
+  font-size: 3.8rem;
+  font-weight: 800;
+  margin: 0 !important;
+  line-height: 1.1;
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+}
+
+.adminpage p.w3-center {
+  color: var(--color-muted) !important;
+  font-size: 1.1rem;
+  /* Ridotto il margine inferiore da 30px a 15px per avvicinare la barra */
+  margin: 8px auto 15px auto !important;
+  line-height: 1.4;
+  max-width: 600px;
+}
+/* --- HEADER --- */
+.profile-header {
+  margin-bottom: 40px;
+}
+
+.avatar {
+  font-size: 4rem;
+  background: var(--color-surface);
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  border: 2px solid var(--color-border);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.profile-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--color-accent);
+  margin-bottom: 5px;
+}
+
+.profile-subtitle {
+  color: var(--color-muted);
+  font-size: 1.1rem;
+}
+
+/* --- TABS ---*/
+.tabs-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 16px;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+/* --- CARDS & ACTIONS --- */
+.actions-container {
+  max-width: 800px;
+  margin: 0 auto 50px;
+}
+
+.actions-card {
+  background-color: var(--color-card);
+  padding: 30px;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 10px 25px rgba(120, 53, 15, 0.08); /* Ombra calda */
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  border-bottom: 2px solid var(--color-surface);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  color: var(--color-accent);
+}
+
+.actions-buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+/* Override per Angular Material Buttons per matchare il root */
+button[mat-raised-button] {
+  background-color: var(--color-accent) !important;
+  color: #fff !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 8px 20px !important;
+  font-weight: 600;
+}
+
+button[mat-stroked-button] {
+  border-color: var(--color-border) !important;
+  color: var(--color-accent) !important;
+  border-radius: var(--radius-sm) !important;
+}
