@@ -15,21 +15,19 @@ import { AuthService } from '../service/auth-service';
   styleUrl: './top-menu.css',
 })
 export class TopMenu {
-
   private dialog = inject(MatDialog);
   authService = inject(AuthService);
   router = inject(Router);
 
 
-  profileClicked() {
-    if (!this.authService.isLoggedIn()) {
-      this.dialog.open(LoginComponent, {
-        width: '450px', // Puoi regolare la larghezza
-        autoFocus: true,
-      });
-    }
-    else {
-      this.router.navigate(['/profile']);
-    }
-    }
+  login() {
+    this.dialog.open(LoginComponent, {
+      width: '450px', // Puoi regolare la larghezza
+      autoFocus: true,
+    });
   }
+
+  logout() {
+    this.authService.logout();
+  }
+}

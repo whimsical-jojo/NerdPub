@@ -10,11 +10,8 @@ export class BookingStore {
   bookings = signal<GameSessionBooking[]>([]);
   bookedSessionIds = signal<number[]>([]);
 
-  //TODO for the user page make it so this grabs all the bookings instead of just the bookings.
   loadUserBookings() {
     this.bookingService.getUserBookings().subscribe(bookings => {
-      console.log("These are the bookings:");
-      console.log(bookings);
       this.bookings.set(bookings);
       this.bookedSessionIds.set(bookings.map(x => x.session.id!));
     });

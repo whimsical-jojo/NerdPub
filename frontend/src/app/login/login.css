@@ -56,7 +56,6 @@
   background: transparent;
 }
 
-.login-field ::ng-deep .mdc-line-ripple::before,
 .login-field ::ng-deep .mdc-line-ripple::after {
   border-bottom-color: var(--login-accent) !important;
 }

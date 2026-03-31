@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, OnInit, signal } from '@angular/core';
+import { computed, inject, Injectable, OnInit, signal } from '@angular/core';
 import { Observable, switchMap, tap } from 'rxjs';
 import { Member } from '../model/entities';
 import { BookingStore } from '../injectables/session-booking-store';
@@ -13,9 +13,12 @@ export class AuthService {
   private apiURL = 'http://localhost:8080/api/account';
   private tokenKey = 'id_token';
   http = inject(HttpClient);
+  bookingStore = inject(BookingStore);
+  
   private _currentUser = signal<Member | null>(null);
   currentUser = this._currentUser.asReadonly();
-  bookingStore = inject(BookingStore);
+  
+  isLoggedIn = computed(() => this.currentUser() !== null);
 
 
   login(username: string, password: string) {
@@ -37,11 +40,6 @@ export class AuthService {
     this._currentUser.set(null);
     //Brute force it is
     window.location.reload();
-  }
-
-  //TODO fix this later
-  isLoggedIn(): boolean {
-    return localStorage.getItem(this.tokenKey) !== null;
   }
 
   //TODO complete this crap

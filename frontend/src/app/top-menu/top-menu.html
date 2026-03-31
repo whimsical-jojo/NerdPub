@@ -7,7 +7,16 @@
     }
     <nav>
       <button mat-button routerLink="/" routerLinkActive="active-link">Home</button>
-      <button mat-button (click)="profileClicked()">Profilo</button>
+      @if(authService.isLoggedIn()) {
+        <button mat-button routerLink='/profile' routerLinkActive="active-link">Profilo</button>
+        @if(authService.currentUser()!.role==='ADMIN') {
+          <button mat-button routerLink="/admin" routerLinkActive="active-link">Admin</button>
+        }
+        <button mat-button (click)="logout()">Logout</button>
+      } @else {
+        <button mat-button (click)="login()">Login</button>
+      }
+        
     </nav>
   </div>
 </mat-toolbar>

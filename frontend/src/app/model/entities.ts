@@ -5,7 +5,8 @@ export interface Member{
     username:string,
     password?:string,
     email?:string,
-    dob:Date
+    dob:Date,
+    role?:string
 }
 
 export interface PubTable{

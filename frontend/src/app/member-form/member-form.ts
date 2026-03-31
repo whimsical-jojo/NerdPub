@@ -33,7 +33,9 @@ export class MemberForm implements OnInit {
     firstName: '',
     lastName: '',
     username: '',
-    dob: new Date()
+    dob: new Date(),
+    email: '',
+    role: ''
   });
 
   ngOnInit() {
@@ -48,6 +50,7 @@ export class MemberForm implements OnInit {
           firstName: user.firstName,
           lastName: user.lastName,
           username: user.username,
+          email: user.email,
           dob: new Date(user.dob)
         });
       }
