@@ -29,6 +29,8 @@ export interface GameSession{
     date:Date,
     game:Game,
     table:PubTable
+    gameId:number,
+    tableId:number
 }
 
 export interface GameSessionBooking{
