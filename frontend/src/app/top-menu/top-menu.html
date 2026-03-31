@@ -2,9 +2,12 @@
   <div class="container">
     <span class="logo" routerLink="/">NerdPub</span>
     <span class="spacer"></span>
+    @if(authService.isLoggedIn()) {
+      <span class="welcome-text">Benvenuto, {{ authService.currentUser()!.firstName }}!</span>
+    }
     <nav>
       <button mat-button routerLink="/" routerLinkActive="active-link">Home</button>
-      <button mat-button (click)="openLogin()">Login</button>
+      <button mat-button (click)="profileClicked()">Profilo</button>
     </nav>
   </div>
 </mat-toolbar>

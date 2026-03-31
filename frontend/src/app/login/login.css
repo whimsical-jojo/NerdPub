@@ -8,18 +8,6 @@
   --login-surface: var(--color-surface, #1a1712);
 }
 
-.login-title {
-  margin: 0 !important;
-  padding: 1.35rem 1.5rem 0.75rem !important;
-  font-family: var(--font-display, 'Playfair Display', serif);
-  font-weight: 700;
-  color: var(--login-text);
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  border-bottom: 1px solid var(--login-border);
-}
-
 .login-brand {
   font-size: 0.95rem;
   letter-spacing: 0.02em;

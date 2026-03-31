@@ -83,24 +83,6 @@ button[mat-stroked-button] {
   border-radius: var(--radius-sm) !important;
 }
 
-/* --- LISTA SESSIONI --- */
-.list-container {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.list-header {
-  border-top: 1px dashed var(--color-border);
-  margin-top: 20px;
-}
-
-.list-title {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  color: var(--color-accent2); /* Verde Foresta per le sessioni */
-  margin-bottom: 0;
-}
-
 /* --- RESPONSIVITÀ --- */
 @media (max-width: 600px) {
   .actions-buttons {

@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login';
+import { AuthService } from '../service/auth-service';
 
 @Component({
   selector: 'app-top-menu',
@@ -16,11 +17,19 @@ import { LoginComponent } from '../login/login';
 export class TopMenu {
 
   private dialog = inject(MatDialog);
+  authService = inject(AuthService);
+  router = inject(Router);
 
-  openLogin() {
-    this.dialog.open(LoginComponent, {
-      width: '450px', // Puoi regolare la larghezza
-      autoFocus: true,
-    });
+
+  profileClicked() {
+    if (!this.authService.isLoggedIn()) {
+      this.dialog.open(LoginComponent, {
+        width: '450px', // Puoi regolare la larghezza
+        autoFocus: true,
+      });
+    }
+    else {
+      this.router.navigate(['/profile']);
+    }
+    }
   }
-}

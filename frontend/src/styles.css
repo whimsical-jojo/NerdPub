@@ -69,3 +69,19 @@ body {
   font-family: var(--font-body);
 }
 
+.list-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.list-header {
+  border-top: 1px dashed var(--color-border);
+  margin-top: 20px;
+}
+
+.list-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--color-accent); /* Verde Foresta per le sessioni */
+  margin-bottom: 0;
+}
