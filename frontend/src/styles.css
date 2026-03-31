@@ -3,14 +3,14 @@
 @import url('https://www.w3schools.com/w3css/4/w3.css');
 
 :root {
-  --color-bg: #0f0d0a;
-  --color-surface: #1a1712;
-  --color-card: #221f19;
-  --color-border: #2e2a22;
-  --color-accent: #d4933a;
-  --color-accent2: #7a3f1e;
-  --color-text: #f0ebe0;
-  --color-muted: #8a826e;
+  --color-bg: #FDFBF7;      /* Pergamena chiarissima per il fondo pagina */
+  --color-surface: #F5F1E6; /* Un tono più scuro per le sezioni */
+  --color-card: #FFFFFF;    /* Bianco puro per far risaltare le card */
+  --color-border: #E2D1B3;  /* Beige dorato per i bordi */
+  --color-accent: #78350F;
+  --color-accent2: #059669; /* Verde Foresta (Richiama il tavolo da gioco) */
+  --color-text: #78350F;    /* Marrone caffè quasi nero (Massima leggibilità) */
+  --color-muted: #6D5B4B;   /* Marrone medio per testi secondari */
   --font-display: 'Playfair Display', serif;
   --font-body: 'DM Sans', sans-serif;
   --radius: 12px;
@@ -68,3 +68,4 @@ body {
   color: var(--color-text) !important;
   font-family: var(--font-body);
 }
+

@@ -1,15 +1,4 @@
-:root {
-  --color-bg: #0f0d0a;
-  --color-surface: #1a1712;
-  --color-card: #221f19;
-  --color-border: #2e2a22;
-  --color-accent: #d4933a;
-  --color-text: #f0ebe0;
-  --color-muted: #8a826e;
-  --font-display: 'Playfair Display', serif;
-  --font-body: 'DM Sans', sans-serif;
-  --radius: 12px;
-}
+/* --- CSS Adattato al Root --- */
 
 .dice-card {
   background-color: var(--color-card);
@@ -18,26 +7,21 @@
   overflow: hidden;
   border: 1px solid var(--color-border);
   font-family: var(--font-body);
-  transition: border-color 0.2s, transform 0.15s;
+  transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); /* Ombra leggera per profondità */
 }
 
 .dice-card:hover {
   border-color: var(--color-accent);
   transform: translateY(-3px);
-}
-
-.dice-card--error .dice-header--compact {
-  padding: 1rem 1.25rem;
-}
-
-.dice-body--padded {
-  padding: 1rem 1.25rem 1.25rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .dice-header {
-  background-color: var(--color-surface);
+  background-color: var(--color-surface); /* Tono pergamena più scuro */
   color: var(--color-text);
   padding: 1.25rem 1rem;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .game-title {
@@ -54,10 +38,11 @@
   line-height: 1.45;
 }
 
+/* Badge adattato: ora usa l'accento del root per coerenza */
 .dice-badge {
-  background-color: rgba(212, 147, 58, 0.15) !important;
+  background-color: rgba(120, 53, 15, 0.1) !important; /* var(--color-accent) con opacità */
   color: var(--color-accent) !important;
-  border: 1px solid rgba(212, 147, 58, 0.35) !important;
+  border: 1px solid rgba(120, 53, 15, 0.2) !important;
   font-weight: 600;
   text-transform: uppercase;
   font-size: 0.65rem !important;
@@ -68,6 +53,10 @@
 
 .dice-body {
   background: var(--color-card);
+}
+
+.dice-body--padded {
+  padding: 1rem 1.25rem 1.25rem;
 }
 
 .pub-name {
@@ -83,18 +72,10 @@
   line-height: 1.35;
 }
 
-.dice-icon {
-  font-size: 1.65rem;
-}
-
 .dice-divider {
   border: none;
   border-top: 1px solid var(--color-border);
   margin: 1rem 0;
-}
-
-.info-grid {
-  padding-bottom: 0.5rem;
 }
 
 .info-label {
@@ -113,37 +94,40 @@
 }
 
 .info-value.accent {
-  color: var(--color-accent);
+  color: var(--color-accent2); /* Usiamo il verde foresta per i valori positivi/speciali */
 }
+
+/* --- Pulsanti --- */
 
 .session-cta {
   font-family: var(--font-body);
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 600;
   padding: 0.65rem 1.75rem;
   border-radius: 100px;
   border: none;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s, transform 0.15s;
+  transition: all 0.2s;
 }
 
 .session-cta--book {
   background: var(--color-accent);
-  color: var(--color-bg);
+  color: var(--color-bg); /* Sfondo chiaro per il testo sul pulsante scuro */
 }
 
 .session-cta--book:hover {
-  background: #e8a84a;
+  filter: brightness(1.2); /* Schiarisce leggermente il marrone senza hardcoding */
   transform: translateY(-1px);
 }
 
 .session-cta--cancel {
   background: transparent;
-  color: var(--color-text);
+  color: var(--color-muted);
   border: 1px solid var(--color-border);
 }
 
 .session-cta--cancel:hover {
-  border-color: #c74c4c;
-  color: #e57373;
+  border-color: #c2410c; /* Un tono rossastro per l'annullamento, ma più armonico */
+  color: #c2410c;
+  background-color: rgba(194, 65, 12, 0.05);
 }

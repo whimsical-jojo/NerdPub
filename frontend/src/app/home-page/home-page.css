@@ -1,33 +1,10 @@
-
-/* --- VARIABILI GLOBALI --- */
-:root {
-  --color-bg: #cfab76;
-  --color-surface: #b79862;
-  --color-card: #221f19;
-  --color-border: #2e2a22;
-  --color-accent: #d4933a;
-  --color-accent2: #7a3f1e;
-  --color-text: #f0ebe0;
-  --color-muted: #8a826e;
-  --font-display: 'Playfair Display', serif;
-  --font-body: 'DM Sans', sans-serif;
-  --radius: 12px;
-  --radius-sm: 8px;
-}
-
 /* --- HOMEPAGE LAYOUT --- */
 .homepage {
   min-height: 100vh;
   font-family: var(--font-body);
   color: var(--color-text);
-  /* Effetto profondità con gradiente radiale */
   background: radial-gradient(circle at top, var(--color-surface) 0%, var(--color-bg) 100%);
   background-attachment: fixed;
-}
-
-.homepage .w3-padding-32 {
-  padding-top: 40px !important;
-  padding-bottom: 0px !important;
 }
 
 /* --- TIPOGRAFIA --- */
@@ -38,114 +15,88 @@
   font-weight: 800;
   margin: 0 !important;
   line-height: 1.1;
-  text-transform: none !important;
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
 }
 
 .homepage p.w3-center {
   color: var(--color-muted) !important;
-  font-size: 1.2rem;
-  margin: 10px auto 30px auto !important;
+  font-size: 1.1rem;
+  /* Ridotto il margine inferiore da 30px a 15px per avvicinare la barra */
+  margin: 8px auto 15px auto !important;
   line-height: 1.4;
   max-width: 600px;
 }
 
-/* --- SEARCH BAR (Angular Material Customization) --- */
-::v-deep .mat-mdc-form-field {
-  width: 100%;
-  max-width: 450px;
-  display: block;
-  margin: 0 auto;
+/* --- CONTENITORE RICERCA (ALLINEAMENTO LATERALE) --- */
+/* Miriamo al div w3-center che contiene la search bar */
+.homepage .w3-col > .w3-center:has(app-city-picker) {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Allineamento verticale perfetto */
+  gap: 12px;
+  margin-top: 0 !important; /* Elimina lo spazio extra sopra la barra */
 }
 
-/* Contenitore principale della barra */
-::v-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-  background-color: var(--color-card) !important;
-  border-radius: var(--radius-sm) !important;
-  height: 64px !important;
-  border: 1px solid var(--color-border) !important; /* Un tocco di definizione */
+/* Rende il componente picker più compatto */
+.homepage app-city-picker {
+  flex: 0 1 350px;
 }
 
-/* Rimuove l'effetto hover grigio di Material */
-::v-deep .mdc-text-field--filled .mdc-text-field__ripple {
-  display: none !important;
-}
-
-/* Testo digitato */
-::v-deep .mat-mdc-input-element {
-  font-size: 1.3rem !important;
-  color: var(--color-text) !important;
-  padding-top: 8px !important;
-  caret-color: var(--color-accent) !important; /* Colore del cursore */
-}
-
-/* Logica Label: sparisce al click o quando scrivi */
-::v-deep .mat-mdc-form-field.mat-focused .mat-mdc-form-field-label,
-::v-deep .mat-mdc-form-field .mdc-floating-label--float-above {
-  display: none !important;
-}
-
-/* Stile della label (Placeholder centrale) */
-::v-deep .mat-mdc-form-field-label {
-  font-size: 1.1rem !important;
-  color: var(--color-muted) !important;
-  top: 30px !important;
-}
-
-/* Pulizia linee decorative Material */
-::v-deep .mdc-line-ripple,
-::v-deep .mdc-text-field__bottom-line,
-::v-deep .mdc-notched-outline {
-  display: none !important;
-}
-
-/* --- BOTTONE SEARCH (Versione compatta) --- */
+/* --- BOTTONE SEARCH (COMPATTO) --- */
 .homepage .w3-button.w3-blue {
   background-color: var(--color-accent) !important;
   color: var(--color-bg) !important;
   font-weight: 700;
-  font-size: 1.1rem;
-  padding: 10px 35px !important; /* Dimensioni ridotte */
-  margin-top: 20px !important;
+  font-size: 1.1rem; /* Aumentato leggermente per bilanciare l'altezza */
+
+  /* Reset del padding: lasciamo solo lo spazio laterale */
+  padding: 0 25px !important;
+
+  margin-top: 0 !important;
   border-radius: var(--radius-sm) !important;
-  text-transform: uppercase; /* Più grintoso per un bottone piccolo */
-  letter-spacing: 1px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   border: none !important;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(120, 53, 15, 0.2);
+  height: 54px;
+  display: inline-flex;
+  align-items: center;      /* Centra il testo verticalmente */
+  justify-content: center;   /* Centra il testo orizzontalmente */
+  line-height: normal;
 }
 
 .homepage .w3-button.w3-blue:hover {
   background-color: var(--color-text) !important;
-  color: var(--color-bg) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(45, 27, 14, 0.3);
 }
 
-/* --- SEZIONE RISULTATI --- */
+/* --- LISTA RISULTATI --- */
 app-game-sessions-list {
   display: block;
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
-.list-header {
-  background-color: var(--color-surface, #1a1712);
-  padding: 1.25rem 0 !important;
-  border-bottom: 1px solid var(--color-border, #2e2a22);
+/* Messaggio "No sessions found" */
+.homepage div.w3-center.w3-padding {
+  color: var(--color-muted);
+  font-style: italic;
+  margin-top: 20px;
 }
 
-.list-title {
-  font-family: var(--font-display, 'Playfair Display', serif);
-  font-size: 0.85rem !important;
-  color: var(--color-muted, #8a826e) !important;
-  margin: 0 !important;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 600px) {
+  .homepage .w3-col > .w3-center:has(app-city-picker) {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 15px;
+  }
 
-.w3-text-grey {
-  color: var(--color-accent, #d4933a) !important;
-  font-family: var(--font-body, 'DM Sans', sans-serif);
-  font-size: 1.05rem;
-  font-weight: 600;
-  margin: 0.35rem 0 0 !important;
+  .homepage app-city-picker,
+  .homepage .w3-button.w3-blue {
+    width: 100%;
+    flex: none;
+    height: 48px;
+  }
 }

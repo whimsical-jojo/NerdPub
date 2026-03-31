@@ -1,96 +1,113 @@
-:host {
-  display: block;
-  background-color: var(--color-bg, #0f0d0a);
+/* --- LAYOUT GENERALE --- */
+.profile-container {
+  background-color: var(--color-bg);
+  font-family: var(--font-body);
+  color: var(--color-text);
   min-height: 100vh;
+  padding: 40px 20px;
 }
 
-/* HEADER */
-
+/* --- HEADER --- */
 .profile-header {
-  padding: 2.5rem 1rem 2rem !important;
-  background: var(--color-surface, #1a1712);
-  border-bottom: 1px solid var(--color-border, #2e2a22);
+  margin-bottom: 40px;
 }
 
 .avatar {
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
+  font-size: 4rem;
+  background: var(--color-surface);
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  border: 2px solid var(--color-border);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 .profile-title {
-  font-family: var(--font-display, 'Playfair Display', serif);
-  font-size: 1.4rem;
-  color: var(--color-accent, #d4933a);
-  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--color-accent);
+  margin-bottom: 5px;
 }
 
 .profile-subtitle {
-  color: var(--color-muted, #8a826e);
-  margin-top: 0.4rem;
+  color: var(--color-muted);
+  font-size: 1.1rem;
 }
 
-/* ACTIONS */
-
+/* --- CARDS & ACTIONS --- */
 .actions-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+  max-width: 800px;
+  margin: 0 auto 50px;
 }
 
 .actions-card {
-  background: var(--color-card, #221f19);
-  border: 1px solid var(--color-border, #2e2a22);
-  border-radius: var(--radius, 12px);
-  padding: 1.5rem;
-  text-align: center;
+  background-color: var(--color-card);
+  padding: 30px;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 10px 25px rgba(120, 53, 15, 0.08); /* Ombra calda */
 }
 
 .section-title {
-  font-family: var(--font-display, 'Playfair Display', serif);
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--color-muted, #8a826e);
-  margin-bottom: 1.2rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  border-bottom: 2px solid var(--color-surface);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  color: var(--color-accent);
 }
 
 .actions-buttons {
   display: flex;
-  justify-content: center;
-  gap: 1rem;
+  gap: 15px;
   flex-wrap: wrap;
 }
 
-/* LIST (reuse yours) */
+/* Override per Angular Material Buttons per matchare il root */
+button[mat-raised-button] {
+  background-color: var(--color-accent) !important;
+  color: #fff !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 8px 20px !important;
+  font-weight: 600;
+}
 
+button[mat-stroked-button] {
+  border-color: var(--color-border) !important;
+  color: var(--color-accent) !important;
+  border-radius: var(--radius-sm) !important;
+}
+
+/* --- LISTA SESSIONI --- */
 .list-container {
-  margin-top: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .list-header {
-  background-color: var(--color-surface, #1a1712);
-  padding: 1.25rem 0 !important;
-  border-bottom: 1px solid var(--color-border, #2e2a22);
+  border-top: 1px dashed var(--color-border);
+  margin-top: 20px;
 }
 
 .list-title {
-  font-family: var(--font-display, 'Playfair Display', serif);
-  font-size: 0.85rem !important;
-  color: var(--color-muted, #8a826e) !important;
-  margin: 0 !important;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--color-accent2); /* Verde Foresta per le sessioni */
+  margin-bottom: 0;
 }
 
-.w3-text-grey {
-  color: var(--color-accent, #d4933a) !important;
-  font-size: 1.05rem;
-  font-weight: 600;
-  margin: 0.35rem 0 0 !important;
-}
+/* --- RESPONSIVITÀ --- */
+@media (max-width: 600px) {
+  .actions-buttons {
+    flex-direction: column;
+  }
 
-.w3-row-padding {
-  padding: 1.5rem 12px 2rem !important;
-  max-width: 1200px;
-  margin: 0 auto;
+  .profile-title {
+    font-size: 2rem;
+  }
 }

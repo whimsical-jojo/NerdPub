@@ -4,10 +4,11 @@ import { GameSession } from '../model/entities';
 import { GameSessionService } from '../service/game-session-service';
 import { CommonModule } from '@angular/common';
 import { CityPicker } from '../city-picker/city-picker';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home-page',
-  imports: [GameSessionsList, CommonModule, CityPicker],
+  imports: [GameSessionsList, CommonModule, CityPicker, FormsModule],
   templateUrl: './home-page.html',
   styleUrls: ['./home-page.css'],
 })

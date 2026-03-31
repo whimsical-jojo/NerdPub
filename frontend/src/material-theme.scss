@@ -1,37 +1,279 @@
-
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
-html {
+/* 1. VARIABILI CORE - PALETTE PARCHMENT TAVERN */
+:root {
+  --color-bg: #FDFBF7;      /* Sfondo crema/pergamena */
+  --color-card: #FFFFFF;    /* Bianco per i box e le card */
+  --color-border: #E2D1B3;  /* Beige per i bordi */
+  --color-accent: #78350F;  /* Marrone legno per il logo e i dettagli */
+  --color-text: #2D1B0E;    /* Marrone caffè scurissimo per i testi */
+  --color-muted: #BDB7A9;   /* Grigio-Beige chiaro per il placeholder */
+
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --radius: 12px;
+}
+
+/* 2. RESET E BASE */
+html, body {
   height: 100%;
+  margin: 0;
+}
+
+body {
+  background-color: var(--color-bg) !important;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  color-scheme: light;
+}
+
+/* 3. TOP MENU (TOOLBAR BIANCA) */
+.main-header {
+  /* Reset variabili interne Material 3 */
+  --mat-toolbar-container-background-color: #FFFFFF !important;
+  --mdc-top-app-bar-container-color: #FFFFFF !important;
+
+  background-color: #FFFFFF !important;
+  color: var(--color-text) !important;
+  height: 70px !important;
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03) !important;
+
+  .logo {
+    font-family: var(--font-display) !important;
+    font-weight: bold !important;
+    font-size: 1.8rem !important;
+    color: var(--color-accent) !important; /* Logo color legno */
+    cursor: pointer;
+  }
+
+  .mat-mdc-button {
+    color: var(--color-text) !important;
+    font-weight: 500;
+  }
+}
+
+/* 4. BARRA DI RICERCA (BOX PULITO E CENTRATO) */
+.city-search {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;    /* <--- FONDAMENTALE: Allinea verticalmente barra e bottone */
+  gap: 10px;              /* Spazio tra barra e bottone */
+  padding: 10px 20px !important; /* Ridotto il padding top come chiesto prima */
+  margin: 0 auto !important;
+}
+
+.search-field {
+  width: 100%;
+  max-width: 600px !important; /* Larghezza del box */
+
+  /* Reset Material 3 per eliminare hover scuro e riga sotto */
+  --mdc-filled-text-field-container-color: #FFFFFF;
+  --mdc-filled-text-field-container-height: 60px !important;
+  --mdc-filled-text-field-active-indicator-height: 0px;
+  --mdc-filled-text-field-focus-active-indicator-height: 0px;
+  --mdc-filled-text-field-hover-state-layer-opacity: 0;
+  --mdc-filled-text-field-focus-state-layer-opacity: 0;
+
+  /* Rimuove lo spazio per i messaggi di errore (permette la centratura) */
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
+  }
+
+  /* Il Box Esterno */
+  .mat-mdc-text-field-wrapper {
+    height: 60px !important;
+    background-color: #FFFFFF !important;
+    border: 2px solid var(--color-border) !important;
+    border-radius: var(--radius) !important;
+    padding: 0 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    transition: border-color 0.2s ease;
+  }
+
+  /* Allineamento Interno (Infix) */
+  .mat-mdc-form-field-infix {
+    padding: 0 !important;      /* Rimuove padding interni */
+    border-top: 0 !important;   /* Rimuove lo spazio per la label fluttuante */
+    min-height: unset !important;
+    display: flex !important;
+    align-items: center !important;
+    height: 60px !important;
+  }
+
+  .mat-mdc-form-field-flex {
+    height: 100% !important;
+    align-items: center !important;
+  }
+
+  /* Testo digitato */
+  input.mat-mdc-input-element {
+    color: var(--color-text) !important;
+    font-size: 1.2rem !important;
+    font-family: var(--font-body) !important;
+    line-height: normal !important;
+    height: auto !important;
+  }
+
+  /* PLACEHOLDER / LABEL (La scritta "Città") */
+  .mat-mdc-form-field-label-wrapper {
+    top: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    height: 60px !important;
+  }
+
+  .mat-mdc-form-field-label {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) scale(1) !important; /* Centrata perfettamente */
+    font-size: 1.2rem !important;
+    color: var(--color-muted) !important; /* COLORE CHIARO RICHIESTO */
+    display: block !important;
+  }
+
+  /* SPARIZIONE: Scompare quando clicchi (focused) o quando scrivi (should-float) */
+  &.mat-focused .mat-mdc-form-field-label,
+  &.mat-form-field-should-float .mat-mdc-form-field-label {
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+  /* Disabilita l'effetto floating (label che vola in alto) */
+  .mdc-floating-label--float-above {
+    display: none !important;
+  }
+
+  /* Bordi al focus (click) */
+  &.mat-focused .mat-mdc-text-field-wrapper {
+    border-color: var(--color-accent) !important;
+  }
+
+  /* Pulizia Icone e Linee grafiche di default */
+  .mdc-line-ripple, .mdc-text-field__ripple, .mdc-notched-outline {
+    display: none !important;
+  }
+}
+
+/* 5. TEMA MATERIAL GENERALE */
+html {
   @include mat.theme((
-    color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
+    color: (primary: mat.$azure-palette, tertiary: mat.$orange-palette),
     typography: Roboto,
     density: 0,
   ));
 }
 
-body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
-  color-scheme: light;
+.mat-mdc-option.mdc-list-item--selected {
+  background-color: transparent !important;
 
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
+  // Se vuoi rimuovere anche l'effetto hover quando è selezionata
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04) !important; // O transparent
+  }
+}
 
-  // Reset the user agent margin.
-  margin: 0;
-  height: 100%;
+.mat-mdc-option .mat-pseudo-checkbox {
+  display: none !important;
+}
+
+/* In alcune versioni potrebbe essere necessario questo per lo spazio vuoto */
+.mat-mdc-option.mdc-list-item--selected .mat-mdc-option-pseudo-checkbox {
+  display: none !important;
+}
+
+
+/* --- 3. TOP MENU (TOOLBAR BIANCA) --- */
+.main-header {
+  --mat-toolbar-container-background-color: #FFFFFF !important;
+  --mdc-top-app-bar-container-color: #FFFFFF !important;
+
+  background-color: #FFFFFF !important;
+  height: 70px !important;
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+  padding: 0 !important;
+
+  .container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    height: 100%;
+  }
+
+  .logo {
+    font-family: var(--font-display) !important;
+    font-weight: 800 !important;
+    font-size: 1.8rem !important;
+    color: var(--color-accent) !important;
+    cursor: pointer;
+    letter-spacing: -0.5px;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  nav {
+    display: flex;
+    gap: 15px; /* Aumentato lo spazio tra Home e il tasto Login */
+    align-items: center;
+
+    /* Stile pulito per i link di navigazione (Home) */
+    .nav-link {
+      font-family: var(--font-body);
+      font-weight: 600;
+      color: var(--color-text) !important;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.9rem;
+      background: none !important; /* Rimosso sfondo */
+
+      &:hover {
+        color: var(--color-accent) !important;
+        background: none !important;
+      }
+
+      &.active-link {
+        color: var(--color-accent) !important;
+        background: none !important; /* Rimosso sfondo fisso */
+        /* Niente puntini o decorazioni extra */
+      }
+    }
+
+    /* Tasto LOGIN stile Pulsante Pieno */
+    .btn-login {
+      background-color: var(--color-accent) !important;
+      color: #FFFFFF !important; /* Testo bianco su fondo marrone */
+      font-weight: 700 !important;
+      border-radius: 50px !important; /* Arrotondato (stile pillola) */
+      padding: 0 20px !important;
+      height: 40px !important;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(120, 53, 15, 0.2);
+        filter: brightness(1.1);
+      }
+
+      /* Icona omino */
+      mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+        margin-right: 4px;
+      }
+    }
+  }
 }
