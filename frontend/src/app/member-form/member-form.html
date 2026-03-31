@@ -1,17 +1,24 @@
 <h2 mat-dialog-title>
-  {{ mode() === 'edit' ? 'Modifica account' : 'Crea account' }}
+    {{ mode() === 'edit' ? 'Modifica account' : 'Crea account' }}
 </h2>
 
 <form #memberForm="ngForm" class="member-form">
     <div mat-dialog-content>
-        <label for="firstname">Nome</label>
-        <input type="text" name="firstname" [(ngModel)]="member().firstName" class="w3-input" required />
 
-        <label for="lastname">Cognome</label>
-        <input type="text" name="lastname" [(ngModel)]="member().lastName" class="w3-input" required />
+        <mat-form-field appearance="fill">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" name="firstname" [(ngModel)]="member().firstName" required />
+        </mat-form-field>
 
-        <label for="username">Nome utente</label>
-        <input type="text" name="username" [(ngModel)]="member().username" class="w3-input" required />
+        <mat-form-field appearance="fill">
+            <mat-label>Cognome</mat-label>
+            <input matInput type="text" name="lastname" [(ngModel)]="member().lastName" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Nome utente</mat-label>
+            <input matInput type="text" name="username" [(ngModel)]="member().username" required />
+        </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">
             <mat-label>Data di nascita</mat-label>
@@ -23,8 +30,10 @@
 
         <!-- PASSWORD ONLY ON CREATE -->
         @if (mode() === 'create') {
-        <label for="password">Password</label>
-        <input type="password" name="password" [(ngModel)]="member().password" class="w3-input" required />
+        <mat-form-field appearance="fill" class="member-field full-width">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" name="password" [(ngModel)]="member().password" required />
+        </mat-form-field>
         }
     </div>
 

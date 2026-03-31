@@ -6,10 +6,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-change-password-form',
-  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatIconModule],
+  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatIconModule, MatButtonModule],
   templateUrl: './change-password-form.html',
   styleUrl: './change-password-form.css',
 })
