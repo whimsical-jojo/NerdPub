@@ -41,7 +41,7 @@
         <button mat-stroked-button (click)="dialogRef.close()">Annulla</button>
         <!-- ACTION BUTTON -->
         <div class="form-actions">
-            <button mat-raised-button color="primary" (click)="mode() === 'create' ? create() : update()"
+            <button mat-raised-button color="primary" (click)="mode() === 'create' ? create() : update();memberForm.resetForm();"
                 [disabled]="!memberForm.valid">
 
                 {{ mode() === 'create' ? 'Crea account' : 'Salva modifiche' }}

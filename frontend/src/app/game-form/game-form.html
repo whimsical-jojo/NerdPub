@@ -1,0 +1,28 @@
+<h2 mat-dialog-title class="dialog-title">
+    {{ mode() === 'edit' ? 'Modifica gioco' : 'Crea gioco' }}
+</h2>
+<form #gameForm="ngForm" class="game-form">
+    <div mat-dialog-content class="game-content">
+        <mat-form-field appearance="fill">
+            <mat-label>Titolo</mat-label>
+            <input matInput type="text" name="title" [(ngModel)]="game().title" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Descrizione</mat-label>
+            <input matInput name="description" [(ngModel)]="game().description" required />
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-stroked-button (click)="dialogRef.close()">Annulla</button>
+        <!-- ACTION BUTTON -->
+        <div class="form-actions">
+            <button mat-raised-button color="primary" (click)="mode() === 'create' ? create() : update();gameForm.resetForm();"
+                [disabled]="!gameForm.valid">
+
+                {{ mode() === 'create' ? 'Crea gioco' : 'Salva modifiche' }}
+
+            </button>
+        </div>
+    </div>
+</form>
