@@ -19,7 +19,7 @@ export class GamePicker {
 
   //Inputs & Outputs
   games = input<Game[]>([]);
-  selectedGame = output<Game | null>();
+  selectedGame = model<Game | null>(null);
 
   //Local State
   query = signal<string | Game>('');
@@ -36,7 +36,7 @@ export class GamePicker {
 
   selectGame(game: Game) {
     console.log("Game selected:" + game.title);
-    this.selectedGame.emit(game);
+    this.selectedGame.set(game);
   }
 
   displayFn(game: Game | null): string {
