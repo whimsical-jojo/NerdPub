@@ -3,6 +3,8 @@ import { HomePage } from './home-page/home-page';
 import { AuthService } from './service/auth-service';
 import { TopMenu } from "./top-menu/top-menu";
 import { RouterOutlet } from '@angular/router';
+import { ProfilePage } from './profile-page/profile-page';
+import { AdminPage } from './admin-page/admin-page';
 
 @Component({
   selector: 'app-root',
