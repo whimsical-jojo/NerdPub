@@ -1,0 +1,19 @@
+.members-page {
+  padding: 1rem;
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 1rem;
+}
+
+.members-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.member-card {
+  width: 250px;
+}

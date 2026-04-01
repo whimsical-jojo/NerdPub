@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.nerdpub.dto.MemberDTO;
 import com.nerdpub.mapper.MemberMapper;
 import com.nerdpub.model.Member;
+import com.nerdpub.repository.GameSessionBookingRepository;
 import com.nerdpub.repository.MemberRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -16,6 +17,9 @@ import jakarta.persistence.EntityNotFoundException;
 public class MemberService {
     @Autowired
 	MemberRepository memberRepository;
+
+    @Autowired
+    GameSessionBookingRepository bookingRepo;
 	
 	@Autowired
 	MemberMapper memberMapper;
@@ -40,6 +44,17 @@ public class MemberService {
 
     public List<MemberDTO> findByUsernameContaining(String membername) {
         return memberMapper.toDTOs(memberRepository.findByUsernameContaining(membername));
+    }
+
+    public MemberDTO toggleBan(int memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        //if the member is getting banned now, delete all their future bookings
+        if (!member.isBanned())
+            bookingRepo.cancelMembersFutureBookings(memberId);
+
+        member.setBanned(!member.isBanned());
+        member = memberRepository.save(member);
+        return memberMapper.toDTO(member);
     }
 
 }

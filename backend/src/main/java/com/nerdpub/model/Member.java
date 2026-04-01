@@ -24,4 +24,5 @@ public class Member {
     private Role role;
 
     private LocalDate dob;
+    private boolean banned;
 }

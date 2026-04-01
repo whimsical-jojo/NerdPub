@@ -17,7 +17,11 @@ export class MemberService {
   }
     
   // GET /members?username={username} — recupero lista membri con username simile
-  getMemberByUsernameContaining(username:string):Observable<Member[]>{
+  searchMembers(username:string):Observable<Member[]>{
     return this.http.get<Member[]>(this.url+'?username='+username);
   } 
+
+  toggleBan(id:number):Observable<Member>{
+    return this.http.put<Member>(this.url+'/'+id,null);
+  }
 }

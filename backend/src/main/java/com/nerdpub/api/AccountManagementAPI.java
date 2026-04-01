@@ -37,6 +37,7 @@ public class AccountManagementAPI {
         return ResponseEntity.ok(new TokenDTO(jwt));
     }
 
+    //TODO add authentication so that only admins can create
     @PostMapping("/register")
     public ResponseEntity<Object> create(@RequestBody MemberDTO dto) {
         try {
@@ -47,6 +48,7 @@ public class AccountManagementAPI {
         }
     }
 
+    //TODO add authentication so that only users can update their own profiles, EXCEPT for user status and role
     @PutMapping("/{id}")
     public ResponseEntity<Object> update(@PathVariable int id, @RequestBody MemberDTO dto) {
         try {
@@ -66,10 +68,6 @@ public class AccountManagementAPI {
 
     @GetMapping("/current-user")
     public ResponseEntity<?> getCurrentUser(Authentication authentication) {
-        // What to do if there is no authentication? Is this really the best way to get
-        // the user details?
-        // What if someone tries to call the endpoint without being logged in?
-        // TODO ask Ferdinando
         try {
             MemberDTO userDetails = service.getCurrentUser(authentication.getName());
             if (userDetails == null) {

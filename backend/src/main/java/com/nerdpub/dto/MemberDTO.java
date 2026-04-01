@@ -22,4 +22,5 @@ public class MemberDTO {
     private Role role;
 
     private LocalDate dob;
+    private boolean banned;
 }
