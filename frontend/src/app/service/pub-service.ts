@@ -11,7 +11,7 @@ export class PubService {
   url = 'http://localhost:8080/api/pubs';
 
   // GET /pubs/{id} — recupero lista dei pub filtrabile per città
-  getPubs(city?:string):Observable<Pub[]>{
+  search(city?:string):Observable<Pub[]>{
     return !city?this.http.get<Pub[]>(this.url):this.http.get<Pub[]>(this.url+'?city='+city);
   }
 

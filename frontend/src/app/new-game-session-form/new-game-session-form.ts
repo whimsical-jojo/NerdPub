@@ -5,13 +5,14 @@ import { GameService } from '../service/game-service';
 import { PubTableService } from '../service/pub-table-service';
 import { FormsModule } from '@angular/forms';
 import { PubService } from '../service/pub-service';
-
+/*
 @Component({
   selector: 'app-new-game-session-form',
   imports: [FormsModule],
   templateUrl: './new-game-session-form.html',
   styleUrl: './new-game-session-form.css',
 })
+
 export class NewGameSessionForm implements OnInit{
   service=inject(GameSessionService);
   
@@ -32,9 +33,7 @@ export class NewGameSessionForm implements OnInit{
     pub:{
       name:"",
       address:"",
-      city:"",
-      phone:"",
-      score:0
+      city:""
     },
     pubId:0
    },
@@ -99,9 +98,7 @@ export class NewGameSessionForm implements OnInit{
               pub:{
                 name:"",
                 address:"",
-                city:"",
-                phone:"",
-                score:0
+                city:""
               },
               pubId:0
             },
@@ -117,4 +114,4 @@ export class NewGameSessionForm implements OnInit{
       }
     });  
   }
-}
+}*/

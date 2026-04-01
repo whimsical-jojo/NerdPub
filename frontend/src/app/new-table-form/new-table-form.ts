@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { PubTableService } from '../service/pub-table-service';
 import { Pub, PubTable } from '../model/entities';
 import { PubService } from '../service/pub-service';
-
+/*
 @Component({
   selector: 'app-new-table-form',
   imports: [FormsModule],
@@ -60,4 +60,4 @@ export class NewTableForm{
       }
     });  
   }
-}
+}*/

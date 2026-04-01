@@ -1,1 +1,59 @@
-<p>pubs works!</p>
+<div class="pub-page">
+  <div class="search-header">
+    <app-city-picker [(city)]="selectedCity" />
+    <button mat-raised-button color="primary" (click)="searchPubs()">
+      Cerca
+    </button>
+    <button mat-stroked-button (click)="openPubForm()">
+      Nuovo Pub
+    </button>
+  </div>
+
+  <mat-accordion class="pub-list" multi>
+    @for (pub of pubs(); track pub.id) {
+      <mat-expansion-panel (opened)="loadTables(pub.id!)">
+        <mat-expansion-panel-header>
+          <mat-panel-title><strong>{{ pub.name }}</strong></mat-panel-title>
+          <mat-panel-description>{{ pub.address }}, {{ pub.city }}</mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="pub-actions">
+          <button mat-button (click)="openPubForm(pub)">
+            <mat-icon>edit</mat-icon> Modifica Pub
+          </button>
+          <button mat-flat-button color="primary" (click)="openTableForm(pub.id!)">
+            <mat-icon>add</mat-icon> Aggiungi Tavolo
+          </button>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="tables-grid">
+          @for (table of tablesMap().get(pub.id!); track table.id) {
+            <mat-card appearance="outlined" class="table-card">
+              <mat-card-content>
+                <div class="table-info">
+                  <strong>{{ table.name }}</strong>
+                  <span>Posti: {{ table.capacity }}</span>
+                  <mat-chip [class.available]="table.available">
+                    {{ table.available ? 'Libero' : 'Occupato' }}
+                  </mat-chip>
+                </div>
+              </mat-card-content>
+              <mat-card-actions align="end">
+                <button mat-icon-button (click)="openTableForm(pub.id!, table)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteTable(table.id!)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          } @empty {
+            <p class="empty-msg">Nessun tavolo registrato per questo pub.</p>
+          }
+        </div>
+      </mat-expansion-panel>
+    }
+  </mat-accordion>
+</div>

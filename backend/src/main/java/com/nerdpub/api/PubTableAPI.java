@@ -68,4 +68,12 @@ public class PubTableAPI {
 
         return ResponseEntity.ok(tableService.findAll());
     }
+
+    @GetMapping("/pub/{id}")
+    public ResponseEntity<List<PubTableDTO>> findByPubId(@PathVariable int id) {
+        List<PubTableDTO> tables = tableService.findByPubId(id);
+        return ResponseEntity.ok(tables);
+    }
+
+    
 }

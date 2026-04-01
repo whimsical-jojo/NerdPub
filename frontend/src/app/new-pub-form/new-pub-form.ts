@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { PubService } from '../service/pub-service';
 import { Pub } from '../model/entities';
 import { FormsModule } from '@angular/forms';
-
+/*
 @Component({
   selector: 'app-new-pub-form',
   imports: [FormsModule],
@@ -39,4 +39,4 @@ export class NewPubForm {
       }
     });  
   }
-}
+}*/

@@ -33,4 +33,8 @@ export class PubTableService {
     deletePubTable(id:number):Observable<void>{
       return this.http.delete<void>(this.url+'/'+id);
     }
+
+    getTablesByPubId(pubId: number) {
+    return this.http.get<any[]>(`${this.url}/pub/${pubId}`);
+  }
 }

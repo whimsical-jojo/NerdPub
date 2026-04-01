@@ -12,4 +12,6 @@ public interface PubTableRepository extends JpaRepository<PubTable, Integer>{
 
     List<PubTable> findByNameContaining(String name);
 
+    List<PubTable> findByPubId(int id);
+
 }

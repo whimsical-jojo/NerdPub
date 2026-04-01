@@ -34,9 +34,16 @@ export class GamePicker {
     );
   });
 
-  selectGame(game: Game) {
-    console.log("Game selected:" + game.title);
+  selectGame(game: Game | null) {
     this.selectedGame.set(game);
+  }
+
+  onInputChange(value: string | Game) {
+    // If the input is empty string, the user cleared it.
+    this.query.set(value);
+    if (value === '') {
+      this.selectedGame.set(null);
+    }
   }
 
   displayFn(game: Game | null): string {

@@ -66,4 +66,8 @@ public class PubTableService {
     public List<PubTableDTO> findByNameContaining(String name) {
         return mapper.toDTOs(tableRepo.findByNameContaining(name));
     }
+
+    public List<PubTableDTO> findByPubId(int id) {
+        return mapper.toDTOs(tableRepo.findByPubId(id));
+    }
 }

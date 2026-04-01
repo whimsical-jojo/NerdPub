@@ -16,7 +16,7 @@ export interface PubTable{
     capacity:number,
     available:boolean
     pub:Pub
-    pubId:number
+    pubId?:number
 }
 
 export interface Game{
@@ -46,8 +46,6 @@ export interface Pub{
     id?:number,
     name:string,
     address:string,
-    city:string,
-    phone:string,
-    score:number
+    city:string
 
 }
