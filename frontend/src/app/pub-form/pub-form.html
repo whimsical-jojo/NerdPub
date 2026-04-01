@@ -1,0 +1,40 @@
+<h2 mat-dialog-title class="dialog-title">
+    {{ mode() === 'edit' ? 'Modifica pub' : 'Crea pub' }}
+</h2>
+<form #pubForm="ngForm" class="pub-form">
+    <div mat-dialog-content class="pub-content">
+        <mat-form-field appearance="fill">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" name="name" [(ngModel)]="pub().name" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Indirizzo</mat-label>
+            <input  matInput type="text" name="address" [(ngModel)]="pub().address" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Città</mat-label>
+            <input matInput type="text" name="city" [(ngModel)]="pub().city" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill">  
+            <mat-label>Telefono</mat-label>
+            <input matInput type="text" name="phone" [(ngModel)]="pub().phone" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Recensione</mat-label>
+            <input matInput type="number" name="score" [(ngModel)] ="pub().score" required max="5" min="0">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-stroked-button (click)="dialogRef.close()">Annulla</button>
+        <!-- ACTION BUTTON -->
+        <div class="form-actions">
+            <button mat-raised-button color="primary" (click)="mode() === 'create' ? create() : update();pubForm.resetForm();"
+                [disabled]="!pubForm.valid">
+
+                {{ mode() === 'create' ? 'Crea pub' : 'Salva modifiche' }}
+
+            </button>
+        </div>
+    </div>
+</form>
+
