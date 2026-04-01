@@ -8,10 +8,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { CityPicker } from '../../city-picker/city-picker';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { SessionForm } from './session-form/session-form';
 
 @Component({
   selector: 'app-game-sessions',
-  imports: [MatSliderModule, MatButtonModule, MatIconModule, CityPicker, MatCardModule, FormsModule],
+  imports: [MatSliderModule, MatButtonModule, MatIconModule, CityPicker, MatCardModule, FormsModule, DatePipe],
   templateUrl: './game-sessions.html',
   styleUrl: './game-sessions.css',
 })
@@ -38,7 +40,7 @@ export class AdminSessionsComponent {
     });
   }
 
-  openSessionForm(session?: GameSession) {/*
+  openSessionForm(session?: GameSession) {
     const ref = this.dialog.open(SessionForm, {
       width: '600px',
       data: { session }
@@ -46,6 +48,6 @@ export class AdminSessionsComponent {
 
     ref.afterClosed().subscribe(result => {
       if (result) this.search(); // Refresh list if saved
-    });*/
+    });
   }
 }

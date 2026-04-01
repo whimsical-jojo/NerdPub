@@ -47,7 +47,7 @@ export const routes: Routes = [
             {
                 path: 'game-sessions',
                 loadComponent: () =>
-                    import('./admin-page/game-sessions/game-sessions').then(m => m.AdminGameSessionsComponent)
+                    import('./admin-page/game-sessions/game-sessions').then(m => m.AdminSessionsComponent)
             },
             {
                 path: '',

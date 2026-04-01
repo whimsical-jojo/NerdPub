@@ -52,12 +52,12 @@ export class GameSessionService {
   }
 
   //POST /game-sessions — creazione sessione di gioco
-  createGameSession(gameSession: GameSession): Observable<GameSession> {
+  create(gameSession: GameSession): Observable<GameSession> {
     return this.http.post<GameSession>(this.url, gameSession);
   }
 
   //PUT /game-sessions {id} — modifica della sessione di gioco con quell'id
-  updateGameSession(gameSession: GameSession): Observable<GameSession> {
+  update(gameSession: GameSession): Observable<GameSession> {
     return this.http.put<GameSession>(this.url + '/' + gameSession.id, gameSession);
   }
 

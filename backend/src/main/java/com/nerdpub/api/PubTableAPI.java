@@ -1,5 +1,6 @@
 package com.nerdpub.api;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nerdpub.dto.PubTableDTO;
 import com.nerdpub.service.PubTableService;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
@@ -75,5 +77,14 @@ public class PubTableAPI {
         return ResponseEntity.ok(tables);
     }
 
-    
+    @GetMapping("/pub/{id}/available")
+    public ResponseEntity<?> findAvailableTablesByPubId(@PathVariable int id, @RequestParam String date) {
+        LocalDate parsedDate = LocalDate.parse(date);
+        try {
+            List<PubTableDTO> availableTables = tableService.findAvailableTablesByPubId(id, parsedDate);
+            return ResponseEntity.ok(availableTables);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

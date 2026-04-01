@@ -1,5 +1,6 @@
 package com.nerdpub.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,5 +70,11 @@ public class PubTableService {
 
     public List<PubTableDTO> findByPubId(int id) {
         return mapper.toDTOs(tableRepo.findByPubId(id));
+    }
+
+    public List<PubTableDTO> findAvailableTablesByPubId(int id, LocalDate parsedDate) {
+        Pub pub = pubRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("Pub not found with id: " + id));
+        List<PubTable> tables = tableRepo.findAvailableTablesByPubId(id, parsedDate);
+        return mapper.toDTOs(tables);
     }
 }

@@ -65,9 +65,7 @@ public class GameSessionAPI {
     ) {
         System.out.println("Searching for sessions with game: " + game + ", days: " + days + ", city: " + city);
         List<GameSessionDTO> results = gameSessionService.search(game, days, city);
-        if (results.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+        
         return ResponseEntity.ok(results);
     }
 

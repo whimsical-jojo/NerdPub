@@ -38,4 +38,8 @@ export class PubTableService {
     getTablesByPubId(pubId: number) {
     return this.http.get<any[]>(`${this.url}/pub/${pubId}`);
   }
+
+    getAvailableTables(pubId: number, date: string) {
+    return this.http.get<any[]>(`${this.url}/pub/${pubId}/available?date=${date}`);
+  }
 }

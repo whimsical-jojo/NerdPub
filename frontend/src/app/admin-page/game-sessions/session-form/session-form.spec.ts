@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminSessionsComponent } from './game-sessions';
+import { SessionForm } from './session-form';
 
-describe('AdminSessionsComponent', () => {
-  let component: AdminSessionsComponent;
-  let fixture: ComponentFixture<AdminSessionsComponent>;
+describe('SessionForm', () => {
+  let component: SessionForm;
+  let fixture: ComponentFixture<SessionForm>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminSessionsComponent]
+      imports: [SessionForm]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AdminSessionsComponent);
+    fixture = TestBed.createComponent(SessionForm);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

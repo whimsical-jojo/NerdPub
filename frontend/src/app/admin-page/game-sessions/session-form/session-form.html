@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>{{ data?.session ? 'Modifica' : 'Nuova' }} Sessione</h2>
+
+<mat-dialog-content class="form-grid">
+
+    <app-city-picker [(city)]="selectedCity" />
+
+    <mat-form-field appearance="outline">
+        <mat-label>Seleziona Pub</mat-label>
+        <mat-select [ngModel]="selectedPub()" (ngModelChange)="onPubChange($event)" [disabled]="!selectedCity()">
+            @for (pub of pubsInCity(); track pub.id) {
+            <mat-option [value]="pub">{{ pub.name }}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Data e Ora</mat-label>
+        <input matInput [matDatepicker]="picker" [ngModel]="selectedDate()"
+            (dateChange)="selectedDate.set($event.value); loadTables()">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Tavolo</mat-label>
+        <mat-select [(ngModel)]="selectedTable" [disabled]="availableTables().length === 0">
+            @for (table of availableTables(); track table.id) {
+            <mat-option [value]="table">{{ table.name }} (Capacità: {{ table.capacity }})</mat-option>
+            }
+        </mat-select>
+        @if (selectedPub() && selectedDate() && availableTables().length === 0) {
+        <mat-hint color="warn">Nessun tavolo disponibile per questa data.</mat-hint>
+        }
+    </mat-form-field>
+
+    <app-game-picker [selectedGame]="selectedGame()" />
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Annulla</button>
+    <button mat-flat-button color="primary" [disabled]="!selectedTable() || !selectedGame() || !selectedDate()"
+        (click)="save()">
+        Salva Sessione
+    </button>
+</mat-dialog-actions>
