@@ -1,4 +1,4 @@
-import { Component, inject, model } from '@angular/core';
+import { Component, computed, inject, input, model, output, signal } from '@angular/core';
 import { GameService } from '../service/game-service';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
+import { Game } from '../model/entities';
 
 @Component({
   selector: 'app-game-picker',
@@ -13,27 +14,34 @@ import { MatInputModule } from '@angular/material/input';
   templateUrl: './game-picker.html',
   styleUrl: './game-picker.css',
 })
-/**
- * WARNING UNFINISHED NON FINITO NON USARE
- */
+
 export class GamePicker {
-  game = model<string>('');
-  gameService = inject(GameService);
 
-  //Yeah it's basically magic don't ask me
-  private game$ = toObservable(this.game);
+  //Inputs & Outputs
+  games = input<Game[]>([]);
+  selectedGame = output<Game | null>();
 
-  games = toSignal(
-    this.game$.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      switchMap(query => this.gameService.search())
-    ),
-    { initialValue: [] }
-  );
+  //Local State
+  query = signal<string | Game>('');
 
-  displayFn(game: string): string {
-    return game;
+  //The Logic
+  filteredGames = computed(() => {
+    const val = this.query();
+    const searchStr = (typeof val === 'string' ? val : val.title).toLowerCase();
+    
+    return this.games().filter(game => 
+      game.title.toLowerCase().includes(searchStr)
+    );
+  });
+
+  selectGame(game: Game) {
+    console.log("Game selected:" + game.title);
+    this.selectedGame.emit(game);
+  }
+
+  displayFn(game: Game | null): string {
+    return game?.title ?? '';
   }
 }
+
 

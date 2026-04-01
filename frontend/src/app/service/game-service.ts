@@ -10,10 +10,8 @@ export class GameService {
   http = inject(HttpClient)
   url= 'http://localhost:8080/api/games';
 
-  //TEMPORARY SWITCH LATER TO SEARCH ONLY WITH GAME PICKER
-  // GET /games — recupero lista di giochi
-  getGames(): Observable<Game[]> {
-    return this.http.get<Game[]>(this.url);
+  findAll() : Observable<Game[]> {
+    return this.http.get<Game[]>(this.url+'/all');
   }
   
   // GET /games?title={title}&pub={pubName} — recupero lista di giochi, filtrabili per titolo e nome pub

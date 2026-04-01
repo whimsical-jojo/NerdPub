@@ -74,4 +74,10 @@ public class GameAPI {
 
         return ResponseEntity.ok(gameService.findAll());
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<GameDTO>> findAll() {
+        return ResponseEntity.ok(gameService.findAll());
+    }
+
 }

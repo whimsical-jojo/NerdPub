@@ -12,6 +12,9 @@ import { MatInputModule } from '@angular/material/input';
   templateUrl: './city-picker.html',
   styleUrl: './city-picker.css',
 })
+
+//AVVISO WARNING
+// QUANDO UNA CITTÀ VIENE SELEZIONATA, AL MOMENTO NON VIENE CHIAMATO SELECT CITY
 export class CityPicker {
   city = model<string>('');
   pubService = inject(PubService);
@@ -21,6 +24,7 @@ export class CityPicker {
   selected = signal(false);
 
   selectCity(city: string) {
+    console.log("City selected")
     this.city.set(city);
     this.selected.set(true);
   }

@@ -44,7 +44,7 @@ export class NewGameSessionForm implements OnInit{
   }
 
   ngOnInit():void{
-    this.gameService.getGames().subscribe({
+    this.gameService.findAll().subscribe({
       next: (games) => {
         this.games.set(games);
       },
