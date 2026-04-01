@@ -1,1 +1,29 @@
-<p>games works!</p>
+<div class="games-page">
+     <!-- Search bar -->
+    <mat-form-field appearance="outline" class="search-bar">
+        <mat-label>Cerca giochi</mat-label>
+        <input matInput placeholder="cerca per titolo" [(ngModel)]="search">
+        <button mat-icon-button matSuffix (click)="search.set('')">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <!-- Register new game button-->
+    <button mat-raised-button color="primary" (click)="openMemberForm()">
+        Registra nuovo gioco
+    </button>
+
+     <!-- Game cards -->
+    <div class="members-list">
+        <!-- TODO ADD FRONT END FILTERS-->
+        @for (game of games(); track game.id) {
+        <mat-card appearance="outlined" class="member-card">
+            <mat-card-header>
+                <mat-card-title>{{ game.title }} {{ game.title }}</mat-card-title>
+                <mat-card-subtitle>{{ game.description}}</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+        }
+    </div>
+
+</div>
