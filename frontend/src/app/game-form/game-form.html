@@ -17,7 +17,7 @@
         <button mat-stroked-button (click)="dialogRef.close()">Annulla</button>
         <!-- ACTION BUTTON -->
         <div class="form-actions">
-            <button mat-raised-button color="primary" (click)="mode() === 'create' ? create() : update();gameForm.resetForm();"
+            <button mat-raised-button color="primary" (click)="save();gameForm.resetForm();"
                 [disabled]="!gameForm.valid">
 
                 {{ mode() === 'create' ? 'Crea gioco' : 'Salva modifiche' }}

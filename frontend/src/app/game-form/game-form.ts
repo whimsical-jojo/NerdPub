@@ -16,56 +16,42 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './game-form.html',
   styleUrl: './game-form.css',
 })
-export class GameForm implements OnInit {
+export class GameForm {
   dialogRef = inject(MatDialogRef<GameForm>);
-  service=inject(GameService);
-  gameInput=input.required<Game>();
-  private data = inject(MAT_DIALOG_DATA) as { mode: 'create' | 'edit' } | undefined;
-  mode = signal<'create' | 'edit'>(this.data?.mode ?? 'create');
+  private service = inject(GameService);
   
-  game=signal<Game>({
-    title:'',
-    description:''
-  });
+  // 1. Grab data passed from the AdminGamesComponent
+  private data = inject(MAT_DIALOG_DATA) as { mode: 'create' | 'edit', game?: Game } | undefined;
 
-  ngOnInit(): void {
-    if (this.mode() === 'edit') {
-      if(this.gameInput()){
-        this.game.set({
-        id:this.gameInput().id,
-        title:this.gameInput().title,
-        description:this.gameInput().description 
-      });
-      }
-    
-    }
-  }
-  create():void{
-    this.service.createGame(this.game()).subscribe({
-    next: (game) => {
-        console.log('Gioco salvato con successo!', game);
-        this.game.set(game);
-        alert('Gioco salvato con successo!');
-        
+  mode = signal<'create' | 'edit'>(this.data?.mode ?? 'create');
+
+  // 2. Initialize signal with spread operator to capture all fields dynamically
+  game = signal<Game>(this.data?.game 
+    ? { ...this.data.game } 
+    : { title: '', description: '' } as Game
+  );
+
+  // 3. Unified save logic
+  save(): void {
+    const gameData = this.game();
+    const request$ = this.mode() === 'edit' 
+      ? this.service.updateGame(gameData) 
+      : this.service.createGame(gameData);
+
+    request$.subscribe({
+      next: (savedGame) => {
+        console.log('Operazione riuscita:', savedGame);
+        // Pass the result back to the parent so it knows to refresh the list
+        this.dialogRef.close(savedGame); 
       },
       error: (err) => {
-        console.log('Errore nel salvataggio del gioco!', err);
+        console.error('Errore durante il salvataggio:', err);
         alert('Errore nel salvataggio del gioco!');
       }
-    });  
+    });
   }
 
-  update(): void {
-    this.service.updateGame(this.game()).subscribe({
-      next: (game) => {
-        console.log('Account aggiornato con successo!', game);
-
-        // aggiorna stato locale con risposta server
-      },
-      error: (err) => {
-        console.error("Errore nell'aggiornamento dell'account", err);
-      }
-    });
+  cancel(): void {
     this.dialogRef.close();
   }
 }

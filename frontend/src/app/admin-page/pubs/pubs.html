@@ -36,7 +36,7 @@
                   <strong>{{ table.name }}</strong>
                   <span>Posti: {{ table.capacity }}</span>
                   <mat-chip [class.available]="table.available">
-                    {{ table.available ? 'Libero' : 'Occupato' }}
+                    {{ table.available ? 'Disponibile' : 'Indisponibile' }}
                   </mat-chip>
                 </div>
               </mat-card-content>
@@ -44,7 +44,7 @@
                 <button mat-icon-button (click)="openTableForm(pub.id!, table)">
                   <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button color="warn" (click)="deleteTable(table.id!)">
+                <button mat-icon-button color="warn" (click)="deleteTable(table.id!, pub.id!)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </mat-card-actions>

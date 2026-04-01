@@ -73,7 +73,12 @@ export class AdminPubsComponent {
     });
   }
   
-  deleteTable(id: number) {
-    // Implementation for delete...
+  deleteTable(tableId: number, pubId : number) {
+    this.pubTableService.deletePubTable(tableId).subscribe(
+      () => {
+        this.loadTables(pubId);
+      },
+      (err) => console.error('Failed to delete table', err)
+    );
   }
 }
