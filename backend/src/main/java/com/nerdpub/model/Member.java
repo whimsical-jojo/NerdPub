@@ -21,8 +21,10 @@ public class Member {
     private String email;
     private String username;
     private String password;
-    private Role role;
+    //Default role is member
+    private Role role = Role.MEMBER;
 
     private LocalDate dob;
-    private boolean banned;
+    //By default users are not banned if not specified
+    private boolean banned = false;
 }

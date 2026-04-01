@@ -32,6 +32,9 @@ public class AccountManagementService {
         //Fixed it back to this by making it so the repo is joined and there is only one
 		Member user = memberRepository.findByUsername(loginDTO.getUsername())
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        if (user.isBanned())
+            throw new RuntimeException("User is banned");
         
         // verifico: le password corrispondono? Se non corrispondono, stessa storia
         // cambia il messaggio di errore                
@@ -59,6 +62,8 @@ public class AccountManagementService {
     public MemberDTO create(MemberDTO memberDTO) {
         
         Member member = memberMapper.toEntity(memberDTO);
+        System.out.println("Creating user with username: " + member.getUsername() + " and password: " + member.getPassword());
+        if (memberDTO.getPassword() != null)
         member.setPassword(passwordHasher.toHash(member.getPassword()));
         member = memberRepository.save(member);
         return memberMapper.toDTO(member);

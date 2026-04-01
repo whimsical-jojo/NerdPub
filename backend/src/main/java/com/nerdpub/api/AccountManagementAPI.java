@@ -20,6 +20,7 @@ import com.nerdpub.dto.TokenDTO;
 import com.nerdpub.service.AccountManagementService;
 
 import io.jsonwebtoken.JwtException;
+import jakarta.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/api/account")
@@ -30,11 +31,14 @@ public class AccountManagementAPI {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
-        String jwt = service.login(loginDTO);
-        if (jwt == null) {
-            return ResponseEntity.status(401).body("Invalid username or password");
+        try {
+            String jwt = service.login(loginDTO);
+            return ResponseEntity.ok(new TokenDTO(jwt));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(401).body(e.getMessage());
         }
-        return ResponseEntity.ok(new TokenDTO(jwt));
     }
 
     //TODO add authentication so that only admins can create
