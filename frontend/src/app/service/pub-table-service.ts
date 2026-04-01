@@ -21,6 +21,7 @@ export class PubTableService {
 
     //PUT /tables/{id} — modifica tavolo con quell'id
     updatePubTable(pubTable:PubTable):Observable<PubTable>{
+      pubTable.pubId=pubTable.pub?.id;
       return this.http.put<PubTable>(this.url+'/'+pubTable.id,pubTable);
     } 
 

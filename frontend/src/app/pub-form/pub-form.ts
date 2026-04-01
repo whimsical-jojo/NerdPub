@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, input, OnInit, signal } from '@angular/core';
 import { PubService } from '../service/pub-service';
 import { Pub } from '../model/entities';
 import { FormsModule } from '@angular/forms';
@@ -9,77 +9,52 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
+import { CityPicker } from "../city-picker/city-picker";
 
 @Component({
   selector: 'app-pub-form',
-  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatIconModule, MatDatepickerModule
-    , MatNativeDateModule, MatButtonModule],
+  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatIconModule, MatDatepickerModule,
+    MatNativeDateModule, MatButtonModule, CityPicker],
   templateUrl: './pub-form.html',
   styleUrl: './pub-form.css',
 })
-export class PubForm implements OnInit {
-  
+export class PubForm {
   dialogRef = inject(MatDialogRef<PubForm>);
-  pubInput=input.required<Pub>();
-  service=inject(PubService);
-  private data = inject(MAT_DIALOG_DATA) as { mode: 'create' | 'edit' } | undefined;
-  mode = signal<'create' | 'edit'>(this.data?.mode ?? 'create');
+  private service = inject(PubService);
   
-  pub=signal<Pub>({
-    name:'',
-    address:'',
-    city:'',
-    phone:'',
-    score:0
-  });
+  //Get the data from the dialog config
+  //Usually, you pass the whole object in 'data'
+  private data = inject(MAT_DIALOG_DATA) as { pub?: Pub, mode : 'create' | 'edit'} | undefined;
 
-  ngOnInit(): void {
-    if (this.mode() === 'edit') {
-      if(this.pubInput()){
-        this.pub.set({
-        id:this.pubInput().id,
-        name:this.pubInput().name,
-        address:this.pubInput().address,
-        city:this.pubInput().city,
-        phone:this.pubInput().phone,
-        score:this.pubInput().score
-      });
-      }
-    
-    }
-  }
+  //Determine mode and initialize signal with a default empty object
+  //Determine mode and initialize signal with a default empty object
+  mode = signal<'create' | 'edit'> (this.data?.pub ? 'edit' : 'create');
+  
+  //Initialize the signal using spread logic to avoid hardcoding fields
+  pub = signal<Pub>(this.data?.pub 
+    ? { ...this.data.pub } // Clone if editing
+    : { name: '', address: '', city: '' } as Pub // Default if creating
+  );
 
-  create():void{
-    this.service.createPub(this.pub()).subscribe({
-    next: (pub) => {
-        console.log('Pub salvato con successo!', pub);
-        this.pub.set({
-          name: '',
-          address: '',
-          city: '',
-          phone: '',
-          score: 0
-        });
-        alert('Pub salvato con successo!');
-        
+  save(): void {
+    const currentPub = this.pub();
+    const request$ = this.mode() === 'edit' 
+      ? this.service.updatePub(currentPub) 
+      : this.service.createPub(currentPub);
+
+    request$.subscribe({
+      next: (savedPub) => {
+        console.log('Operazione riuscita:', savedPub);
+        this.dialogRef.close(savedPub); // Pass back the saved object
       },
       error: (err) => {
-        console.log('Errore nel salvataggio del pub!', err);
-        alert('Errore nel salvataggio del pub!');
-      }
-    });  
-  }
-  update(): void {
-    this.service.updatePub(this.pub()).subscribe({
-      next: (pub) => {
-        console.log('Account aggiornato con successo!', pub);
-
-        // aggiorna stato locale con risposta server
-      },
-      error: (err) => {
-        console.error("Errore nell'aggiornamento dell'account", err);
+        console.error('Errore:', err);
+        alert('Si è verificato un errore durante il salvataggio.');
       }
     });
+  }
+
+  cancel(): void {
     this.dialogRef.close();
-  } 
+  }
 }

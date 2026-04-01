@@ -10,6 +10,8 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatChipsModule} from '@angular/material/chips';
 import { PubTableService } from '../../service/pub-table-service';
 import { MatButtonModule } from '@angular/material/button';
+import { PubForm } from '../../pub-form/pub-form';
+import { TableForm } from './table-form/table-form';
 
 
 @Component({
@@ -53,22 +55,22 @@ export class AdminPubsComponent {
       });
     });
   }
-  //TODO 
-  openPubForm(pub?: Pub) {/*
-    const ref = this.dialog.open(PubFormDialog, { data: pub });
+  
+  openPubForm(pub?: Pub) {
+    console.log("Opening pub form with pub:", pub ? pub.name : "new");
+    const ref = this.dialog.open(PubForm, { data: { pub : pub, mode: pub ? 'edit' : 'create'}});
     ref.afterClosed().subscribe(result => {
        if (result) this.searchPubs(); // Refresh list on save
-    });*/
+    });
   }
 
-  //TODO
-  openTableForm(pubId: number, table?: PubTable) {/*
-    const ref = this.dialog.open(TableFormDialog, { 
+  openTableForm(pubId: number, table?: PubTable) {
+    const ref = this.dialog.open(TableForm, { 
       data: { pubId, table } 
     });
     ref.afterClosed().subscribe(result => {
        if (result) this.loadTables(pubId); // Refresh specific pub's tables
-    });*/
+    });
   }
   
   deleteTable(id: number) {
