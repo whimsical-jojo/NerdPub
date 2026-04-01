@@ -10,12 +10,13 @@ simply reloading the page.
 - Some UI inconsistencies due to Material having different colors.
 - Some things are written in Italian and some in English
 - The project is still not as cool and technically complex as I wanted it to be.
+- When booking many sessions, some times random space pops up and pushes them to the bottom
 
 TODO: 
-- Add Admin page lkjhgfjydrtyuiop';lkjhgfdsertyuijklm,
+- Finish Admin page ijhgfydtrfyuijokl
 - Add check on the number of places on the front end, so that it shows 5/6 for example instead of just the total "6"
 - Cry in a corner
-- Make sure only the Admin can ban users and change people's roles and such. Or make Roles final.
+- Make sure only the Admin can change people's roles and such. Or make Roles final.
 - Add way way more training data
 - Add a Staff role which is connected to a single pub, so that global admins are not needed to add tables to pubs lmao
 - Add a cool little map feature that lets users choose a pub by position
