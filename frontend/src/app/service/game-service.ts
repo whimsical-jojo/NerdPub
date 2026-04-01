@@ -39,8 +39,8 @@ export class GameService {
   }
 
   // PUT /games/{id} — modifica gioco
-  updateGame(id: number, game: Game): Observable<Game> {
-    return this.http.put<Game>(this.url+'/'+id, game);
+  updateGame(game: Game): Observable<Game> {
+    return this.http.put<Game>(this.url+'/'+game.id,game);
   }
 
   // DELETE /games/{id} — cancellazione gioco
