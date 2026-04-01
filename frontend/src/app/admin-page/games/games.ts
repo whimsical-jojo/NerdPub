@@ -10,9 +10,5 @@ import { Game } from '../../model/entities';
   styleUrl: './games.css',
 })
 export class AdminGamesComponent {
-  gameService = inject(GameService);
-  games = model<Game[]>([]);
-  ngOnInit () {
-    this.gameService.findAll().subscribe(games => this.games.set(games));
-  }
+  
 }
