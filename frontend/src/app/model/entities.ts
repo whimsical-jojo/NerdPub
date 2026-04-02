@@ -28,7 +28,7 @@ export interface Game{
 
 export interface GameSession{
     id?:number,
-    date:Date,
+    date:Date | string,
     game:Game,
     table:PubTable
     gameId:number,

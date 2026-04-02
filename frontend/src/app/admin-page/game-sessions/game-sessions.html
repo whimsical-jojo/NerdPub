@@ -31,8 +31,11 @@
         </mat-card-header>
         
         <mat-card-actions align="end">
-          <button mat-button (click)="openSessionForm(s)">Modifica
+          <button mat-button color="primary" (click)="openSessionForm(s)">
             <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-button color="warn" (click)="deleteSession(s)">
+            <mat-icon>delete</mat-icon>
           </button>
         </mat-card-actions>
       </mat-card>
