@@ -24,6 +24,5 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './advanced-session-search-accordion.css',
 })
 export class AdvancedSessionSearchAccordion {
-  gameTitle = model<string>('');
   daysAhead = model<number>(0);
 }

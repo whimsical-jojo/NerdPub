@@ -1,0 +1,11 @@
+/* Uniforma tutti i campi di ricerca */
+.search-field {
+  width: 100%;
+  max-width: 300px;
+  min-width: 200px;
+}
+
+/* Assicura che il campo city-picker abbia lo stesso aspetto */
+.search-field mat-form-field {
+  width: 100%;
+}

@@ -6,12 +6,27 @@
         <p class="w3-center">Mettiti in gioco: scopri il tavolo perfetto per la tua compagnia</p>
 
         <!-- SEARCH BAR -->
-        <div class="w3-center">
+        <div class="w3-center search-bar">
           <app-city-picker [(city)]="city" />
+          <mat-form-field appearance="fill" class="search-field">
+            <mat-label>Titolo del gioco</mat-label>
+            <input matInput
+                   type="text"
+                   name="gameTitle"
+                   [(ngModel)]="gameTitle" />
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="search-field">
+            <mat-label>Giorni avanti</mat-label>
+            <input matInput
+                   type="number"
+                   name="daysAhead"
+                   [(ngModel)]="daysAhead"
+                   min="0"
+                   max="60" />
+          </mat-form-field>
           <button class="w3-button w3-blue w3-margin-top" (click)="searchSessions()">
             Search
           </button>
-          <app-advanced-session-search-accordion [(gameTitle)]="gameTitle" [(daysAhead)]="daysAhead" />
         </div>
       </div>
     </div>
