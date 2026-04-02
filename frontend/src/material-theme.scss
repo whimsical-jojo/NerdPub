@@ -1,21 +1,56 @@
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
-/* 1. VARIABILI CORE - PALETTE PARCHMENT TAVERN */
-:root {
-  --color-bg: #FDFBF7;      /* Sfondo crema/pergamena */
-  --color-card: #FFFFFF;    /* Bianco per i box e le card */
-  --color-border: #E2D1B3;  /* Beige per i bordi */
-  --color-accent: #78350F;  /* Marrone legno per il logo e i dettagli */
-  --color-text: #2D1B0E;    /* Marrone caffè scurissimo per i testi */
-  --color-muted: #BDB7A9;   /* Grigio-Beige chiaro per il placeholder */
+html {
+  height: 100%;
+  @include mat.theme((color: (primary: mat.$cyan-palette,
+        tertiary: mat.$orange-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    ));
+}
 
-  --font-display: 'Playfair Display', serif;
-  --font-body: 'DM Sans', sans-serif;
-  --radius: 12px;
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  // Reset the user agent margin.
+  margin: 0;
+  height: 100%;
+}
+
+
+/* 1. VARIABILI CORE - MODERN PUB DARK */
+:root {
+  --color-bg: #0B0E14;
+  --color-card: rgba(30, 36, 46, 0.7);
+  --color-border: rgba(245, 158, 11, 0.4);
+  --color-accent: #F59E0B;
+  --color-text: #F3F4F6;
+  --color-muted: #9CA3AF;
+
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --radius: 16px;
 }
 
 /* 2. RESET E BASE */
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -27,23 +62,25 @@ body {
   color-scheme: light;
 }
 
-/* 3. TOP MENU (TOOLBAR BIANCA) */
+/* 3. TOP MENU (GLASSMORPHISM) */
 .main-header {
-  /* Reset variabili interne Material 3 */
-  --mat-toolbar-container-background-color: #FFFFFF !important;
-  --mdc-top-app-bar-container-color: #FFFFFF !important;
+  --mat-toolbar-container-background-color: transparent !important;
+  --mdc-top-app-bar-container-color: transparent !important;
 
-  background-color: #FFFFFF !important;
+  background-color: rgba(11, 14, 20, 0.8) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
   color: var(--color-text) !important;
-  height: 70px !important;
-  border-bottom: 1px solid var(--color-border);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.03) !important;
+  height: 80px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5) !important;
 
   .logo {
     font-family: var(--font-display) !important;
     font-weight: bold !important;
     font-size: 1.8rem !important;
-    color: var(--color-accent) !important; /* Logo color legno */
+    color: var(--color-accent) !important;
+    /* Logo color legno */
     cursor: pointer;
   }
 
@@ -58,18 +95,22 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;    /* <--- FONDAMENTALE: Allinea verticalmente barra e bottone */
-  gap: 10px;              /* Spazio tra barra e bottone */
-  padding: 10px 20px !important; /* Ridotto il padding top come chiesto prima */
+  align-items: center;
+  /* <--- FONDAMENTALE: Allinea verticalmente barra e bottone */
+  gap: 10px;
+  /* Spazio tra barra e bottone */
+  padding: 10px 20px !important;
+  /* Ridotto il padding top come chiesto prima */
   margin: 0 auto !important;
 }
 
 .search-field {
   width: 100%;
-  max-width: 600px !important; /* Larghezza del box */
+  max-width: 600px !important;
+  /* Larghezza del box */
 
   /* Reset Material 3 per eliminare hover scuro e riga sotto */
-  --mdc-filled-text-field-container-color: #FFFFFF;
+  --mdc-filled-text-field-container-color: rgba(30, 36, 46, 0.5);
   --mdc-filled-text-field-container-height: 60px !important;
   --mdc-filled-text-field-active-indicator-height: 0px;
   --mdc-filled-text-field-focus-active-indicator-height: 0px;
@@ -84,20 +125,23 @@ body {
   /* Il Box Esterno */
   .mat-mdc-text-field-wrapper {
     height: 60px !important;
-    background-color: #FFFFFF !important;
-    border: 2px solid var(--color-border) !important;
-    border-radius: var(--radius) !important;
+    background-color: rgba(30, 36, 46, 0.5) !important;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 30px !important; /* Più arrotondato per stile moderno */
     padding: 0 20px !important;
     display: flex !important;
     align-items: center !important;
     box-sizing: border-box !important;
-    transition: border-color 0.2s ease;
+    transition: all 0.3s ease;
   }
 
   /* Allineamento Interno (Infix) */
   .mat-mdc-form-field-infix {
-    padding: 0 !important;      /* Rimuove padding interni */
-    border-top: 0 !important;   /* Rimuove lo spazio per la label fluttuante */
+    padding: 0 !important;
+    /* Rimuove padding interni */
+    border-top: 0 !important;
+    /* Rimuove lo spazio per la label fluttuante */
     min-height: unset !important;
     display: flex !important;
     align-items: center !important;
@@ -130,9 +174,11 @@ body {
   .mat-mdc-form-field-label {
     position: absolute !important;
     top: 50% !important;
-    transform: translateY(-50%) scale(1) !important; /* Centrata perfettamente */
+    transform: translateY(-50%) scale(1) !important;
+    /* Centrata perfettamente */
     font-size: 1.2rem !important;
-    color: var(--color-muted) !important; /* COLORE CHIARO RICHIESTO */
+    color: var(--color-muted) !important;
+    /* COLORE CHIARO RICHIESTO */
     display: block !important;
   }
 
@@ -151,21 +197,23 @@ body {
   /* Bordi al focus (click) */
   &.mat-focused .mat-mdc-text-field-wrapper {
     border-color: var(--color-accent) !important;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
   }
 
   /* Pulizia Icone e Linee grafiche di default */
-  .mdc-line-ripple, .mdc-text-field__ripple, .mdc-notched-outline {
+  .mdc-line-ripple,
+  .mdc-text-field__ripple,
+  .mdc-notched-outline {
     display: none !important;
   }
 }
 
 /* 5. TEMA MATERIAL GENERALE */
 html {
-  @include mat.theme((
-    color: (primary: mat.$orange-palette, tertiary: mat.$yellow-palette),
-    typography: Roboto,
-    density: 0,
-  ));
+  @include mat.theme((color: (primary: mat.$orange-palette, tertiary: mat.$yellow-palette),
+      typography: Roboto,
+      density: 0,
+    ));
 }
 
 .mat-mdc-option.mdc-list-item--selected {
@@ -199,15 +247,17 @@ html {
 }
 
 
-/* --- 3. TOP MENU (TOOLBAR BIANCA) --- */
+/* --- 3. TOP MENU (GLASSMORPHISM) --- */
 .main-header {
-  --mat-toolbar-container-background-color: #FFFFFF !important;
-  --mdc-top-app-bar-container-color: #FFFFFF !important;
+  --mat-toolbar-container-background-color: transparent !important;
+  --mdc-top-app-bar-container-color: transparent !important;
 
-  background-color: #FFFFFF !important;
-  height: 70px !important;
-  border-bottom: 1px solid var(--color-border);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+  background-color: rgba(11, 14, 20, 0.8) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  height: 80px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5) !important;
   padding: 0 !important;
 
   .container {
@@ -234,15 +284,16 @@ html {
   }
 
   .welcome-text {
-      font-family: var(--font-body);
-      font-weight: 500;
-      font-size:medium;
-      padding:1rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: medium;
+    padding: 1rem;
   }
 
   nav {
     display: flex;
-    gap: 15px; /* Aumentato lo spazio tra Home e il tasto Login */
+    gap: 15px;
+    /* Aumentato lo spazio tra Home e il tasto Login */
     align-items: center;
 
     /* Stile pulito per i link di navigazione (Home) */
@@ -253,7 +304,8 @@ html {
       text-transform: uppercase;
       letter-spacing: 0.5px;
       font-size: 0.9rem;
-      background: none !important; /* Rimosso sfondo */
+      background: none !important;
+      /* Rimosso sfondo */
 
       &:hover {
         color: var(--color-accent) !important;
@@ -262,18 +314,21 @@ html {
 
       &.active-link {
         color: var(--color-accent) !important;
-        background: none !important; /* Rimosso sfondo fisso */
+        background: none !important;
+        /* Rimosso sfondo fisso */
         /* Niente puntini o decorazioni extra */
       }
     }
 
-    
+
     /* Tasto LOGIN stile Pulsante Pieno */
     .btn-login {
-      background-color: var(--color-accent) !important;
-      color: #FFFFFF !important; /* Testo bianco su fondo marrone */
+      background: linear-gradient(135deg, var(--color-accent), #D97706) !important;
+      color: #FFFFFF !important;
+      /* Testo bianco su fondo accent */
       font-weight: 700 !important;
-      border-radius: 50px !important; /* Arrotondato (stile pillola) */
+      border-radius: 50px !important;
+      /* Arrotondato (stile pillola) */
       padding: 0 20px !important;
       height: 40px !important;
       display: flex;
@@ -282,9 +337,9 @@ html {
       transition: transform 0.2s, box-shadow 0.2s;
 
       &:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 8px rgba(120, 53, 15, 0.2);
-        filter: brightness(1.1);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+        filter: brightness(1.15);
       }
 
       /* Icona omino */

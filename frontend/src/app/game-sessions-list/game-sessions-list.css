@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=DM+Sans:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap');
 
 :host {
   display: block;
@@ -16,10 +16,12 @@
   text-align: center;
   padding: 2rem;
   margin: 1rem 0;
-  background: var(--color-card, #221f19);
-  border: 1px solid var(--color-border, #2e2a22);
-  border-radius: var(--radius, 12px);
-  color: var(--color-muted, #8a826e);
+  background: var(--color-surface, rgba(30,36,46,0.5));
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius, 16px);
+  color: var(--color-muted, #9CA3AF);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .empty-icon {

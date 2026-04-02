@@ -2,26 +2,28 @@
 
 .dice-card {
   background-color: var(--color-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: var(--color-text);
   border-radius: var(--radius);
   overflow: hidden;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   font-family: var(--font-body);
-  transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); /* Ombra leggera per profondità */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .dice-card:hover {
   border-color: var(--color-accent);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
 }
 
 .dice-header {
-  background-color: var(--color-surface); /* Tono pergamena più scuro */
+  background-color: rgba(20, 25, 33, 0.4); /* Translucent */
   color: var(--color-text);
   padding: 1.25rem 1rem;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .game-title {
@@ -111,13 +113,15 @@
 }
 
 .session-cta--book {
-  background: var(--color-accent);
-  color: var(--color-bg); /* Sfondo chiaro per il testo sul pulsante scuro */
+  background: linear-gradient(135deg, var(--color-accent), #D97706);
+  color: #FFFFFF; /* Testo bianco */
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
 }
 
 .session-cta--book:hover {
-  filter: brightness(1.2); /* Schiarisce leggermente il marrone senza hardcoding */
-  transform: translateY(-1px);
+  filter: brightness(1.15);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
 }
 
 .session-cta--cancel {

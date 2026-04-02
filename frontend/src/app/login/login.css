@@ -21,6 +21,8 @@
 
 .login-form {
   margin: 0;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .login-content {
@@ -48,8 +50,10 @@
 
 .login-field ::ng-deep .mat-mdc-text-field-wrapper {
   border-radius: var(--radius-sm, 8px);
-  border: 1px solid var(--login-border);
-  background: var(--login-surface);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(30,36,46,0.5);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
 }
 
 .login-field ::ng-deep .mat-mdc-form-field-focus-overlay {
@@ -58,6 +62,7 @@
 
 .login-field ::ng-deep .mdc-line-ripple::after {
   border-bottom-color: var(--login-accent) !important;
+  box-shadow: 0 -2px 10px rgba(245, 158, 11, 0.5);
 }
 
 .login-field ::ng-deep .mat-mdc-floating-label,
@@ -108,12 +113,16 @@
 }
 
 .login-submit:not(:disabled) {
-  background: var(--login-accent) !important;
-  color: var(--color-bg, #0f0d0a) !important;
+  background: linear-gradient(135deg, var(--login-accent), #D97706) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3) !important;
+  transition: all 0.3s ease;
 }
 
 .login-submit:not(:disabled):hover {
-  filter: brightness(1.08);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5) !important;
+  filter: brightness(1.15);
 }
 
 .login-submit:disabled {

@@ -15,6 +15,7 @@
 .avatar {
   font-size: 4rem;
   background: var(--color-surface);
+  backdrop-filter: blur(12px);
   width: 100px;
   height: 100px;
   display: flex;
@@ -22,8 +23,8 @@
   justify-content: center;
   border-radius: 50%;
   margin: 0 auto 15px;
-  border: 2px solid var(--color-border);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
 }
 
 .profile-title {
@@ -47,10 +48,18 @@
 
 .actions-card {
   background-color: var(--color-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   padding: 30px;
   border-radius: var(--radius);
-  border: 1px solid var(--color-border);
-  box-shadow: 0 10px 25px rgba(120, 53, 15, 0.08); /* Ombra calda */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.actions-card:hover {
+  border-color: rgba(245, 158, 11, 0.3);
+  box-shadow: 0 12px 30px rgba(245, 158, 11, 0.15);
 }
 
 .section-title {
@@ -70,17 +79,31 @@
 
 /* Override per Angular Material Buttons per matchare il root */
 button[mat-raised-button] {
-  background-color: var(--color-accent) !important;
+  background: linear-gradient(135deg, var(--color-accent), #D97706) !important;
   color: #fff !important;
   border-radius: var(--radius-sm) !important;
   padding: 8px 20px !important;
   font-weight: 600;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3) !important;
+  transition: all 0.3s ease;
+}
+
+button[mat-raised-button]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5) !important;
+  filter: brightness(1.1);
 }
 
 button[mat-stroked-button] {
-  border-color: var(--color-border) !important;
-  color: var(--color-accent) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: var(--color-muted) !important;
   border-radius: var(--radius-sm) !important;
+  transition: all 0.3s ease;
+}
+button[mat-stroked-button]:hover {
+  border-color: var(--color-accent) !important;
+  color: var(--color-accent) !important;
+  background: rgba(245, 158, 11, 0.05) !important;
 }
 
 /* --- RESPONSIVITÀ --- */

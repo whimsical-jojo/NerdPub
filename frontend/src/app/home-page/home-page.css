@@ -3,19 +3,22 @@
   min-height: 100vh;
   font-family: var(--font-body);
   color: var(--color-text);
-  background: radial-gradient(circle at top, var(--color-surface) 0%, var(--color-bg) 100%);
+  background: radial-gradient(circle at top, rgba(20,25,33,1) 0%, var(--color-bg) 100%);
   background-attachment: fixed;
 }
 
 /* --- TIPOGRAFIA --- */
 .homepage h1.w3-center {
   font-family: var(--font-display);
-  color: var(--color-accent) !important;
+  color: transparent !important;
+  background: linear-gradient(135deg, var(--color-accent), #FFD700);
+  background-clip: text;
+  -webkit-background-clip: text;
   font-size: 3.8rem;
   font-weight: 800;
   margin: 0 !important;
   line-height: 1.1;
-  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+  filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.4));
 }
 
 .homepage p.w3-center {
@@ -27,25 +30,38 @@
   max-width: 600px;
 }
 
-/* --- CONTENITORE RICERCA (ALLINEAMENTO LATERALE) --- */
-/* Miriamo al div w3-center che contiene la search bar */
-.homepage .w3-col > .w3-center:has(app-city-picker) {
+/* --- CONTENITORE RICERCA (INLINE FLEX) --- */
+.search-flex-container {
   display: flex;
   justify-content: center;
   align-items: center; /* Allineamento verticale perfetto */
   gap: 12px;
-  margin-top: 0 !important; /* Elimina lo spazio extra sopra la barra */
+  margin-top: 15px;
+  width: 100%;
 }
 
-/* Rende il componente picker più compatto */
-.homepage app-city-picker {
-  flex: 0 1 350px;
+.search-flex-container app-city-picker {
+  flex: 1;
+  min-width: 150px;
 }
 
-/* --- BOTTONE SEARCH (COMPATTO) --- */
+.search-flex-container .advanced-bars {
+  flex: 1.5; /* Reduced from 2 to give space to the longer button */
+  display: flex;
+}
+
+.search-flex-container .search-btn {
+  margin-top: 0 !important;
+  height: 60px !important;
+  min-width: 200px !important; /* Allunga in modo esplicito il bottone */
+  padding: 0 40px !important;
+  flex: 0 0 auto;
+}
+
+/* --- BOTTONE SEARCH (GLOWING) --- */
 .homepage .w3-button.w3-blue {
-  background-color: var(--color-accent) !important;
-  color: var(--color-bg) !important;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover)) !important;
+  color: #FFFFFF !important;
   font-weight: 700;
   font-size: 1.1rem; /* Aumentato leggermente per bilanciare l'altezza */
 
@@ -53,12 +69,12 @@
   padding: 0 25px !important;
 
   margin-top: 0 !important;
-  border-radius: var(--radius-sm) !important;
+  border-radius: var(--radius-sm) !important; /* Arrotondato per modernità */
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  border: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(120, 53, 15, 0.2);
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
   height: 54px;
   display: inline-flex;
   align-items: center;      /* Centra il testo verticalmente */
@@ -67,9 +83,9 @@
 }
 
 .homepage .w3-button.w3-blue:hover {
-  background-color: var(--color-text) !important;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 15px rgba(45, 27, 14, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+  filter: brightness(1.1);
 }
 
 /* --- LISTA RISULTATI --- */
@@ -86,17 +102,28 @@ app-game-sessions-list {
 }
 
 /* --- RESPONSIVE MOBILE --- */
+@media (max-width: 950px) {
+  .search-flex-container {
+    flex-wrap: wrap;
+  }
+  .search-flex-container app-city-picker,
+  .search-flex-container .advanced-bars,
+  .search-flex-container .search-btn {
+    flex: 1 1 100%;
+  }
+}
+
 @media (max-width: 600px) {
-  .homepage .w3-col > .w3-center:has(app-city-picker) {
+  .search-flex-container {
     flex-direction: column;
     align-items: stretch;
     padding: 0 15px;
   }
-
-  .homepage app-city-picker,
-  .homepage .w3-button.w3-blue {
+  .search-flex-container app-city-picker,
+  .search-flex-container .advanced-bars,
+  .search-flex-container .search-btn {
     width: 100%;
     flex: none;
-    height: 48px;
+    height: auto;
   }
 }

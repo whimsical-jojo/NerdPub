@@ -5,13 +5,13 @@
         <h1 class="w3-center">NerdPub</h1>
         <p class="w3-center">Mettiti in gioco: scopri il tavolo perfetto per la tua compagnia</p>
 
-        <!-- SEARCH BAR -->
-        <div class="w3-center">
+        <!-- SEARCH BARS INLINE -->
+        <div class="search-flex-container">
           <app-city-picker [(city)]="city" />
-          <button class="w3-button w3-blue w3-margin-top" (click)="searchSessions()">
+          <app-advanced-session-search-accordion [(gameTitle)]="gameTitle" [(daysAhead)]="daysAhead" class="advanced-bars" />
+          <button class="w3-button w3-blue search-btn" (click)="searchSessions()">
             Search
           </button>
-          <app-advanced-session-search-accordion [(gameTitle)]="gameTitle" [(daysAhead)]="daysAhead" />
         </div>
       </div>
     </div>

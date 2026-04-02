@@ -1,19 +1,20 @@
-/* Tema allineato al mockup pub_mockup.html */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap');
+/* Tema Modern Pub Dark Glassmorphism */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap');
 @import url('https://www.w3schools.com/w3css/4/w3.css');
 
 :root {
-  --color-bg: #FDFBF7;      /* Pergamena chiarissima per il fondo pagina */
-  --color-surface: #F5F1E6; /* Un tono più scuro per le sezioni */
-  --color-card: #FFFFFF;    /* Bianco puro per far risaltare le card */
-  --color-border: #E2D1B3;  /* Beige dorato per i bordi */
-  --color-accent: #78350F;
-  --color-accent2: #059669; /* Verde Foresta (Richiama il tavolo da gioco) */
-  --color-text: #78350F;    /* Marrone caffè quasi nero (Massima leggibilità) */
-  --color-muted: #6D5B4B;   /* Marrone medio per testi secondari */
-  --font-display: 'Playfair Display', serif;
-  --font-body: 'DM Sans', sans-serif;
-  --radius: 12px;
+  --color-bg: #0B0E14;      /* Deep dark background (Pub at night) */
+  --color-surface: rgba(20, 25, 33, 0.65); /* Translucent surface */
+  --color-card: rgba(30, 36, 46, 0.7);    /* Glass card */
+  --color-border: rgba(245, 158, 11, 0.4); /* Amber/Gold neon border */
+  --color-accent: #F59E0B;                /* Glowing Amber / Neon Orange */
+  --color-accent2: #10B981;               /* Emerald Green */
+  --color-accent-hover: #D97706;          
+  --color-text: #F3F4F6;                  /* Off-white readable text */
+  --color-muted: #9CA3AF;                 /* Subtle gray for secondary text */
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --radius: 16px;
   --radius-sm: 8px;
 }
 
@@ -33,25 +34,28 @@ body {
 
 /* Dialog login: contenitore coerente con il tema pub */
 .login-dialog-panel .mat-mdc-dialog-container {
-  --mat-dialog-container-color: var(--color-card);
-  --mat-dialog-container-shape: 12px;
+  --mat-dialog-container-color: transparent;
+  --mat-dialog-container-shape: var(--radius);
   padding: 0;
 }
 
 .login-dialog-panel .mat-mdc-dialog-container .mat-mdc-dialog-surface {
-  background: var(--color-card) !important;
+  background: var(--color-surface) !important;
+  backdrop-filter: blur(12px) !important;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   box-shadow:
     0 25px 50px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(212, 147, 58, 0.06);
+    0 0 0 1px rgba(245, 158, 11, 0.2),
+    0 0 20px rgba(245, 158, 11, 0.15); /* Glowing effect */
 }
 
 /* Stile per il pannello dell'autocomplete */
 .mat-mdc-autocomplete-panel {
-  background-color: var(--color-surface) !important;
+  background-color: #1A1F29 !important; /* Solid dark for autocomplete */
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
 
 /* Stile per le singole opzioni */
@@ -61,7 +65,7 @@ body {
 
 .mat-mdc-option:hover:not(.mdc-list-item--disabled),
 .mat-mdc-option.mat-mdc-option-active {
-  background-color: var(--color-card) !important;
+  background-color: rgba(245, 158, 11, 0.15) !important; /* Gold hover */
 }
 
 .mat-mdc-option .mdc-list-item__primary-text {
@@ -82,6 +86,7 @@ body {
 .list-title {
   font-family: var(--font-display);
   font-size: 2rem;
-  color: var(--color-accent); /* Verde Foresta per le sessioni */
+  color: var(--color-accent); /* In dark mode, glowing accent */
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
   margin-bottom: 0;
 }

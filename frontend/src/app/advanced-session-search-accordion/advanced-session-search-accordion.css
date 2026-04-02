@@ -1,0 +1,110 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.search-bars-container {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+
+/* ---- DUE BARRE DI RICERCA ---- */
+.form-field {
+  flex: 1;
+  min-width: 200px;
+  width: auto;
+  --mdc-filled-text-field-container-color: transparent;
+  --mdc-filled-text-field-container-height: 60px !important;
+  --mdc-filled-text-field-active-indicator-height: 0px;
+  --mdc-filled-text-field-focus-active-indicator-height: 0px;
+  --mdc-filled-text-field-hover-state-layer-opacity: 0;
+  --mdc-filled-text-field-focus-state-layer-opacity: 0;
+}
+
+::ng-deep .form-field .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+::ng-deep .form-field .mat-mdc-text-field-wrapper {
+  height: 60px !important;
+  background-color: rgba(30, 36, 46, 0.5) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 30px !important;
+  padding: 0 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+  transition: all 0.3s ease;
+}
+
+::ng-deep .form-field.mat-focused .mat-mdc-text-field-wrapper {
+  border-color: rgba(245, 158, 11, 0.5) !important;
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+}
+
+::ng-deep .form-field .mat-mdc-form-field-infix {
+  padding: 0 !important;
+  border-top: 0 !important;
+  min-height: unset !important;
+  display: flex !important;
+  align-items: center !important;
+  height: 60px !important;
+}
+
+::ng-deep .form-field .mat-mdc-form-field-flex {
+  height: 100% !important;
+  align-items: center !important;
+}
+
+::ng-deep .form-field.mat-focused .mat-mdc-form-field-label,
+::ng-deep .form-field.mat-form-field-should-float .mat-mdc-form-field-label {
+  display: none !important;
+  opacity: 0 !important;
+}
+
+::ng-deep .form-field .mdc-floating-label--float-above {
+  display: none !important;
+}
+
+/* Facciamo sembrare lo slider identico alla search bar rounded */
+.slider-container {
+  flex: 1;
+  min-width: 200px;
+  height: 60px !important;
+  background-color: rgba(30, 36, 46, 0.5) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 30px !important;
+  padding: 0 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+  transition: all 0.3s ease;
+  color: var(--color-text);
+}
+
+.slider-container:hover {
+  border-color: rgba(245, 158, 11, 0.3) !important;
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.1);
+}
+
+.slider-container label {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  color: var(--color-muted, #9CA3AF);
+  font-size: 1.1rem;
+  margin-right: 15px;
+  white-space: nowrap;
+}
+
+::ng-deep .slider-container mat-slider {
+  flex: 1;
+  margin: 0;
+  --mdc-slider-handle-color: var(--color-accent, #F59E0B);
+  --mdc-slider-focus-handle-color: var(--color-accent, #F59E0B);
+  --mdc-slider-hover-handle-color: #D97706;
+  --mdc-slider-active-track-color: var(--color-accent, #F59E0B);
+  --mdc-slider-inactive-track-color: rgba(255,255,255,0.2);
+}
