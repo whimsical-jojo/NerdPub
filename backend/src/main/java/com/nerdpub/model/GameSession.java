@@ -2,6 +2,8 @@ package com.nerdpub.model;
 
 import java.time.LocalDate;
 
+import org.hibernate.annotations.Formula;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,4 +29,7 @@ public class GameSession {
     @ManyToOne
     @JoinColumn(name = "table_id")
     private PubTable table;
+
+    @Formula("(SELECT COUNT(*) FROM game_session_booking b WHERE b.session_id = id)")
+    private int bookedSpots;
 }
