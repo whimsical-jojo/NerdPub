@@ -37,9 +37,38 @@
   margin-top: 0 !important; /* Elimina lo spazio extra sopra la barra */
 }
 
-/* Rende il componente picker più compatto */
-.homepage app-city-picker {
-  flex: 0 1 350px;
+/* --- BARRA DI RICERCA UNICA (IN LINEA) --- */
+.search-bar {
+  display: flex;
+  flex-wrap: wrap; /* Permette wrap su schermi piccoli */
+  align-items: center; /* Allineamento verticale perfetto */
+  justify-content: center; /* Centra orizzontalmente */
+  gap: 0.5rem; /* Spazio tra elementi */
+  margin-top: 0 !important; /* Elimina margine extra */
+}
+
+/* City picker compatto */
+.search-bar app-city-picker {
+  flex: 0 1 300px; /* Larghezza flessibile, max 300px */
+  min-width: 200px; /* Minima per evitare compressione */
+}
+
+/* Game title field compatto, simile a city-picker */
+.search-bar .search-field {
+  flex: 0 1 300px;
+  min-width: 200px;
+}
+
+/* Advanced accordion compatto */
+.search-bar app-advanced-session-search-accordion {
+  flex: 0 1 400px; /* Più spazio per i campi */
+  min-width: 250px;
+}
+
+/* Bottone search */
+.search-bar .w3-button.w3-blue {
+  flex: 0 0 auto; /* Non si restringe */
+  height: 54px; /* Altezza fissa per allineamento */
 }
 
 /* --- BOTTONE SEARCH (COMPATTO) --- */
@@ -98,5 +127,21 @@ app-game-sessions-list {
     width: 100%;
     flex: none;
     height: 48px;
+  }
+
+  .search-bar {
+    /* Rimosso flex-direction: column per mantenere in riga anche su mobile */
+    align-items: stretch; /* Elementi a larghezza piena */
+    gap: 0.5rem; /* Ridotto gap per mobile */
+    padding: 0 15px;
+  }
+
+  .search-bar app-city-picker,
+  .search-bar .search-field,
+  .search-bar .w3-button.w3-blue {
+    width: 100%;
+    flex: none;
+    height: 48px;
+    min-width: 150px; /* Ridotto per mobile */
   }
 }

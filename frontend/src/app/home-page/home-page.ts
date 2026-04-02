@@ -6,10 +6,12 @@ import { CommonModule } from '@angular/common';
 import { CityPicker } from '../city-picker/city-picker';
 import { FormsModule } from '@angular/forms';
 import { AdvancedSessionSearchAccordion } from "../advanced-session-search-accordion/advanced-session-search-accordion";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-home-page',
-  imports: [GameSessionsList, CommonModule, CityPicker, FormsModule, AdvancedSessionSearchAccordion],
+  imports: [GameSessionsList, CommonModule, CityPicker, FormsModule, MatFormFieldModule, MatInputModule],
   templateUrl: './home-page.html',
   styleUrls: ['./home-page.css'],
 })
@@ -17,7 +19,7 @@ export class HomePage{
   gameSessions = signal<GameSession[]>([]); // sessions to display
   city = model<string>('');
   gameTitle = model<string>('');
-  daysAhead = model<number>(0);
+  daysAhead = model<string>('0');
   searchPerformed = false;                // track if search has been done
 
   service = inject(GameSessionService);
@@ -25,7 +27,7 @@ export class HomePage{
   searchSessions() {
   const city = this.city().trim();
   const game = this.gameTitle().trim();
-  const days = this.daysAhead();
+  const days = parseInt(this.daysAhead().trim()) || 0;
 
   //Avoids empty search
   if (!city && !game && !days) {

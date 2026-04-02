@@ -59,6 +59,11 @@
   padding: 1rem 1.25rem 1.25rem;
 }
 
+.dice-icon {
+  font-size: 30px; /* Puoi usare px, rem, o em */
+  line-height: 1;  /* Evita che l'altezza della riga sballi il flex */
+}
+
 .pub-name {
   font-family: var(--font-display);
   margin: 0;
