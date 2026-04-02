@@ -9,10 +9,12 @@ import { AuthService } from '../service/auth-service';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login';
 import { BookingStore } from '../injectables/session-booking-store';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-game-sessions-list',
-  imports: [GameSessionPreview, FormsModule, CommonModule],
+  imports: [GameSessionPreview, FormsModule, CommonModule, MatSnackBarModule],
   templateUrl: './game-sessions-list.html',
   styleUrl: './game-sessions-list.css',
 })
@@ -21,6 +23,8 @@ export class GameSessionsList {
   private authService = inject(AuthService);
   private dialog = inject(MatDialog);
   private bookingStore = inject(BookingStore);
+  private snackBar = inject(MatSnackBar);
+
 
   //The gameSessions that the list will display should be inputed from the parent component
   gameSessions = input.required<GameSession[]>();
@@ -54,7 +58,15 @@ export class GameSessionsList {
           console.log("Booked spots after:" + event.session.bookedSpots);
           this.bookingStore.addBooking(response);
         },
-        error: err => console.error('Booking failed', err)
+        error: err => {
+          const msg = err.error || 'Errore durante la prenotazione';
+          this.snackBar.open(msg, 'Chiudi', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+            panelClass: ['error-snackbar'] // You can style this in CSS
+          });
+        }
       });
 
     } else {

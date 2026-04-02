@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.query.JpqlQueryBuilder.Entity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,6 +34,8 @@ public class GameSessionBookingAPI {
     @PostMapping
     public ResponseEntity<?> createBooking(@RequestBody int sessionId, Authentication authentication) {
         try {
+            System.out.println("User: " + authentication.getName());
+            System.out.println("Authorities: " + authentication.getAuthorities());
             GameSessionBookingDTO savedBooking = bookingService.bookTable(sessionId, authentication.getName());
             return ResponseEntity.ok(savedBooking);
         } catch (TableNotAvailableException e) {
@@ -47,6 +50,7 @@ public class GameSessionBookingAPI {
     }
 
     @DeleteMapping("/{sessionId}")
+    @PreAuthorize("hasRole('ADMIN') or @bookingService.isOwner(#bookingId, authentication.name)")
     public ResponseEntity<?> deleteBooking(@PathVariable int sessionId, Authentication authentication) {
         try {
             bookingService.deleteBooking(sessionId, authentication.getName());
@@ -57,10 +61,13 @@ public class GameSessionBookingAPI {
     }
 
     /**
-     * The purpose of this method is to allow users in the front end to be able to see the sessions they have booked,
+     * The purpose of this method is to allow users in the front end to be able to
+     * see the sessions they have booked,
      * possibly to cancel or remind themselves of where they want to go.
+     * 
      * @param authentication
-     * @return A list of session ids that the user has booked (and which are not in the past)
+     * @return A list of session ids that the user has booked (and which are not in
+     *         the past)
      */
     @GetMapping("/user-bookings")
     public ResponseEntity<?> getUserBookings(Authentication authentication) {

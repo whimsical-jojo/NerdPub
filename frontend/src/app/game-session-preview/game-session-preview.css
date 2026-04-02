@@ -136,3 +136,29 @@
   color: #c2410c;
   background-color: rgba(194, 65, 12, 0.05);
 }
+
+
+/* --- DISABLED STATE (FULL TABLE) --- */
+.session-cta:disabled {
+  /* desaturates the accent color to a "dusty" brown/grey */
+  filter: grayscale(0.8); 
+  opacity: 0.5;
+  
+  /* Resetting interaction styles */
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+  pointer-events: none; /* Extra safety to prevent any click logic */
+  
+  /* Ensure the background stays a neutral "parchment-grey" */
+  background-color: var(--color-border) !important;
+  color: var(--color-muted) !important;
+  border: 1px solid var(--color-border) !important;
+}
+
+/* Specifically for when the 'Book' button is disabled, we want it to look 
+   like it's "faded into the background" */
+.session-cta--book:disabled {
+  background: var(--color-border) !important;
+  color: var(--color-muted) !important;
+}

@@ -5,10 +5,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { PubService } from '../service/pub-service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-city-picker',
-  imports: [MatFormField, MatLabel, FormsModule, MatAutocompleteModule, MatInputModule],
+  imports: [MatFormField, MatLabel, FormsModule, MatAutocompleteModule, MatInputModule, MatIconModule],
   templateUrl: './city-picker.html',
   styleUrl: './city-picker.css',
 })

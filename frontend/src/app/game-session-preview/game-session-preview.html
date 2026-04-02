@@ -35,14 +35,16 @@
     <hr class="dice-divider" />
 
     <div class="w3-container w3-padding-16 w3-center">
-      <button
-        type="button"
-        class="session-cta"
-        [class.session-cta--book]="!isBooked()"
-        [class.session-cta--cancel]="isBooked()"
-        (click)="onBookClick()"
-      >
-        {{ isBooked() ? 'Disdici' : 'Prenota' }}
+      <button type="button" class="session-cta" [class.session-cta--book]="!isBooked()"
+        [class.session-cta--cancel]="isBooked()" (click)="onBookClick()"
+        [disabled]="gameSession().bookedSpots === table.capacity">
+        @if (isBooked()) {
+        Disdisci
+        } @else if (gameSession().bookedSpots >= table.capacity) {
+        Pieno
+        } @else {
+        Prenota
+        }
       </button>
     </div>
   </div>

@@ -121,3 +121,15 @@ app-city-picker {
   color: var(--color-accent) !important;
   border-color: var(--color-border) !important;
 }
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Horizontal center */
+  gap: 1rem;
+  margin-bottom: 0 !important;
+  
+}
+.search-bar .mat-mdc-form-field-subscript-wrapper {
+  display: none; /* Completely hides the hint/error area to snap the box to the bottom */
+}

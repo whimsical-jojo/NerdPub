@@ -1,0 +1,52 @@
+/* The Grid Layout */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 16px;
+  padding-top: 10px !important;
+  min-width: 500px; /* Prevents the dialog from getting too skinny */
+}
+
+/* Full width for Pickers so they have room */
+.full-width {
+  grid-column: span 2;
+}
+
+/* Ensure custom pickers and form fields have the same height alignment */
+mat-form-field, 
+app-city-picker, 
+app-game-picker {
+  width: 100%;
+}
+
+/* Remove the extra gap at the bottom of form fields */
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  display: none; 
+}
+
+/* Show the hint only if it exists, without pushing other elements */
+mat-form-field:has(mat-hint) ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  display: block;
+  position: relative;
+}
+
+/* Button Styling to match Pergamena theme */
+.save-btn {
+  background-color: var(--color-accent) !important;
+  color: white !important;
+}
+
+.save-btn[disabled] {
+  background-color: #ccc !important;
+}
+
+/* Responsive: stack to 1 column on small screens */
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+    min-width: unset;
+  }
+  .full-width {
+    grid-column: span 1;
+  }
+}

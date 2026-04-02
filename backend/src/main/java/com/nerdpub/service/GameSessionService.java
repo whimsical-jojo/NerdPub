@@ -47,7 +47,7 @@ public class GameSessionService {
 
     public GameSessionDTO create(GameSessionDTO dto) {
         GameSession session = mapper.toEntity(dto);
-
+        System.out.println(dto.toString());
         Game game = gameRepo.findById(dto.getGameId())
                 .orElseThrow(() -> new EntityNotFoundException("Game not found with id: " + dto.getGameId()));
 

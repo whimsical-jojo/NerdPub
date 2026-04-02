@@ -7,10 +7,11 @@ import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/fo
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { Game } from '../model/entities';
+import { MatIcon, MatIconModule } from "@angular/material/icon";
 
 @Component({
   selector: 'app-game-picker',
-  imports: [MatFormField, MatLabel, FormsModule, MatAutocompleteModule, MatInputModule],
+  imports: [MatFormField, MatLabel, FormsModule, MatAutocompleteModule, MatInputModule, MatIconModule],
   templateUrl: './game-picker.html',
   styleUrl: './game-picker.css',
 })

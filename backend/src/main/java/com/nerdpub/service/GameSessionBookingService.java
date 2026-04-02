@@ -56,13 +56,13 @@ public class GameSessionBookingService {
 
         // How many places are available?
         if (session.getBookedSpots() >= table.getCapacity()) {
-            throw new TableNotAvailableException("Table is full");
+            throw new TableNotAvailableException("Il tavolo è pieno.");
         }
 
         // Has the user made any other bookings on that day?
         int numOfBookings = bookingRepository.getMembersBookingsInDate(member.getId(), session.getDate());
         if (numOfBookings > 0) {
-            throw new BookingException("Cannot book more than one table per day");
+            throw new BookingException("Non puoi prenotare due sessioni contemporaneamente. Disdici per poter prenotare.");
         }
 
         GameSessionBooking booking = new GameSessionBooking();
@@ -71,7 +71,8 @@ public class GameSessionBookingService {
 
         bookingRepository.save(booking);
 
-        //This is necessary to reload the correct number of booked spots for the front end.
+        // This is necessary to reload the correct number of booked spots for the front
+        // end.
         entityManager.flush();
         entityManager.refresh(session);
 
@@ -98,6 +99,12 @@ public class GameSessionBookingService {
                 .orElseThrow(() -> new EntityNotFoundException("Member not found"));
 
         return bookingMapper.toDTOs(bookingRepository.findByMember(member.getId()));
+    }
+
+    public boolean isOwner(int bookingId, String username) {
+        return bookingRepository.findById(bookingId)
+                .map(b -> b.getMember().getUsername().equals(username))
+                .orElse(false);
     }
 
 }
