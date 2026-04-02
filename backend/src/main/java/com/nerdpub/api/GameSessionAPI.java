@@ -28,6 +28,7 @@ public class GameSessionAPI {
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody GameSessionDTO dto) {
+        System.out.println("Creating game session: " + dto.toString());
         try {
             return ResponseEntity.status(201).body(gameSessionService.create(dto));
         } catch (Exception e) {

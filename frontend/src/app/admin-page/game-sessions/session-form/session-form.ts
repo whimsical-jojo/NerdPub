@@ -92,8 +92,10 @@ export class SessionForm {
   loadTables() {
     const pub = this.selectedPub();
     const date = this.selectedDate();
+    console.log("Date: " + date);
+    console.log("Date ISO: " + date?.toLocaleDateString('en-CA'));
     if (pub?.id && date) {
-      this.pubTableService.getAvailableTables(pub.id, date.toISOString())
+      this.pubTableService.getAvailableTables(pub.id, date.toLocaleDateString('en-CA'))
         .subscribe(tables => this.availableTables.set(tables));
     }
   }
@@ -101,7 +103,7 @@ export class SessionForm {
   save() {
     const sessionData: Partial<GameSession> = {
       id: this.data?.session?.id,
-      date: this.selectedDate()!,
+      date: this.selectedDate()!.toLocaleDateString('en-CA'),
       gameId: this.selectedGame()?.id,
       tableId: this.selectedTable()?.id
     };
@@ -118,13 +120,5 @@ export class SessionForm {
     console.log("pub selected!");
     console.log(this.selectedPub());
     this.loadTables();         // Trigger the side effect
-  }
-
-  printAll() {
-    console.log(this.selectedCity());
-    console.log(this.selectedPub());
-    console.log(this.selectedDate());
-    console.log(this.selectedTable());
-    console.log(this.selectedGame());
   }
 }

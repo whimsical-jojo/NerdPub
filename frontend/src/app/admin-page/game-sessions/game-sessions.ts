@@ -50,4 +50,13 @@ export class AdminSessionsComponent {
       if (result) this.search(); // Refresh list if saved
     });
   }
+
+  deleteSession(session : GameSession) {
+    const id = session.id;
+    if (!id) return;
+    this.sessionService.deleteGameSession(id).subscribe({
+      next: () => this.search(),
+      error: (err) => console.error('Delete failed', err)
+    });
+  }
 }
