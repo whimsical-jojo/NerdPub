@@ -19,7 +19,7 @@ export class HomePage{
   gameSessions = signal<GameSession[]>([]); // sessions to display
   city = model<string>('');
   gameTitle = model<string>('');
-  daysAhead = model<string>('0');
+  daysAhead = model<number>(0);
   searchPerformed = false;                // track if search has been done
 
   service = inject(GameSessionService);
@@ -27,7 +27,7 @@ export class HomePage{
   searchSessions() {
   const city = this.city().trim();
   const game = this.gameTitle().trim();
-  const days = parseInt(this.daysAhead().trim()) || 0;
+  const days = this.daysAhead() > 0 ? this.daysAhead() : 0;
 
   //Avoids empty search
   if (!city && !game && !days) {
