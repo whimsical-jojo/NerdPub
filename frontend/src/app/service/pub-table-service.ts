@@ -40,6 +40,7 @@ export class PubTableService {
   }
 
     getAvailableTables(pubId: number, date: string) {
-    return this.http.get<any[]>(`${this.url}/pub/${pubId}/available?date=${date}`);
+      const dateOnly = date.split('T')[0];
+      return this.http.get<any[]>(`${this.url}/pub/${pubId}/available?date=${dateOnly}`);
   }
 }

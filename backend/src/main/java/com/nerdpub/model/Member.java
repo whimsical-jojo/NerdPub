@@ -2,6 +2,7 @@ package com.nerdpub.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +20,7 @@ public class Member {
     private String lastName;
 
     private String email;
+    @Column(unique = true) //User names are unique
     private String username;
     private String password;
     //Default role is member
