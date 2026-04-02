@@ -29,8 +29,9 @@ public class SecurityConfig {
                 .requestMatchers("/api/account/login").permitAll()
                 .requestMatchers("/api/account/register").permitAll()
                 .requestMatchers("/api/game-sessions/tonight/**").permitAll()
-                .requestMatchers("/api/game-sessions/search/**").permitAll()
+                .requestMatchers("/api/game-sessions/search").permitAll()
                 .requestMatchers("/api/pubs/cities").permitAll()
+                .requestMatchers("/api/games/all").permitAll()
                 .anyRequest().authenticated() // A parte il login, tutto è autenticato.
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

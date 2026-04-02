@@ -58,7 +58,7 @@ public class GameSessionAPI {
     }
 
 
-    @GetMapping
+    @GetMapping("/search")
     public ResponseEntity<List<GameSessionDTO>> search(
             @RequestParam(required = false) String game,
             @RequestParam(required = false) Integer days,

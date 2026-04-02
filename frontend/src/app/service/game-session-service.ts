@@ -36,7 +36,7 @@ export class GameSessionService {
       params = params.set('city', city);
     }
 
-    return this.http.get<GameSession[]>(this.url, { params });
+    return this.http.get<GameSession[]>(this.url+'/search', { params });
   }
 
   /**

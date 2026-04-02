@@ -30,7 +30,7 @@ export class HomePage{
 
   searchSessions() {
   const city = this.city().trim();
-  const game = this.selectedGame()!.title.trim();
+  const game = this.selectedGame() ? this.selectedGame()!.title : '';
   const days = this.daysAhead();
 
   //Avoids empty search
