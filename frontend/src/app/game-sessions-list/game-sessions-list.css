@@ -1,27 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=DM+Sans:wght@500;700&display=swap');
-
-:host {
-  display: block;
-  background-color: var(--color-bg, #0f0d0a);
-  min-height: 100vh;
-}
-
+/* Update the container to use Flexbox instead of floats */
 .w3-row-padding {
+  display: flex;
+  flex-wrap: wrap;       /* Allows cards to wrap to the next line */
+  justify-content: center; /* THIS CENTERS THE CARDS (even if there is only one) */
+  gap: 24px;             /* Better than margin for consistent spacing */
   padding: 1.5rem 12px 2rem !important;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.empty-panel {
-  text-align: center;
-  padding: 2rem;
-  margin: 1rem 0;
-  background: var(--color-card, #221f19);
-  border: 1px solid var(--color-border, #2e2a22);
-  border-radius: var(--radius, 12px);
-  color: var(--color-muted, #8a826e);
+/* We need to reset the W3 columns because they use 'float' and 'width' 
+   which fight the Flexbox logic */
+.w3-row-padding .w3-col {
+  float: none !important;  /* Kill the float */
+  width: auto !important;   /* Let flex handle the width */
+  flex: 0 1 350px;         /* Grow: 0, Shrink: 1, Ideal Width: 350px */
+  margin-bottom: 0 !important; /* Gap handles this now */
+  display: flex;           /* Makes the internal app-game-session-preview fill the height */
 }
 
-.empty-icon {
-  margin-right: 0.35rem;
+/* Ensure the custom component inside the col stretches to fill the height */
+app-game-session-preview {
+  width: 100%;
+  display: flex;
+}
+
+/* Fix for the card itself to ensure equal heights in a row */
+.dice-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* This ensures that if one card is taller, the others in the row match it */
+  height: 100%; 
+}
+
+/* Ensure the body expands to push the button to the bottom */
+.dice-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }

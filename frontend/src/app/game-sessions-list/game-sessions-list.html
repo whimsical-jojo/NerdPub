@@ -5,7 +5,7 @@
     </div>
     }
     @for (session of gameSessions(); track session.id) {
-    <div class="w3-col l4 m6 s12 w3-margin-bottom">
+    <div class="w3-col l4 m6 s12">
       <app-game-session-preview [gameSession]="session" [isBooked]="isSessionBooked(session.id)"
         (actionClicked)="handleAction($event)"></app-game-session-preview>
     </div>
