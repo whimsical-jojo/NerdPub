@@ -1,19 +1,91 @@
 .members-page {
-  padding: 1rem;
+  padding: 20px;
+}
+
+/* Toolbar & Search Bar centering */
+.admin-toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
 }
 
 .search-bar {
   width: 100%;
-  max-width: 400px;
-  margin-bottom: 1rem;
+  max-width: 600px; /* Large, centered search bar */
 }
 
-.members-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+/* Make the search input text bigger */
+.search-bar input {
+  font-size: 1.1rem;
 }
 
+/* Grid Layout */
+.members-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+/* Card Styling */
 .member-card {
-  width: 250px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 12px !important;
+  border: 1px solid #e0e0e0 !important;
+}
+
+.member-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important;
+}
+
+/* Avatar Styling */
+.member-avatar {
+  background-color: var(--color-accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border-radius: 50%;
+  font-size: 1.2rem;
+}
+
+/* Info Rows */
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.info-row mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+/* Action Buttons - Fixing the "Brown" issue */
+.ban-btn {
+  color: #d32f2f !important; /* Force Red */
+  font-weight: 600;
+}
+
+.unban-btn {
+  color: #388e3c !important; /* Force Green */
+  font-weight: 600;
+}
+
+/* Visual cue for banned cards */
+.is-banned {
+  background-color: #fafafa;
+  opacity: 0.8;
+  border-left: 5px solid #d32f2f !important;
+}
+
+.is-banned .member-avatar {
+  background-color: #9e9e9e;
 }

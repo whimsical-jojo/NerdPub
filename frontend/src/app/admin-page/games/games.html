@@ -1,37 +1,47 @@
 <div class="games-page">
-    <mat-form-field appearance="outline" class="search-bar">
-        <mat-label>Cerca giochi</mat-label>
-        <input matInput placeholder="cerca per titolo" [ngModel]="search()" (ngModelChange)="search.set($event)">
-        @if (search()) {
-          <button mat-icon-button matSuffix (click)="search.set('')">
-              <mat-icon>close</mat-icon>
-          </button>
-        }
-    </mat-form-field>
+    <div class="search-header">
+        <div>
+            <mat-form-field appearance="outline" class="search-bar">
+                <mat-label>Cerca giochi</mat-label>
+                <mat-icon matPrefix>search</mat-icon>
+                <input matInput placeholder="Cerca per titolo..." [ngModel]="search()" (ngModelChange)="search.set($event)">
+                @if (search()) {
+                    <button mat-icon-button matSuffix (click)="search.set('')">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                }
+            </mat-form-field>
+        </div>
 
-    <button mat-raised-button color="primary" (click)="openGameForm()">
-        <mat-icon>add</mat-icon> Registra nuovo gioco
-    </button>
+        <button mat-stroked-button (click)="openGameForm()">
+            <mat-icon>add</mat-icon> Registra Nuovo Gioco
+        </button>
+    </div>
 
-    <div class="members-list">
+    <div class="games-grid">
         @for (game of games(); track game.id) {
-        <mat-card appearance="outlined" class="member-card">
+        <mat-card appearance="outlined" class="game-card">
             <mat-card-header>
-                <mat-card-title>{{ game.title }}</mat-card-title>
-                <mat-card-subtitle>{{ game.description }}</mat-card-subtitle>
+                <div mat-card-avatar class="game-icon-circle">
+                    <mat-icon>casino</mat-icon>
+                </div>
+                <mat-card-title class="game-title">{{ game.title }}</mat-card-title>
+                <mat-card-subtitle class="game-description">{{ game.description }}</mat-card-subtitle>
             </mat-card-header>
             
             <mat-card-actions align="end">
-                <button mat-button color="primary" (click)="openGameForm(game)">
+                <button mat-icon-button class="edit-btn" (click)="openGameForm(game)">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-button color="warn" (click)="deleteGame(game.id!)">
+                <button mat-icon-button color="warn" (click)="deleteGame(game.id!)">
                     <mat-icon>delete</mat-icon>
                 </button>
             </mat-card-actions>
         </mat-card>
         } @empty {
-          <p>Nessun gioco trovato.</p>
+            <div class="empty-state">
+                <p>Nessun gioco trovato.</p>
+            </div>
         }
     </div>
 </div>

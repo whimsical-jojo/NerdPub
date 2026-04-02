@@ -36,4 +36,9 @@ public interface GameSessionBookingRepository extends JpaRepository<GameSessionB
     @Query("DELETE FROM GameSessionBooking b WHERE b.member.id = :memberId AND b.session.date >= CURRENT_DATE")
     void cancelMembersFutureBookings(@Param("memberId") int memberId);
 
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM GameSessionBooking b WHERE b.session.table.id = :tableId AND b.session.date >= :today")
+    void deleteBySessionTableIdAndSessionDateAfter(int tableId, LocalDate today);
+
 }

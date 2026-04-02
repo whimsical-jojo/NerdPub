@@ -1,0 +1,40 @@
+/* Container for the nav bar */
+nav[mat-tab-nav-bar] {
+  border-bottom: 2px solid #dee2e6;
+  margin-bottom: 2rem;
+  background-color: white;
+  border-radius: 8px 8px 0 0;
+}
+
+/* Individual Link Styling */
+.mat-mdc-tab-link {
+  font-weight: 600 !important;
+  color: #495057 !important;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  height: 56px;
+  opacity: 0.7;
+}
+
+/* Active Tab Styling */
+.mat-mdc-tab-link.active {
+  color: #3f51b5 !important; /* Your primary brand color */
+  opacity: 1;
+}
+
+/* The ink bar (the sliding line under the tab) */
+::ng-deep .mat-mdc-tab-nav-bar-ripple {
+  display: none; /* Optional: hides the circular click effect for a cleaner look */
+}
+
+/* Style the router-outlet area to feel like a white card */
+router-outlet + * {
+  display: block;
+  background: white;
+  padding: 2rem;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  min-height: 400px;
+}

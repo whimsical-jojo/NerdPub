@@ -1,36 +1,56 @@
 <div class="members-page">
-
-    <!-- Search bar -->
+  <div class="search-header">
     <mat-form-field appearance="outline" class="search-bar">
-        <mat-label>Cerca membri</mat-label>
-        <input matInput placeholder="Enter name or username" [(ngModel)]="search">
+      <mat-label>Cerca membri</mat-label>
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput placeholder="Cerca per nome o username..." [(ngModel)]="search">
+      @if (search()) {
         <button mat-icon-button matSuffix (click)="search.set('')">
-            <mat-icon>close</mat-icon>
+          <mat-icon>close</mat-icon>
         </button>
+      }
     </mat-form-field>
 
-    <!-- Register new member button-->
-    <button mat-raised-button color="primary" (click)="openMemberForm()">
-        Registra nuovo utente
+    <button mat-fab extended color="primary" class="add-btn" (click)="openMemberForm()">
+      <mat-icon>person_add</mat-icon>
+      Registra nuovo utente
     </button>
+  </div>
 
-    <!-- Member cards -->
-    <div class="members-list">
-        <!-- TODO ADD FRONT END FILTERS-->
-        @for (member of members(); track member.id) {
-        <mat-card appearance="outlined" class="member-card">
-            <mat-card-header>
-                <mat-card-title>{{ member.firstName }} {{ member.lastName }}</mat-card-title>
-                <mat-card-subtitle>{{ member.username }} • {{ member.role ?? 'USER' }}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-actions>
-                <button mat-flat-button color="{{ member.banned ? 'warn' : 'primary' }}" (click)="toggleBan(member)">
-                    <mat-icon>{{ member.banned ? 'block' : 'check_circle' }}</mat-icon>
-                    {{ member.banned ? 'Unban' : 'Ban' }}
-                </button>
-            </mat-card-actions>
-        </mat-card>
-        }
-    </div>
+  <div class="members-grid">
+    @for (member of members(); track member.id) {
+      <mat-card appearance="outlined" [class.is-banned]="member.banned" class="member-card">
+        <mat-card-header>
+          <div mat-card-avatar class="member-avatar">
+            {{ member.firstName[0] }}{{ member.lastName[0] }}
+          </div>
+          <mat-card-title>{{ member.firstName }} {{ member.lastName }}</mat-card-title>
+          <mat-card-subtitle>@{{ member.username }} • {{ member.role ?? 'USER' }}</mat-card-subtitle>
+        </mat-card-header>
 
+        <mat-card-content>
+          <div class="info-row">
+            <mat-icon>email</mat-icon>
+            <span>{{ member.email || 'No email provided' }}</span>
+          </div>
+          <div class="info-row">
+            <mat-icon>cake</mat-icon>
+            <span>{{ member.dob | date:'dd/MM/yyyy' }}</span>
+          </div>
+        </mat-card-content>
+
+        <mat-divider></mat-divider>
+
+        <mat-card-actions align="end">
+          <button mat-button 
+                  [class.ban-btn]="!member.banned" 
+                  [class.unban-btn]="member.banned" 
+                  (click)="toggleBan(member)">
+            <mat-icon>{{ member.banned ? 'how_to_reg' : 'block' }}</mat-icon>
+            {{ member.banned ? 'Ripristina Utente' : 'Banna Utente' }}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
 </div>
