@@ -115,6 +115,16 @@ export class SessionForm {
 
   onPubChange(pub: Pub) {
     this.selectedPub.set(pub); // Update the signal
+    console.log("pub selected!");
+    console.log(this.selectedPub());
     this.loadTables();         // Trigger the side effect
+  }
+
+  printAll() {
+    console.log(this.selectedCity());
+    console.log(this.selectedPub());
+    console.log(this.selectedDate());
+    console.log(this.selectedTable());
+    console.log(this.selectedGame());
   }
 }

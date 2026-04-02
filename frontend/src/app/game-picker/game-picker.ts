@@ -20,14 +20,16 @@ export class GamePicker implements OnInit {
   //Inputs & Outputs
   games = signal<Game[]>([]);
 
-
-  ngOnInit() {
-    this.gameService.findAll().subscribe(games => this.games.set(games));
-  }
   selectedGame = model<Game | null>();
 
   //Local State
   query = signal<string | Game>('');
+
+
+  ngOnInit() {
+    this.gameService.findAll().subscribe(games => this.games.set(games));
+  }
+
 
   //The Logic
   filteredGames = computed(() => {
@@ -41,6 +43,7 @@ export class GamePicker implements OnInit {
 
   selectGame(game: Game | null) {
     this.selectedGame.set(game);
+    console.log("Game selected!");
   }
 
   onInputChange(value: string | Game) {
