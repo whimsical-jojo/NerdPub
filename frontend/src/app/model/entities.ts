@@ -32,7 +32,8 @@ export interface GameSession{
     game:Game,
     table:PubTable
     gameId:number,
-    tableId:number
+    tableId:number,
+    bookedSpots:number
 }
 
 export interface GameSessionBooking{

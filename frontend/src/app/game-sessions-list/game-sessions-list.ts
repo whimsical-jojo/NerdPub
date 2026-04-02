@@ -12,18 +12,18 @@ import { BookingStore } from '../injectables/session-booking-store';
 
 @Component({
   selector: 'app-game-sessions-list',
-  imports: [GameSessionPreview,FormsModule,CommonModule],
+  imports: [GameSessionPreview, FormsModule, CommonModule],
   templateUrl: './game-sessions-list.html',
   styleUrl: './game-sessions-list.css',
 })
-export class GameSessionsList{
+export class GameSessionsList {
   private bookingService = inject(GameSessionBookingService);
   private authService = inject(AuthService);
   private dialog = inject(MatDialog);
   private bookingStore = inject(BookingStore);
 
   //The gameSessions that the list will display should be inputed from the parent component
-  gameSessions=input.required<GameSession[]>();
+  gameSessions = input.required<GameSession[]>();
 
   //Helper: check if booked
   isSessionBooked(sessionId: number | undefined): boolean {
@@ -44,14 +44,15 @@ export class GameSessionsList{
       return;
     }
 
+    console.log("Booked spots before:" + event.session.bookedSpots);
     const sessionId = event.session.id!;
-    
+
     if (event.action === 'book') {
       this.bookingService.bookGameSession(sessionId).subscribe({
-        next: booking => {
-          console.log('Booking successful');
-          //Updates 
-          this.bookingStore.addBooking(booking);
+        next: response => {
+          event.session.bookedSpots = response.session.bookedSpots;
+          console.log("Booked spots after:" + event.session.bookedSpots);
+          this.bookingStore.addBooking(response);
         },
         error: err => console.error('Booking failed', err)
       });
@@ -60,7 +61,8 @@ export class GameSessionsList{
       this.bookingService.cancelBooking(sessionId).subscribe({
         next: () => {
           console.log('Booking cancelled');
-
+          //console.log("Booked spots after:" + booking.session.bookedSpots);
+          event.session.bookedSpots--;
           this.bookingStore.removeBooking(sessionId);
         },
         error: err => console.error('Cancel failed', err)

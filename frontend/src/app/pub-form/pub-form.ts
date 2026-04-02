@@ -10,11 +10,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CityPicker } from "../city-picker/city-picker";
+import { MatDivider } from "@angular/material/divider";
 
 @Component({
   selector: 'app-pub-form',
   imports: [FormsModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatIconModule, MatDatepickerModule,
-    MatNativeDateModule, MatButtonModule, CityPicker],
+    MatNativeDateModule, MatButtonModule, CityPicker, MatDivider],
   templateUrl: './pub-form.html',
   styleUrl: './pub-form.css',
 })

@@ -1,47 +1,56 @@
 <div class="sessions-admin-page">
   
-  <div class="filter-header">
-    <app-city-picker [(city)]="selectedCity" />
+  <div class="search-header">
+    <div class="filter-controls">
+      <app-city-picker [(city)]="selectedCity" class="city-picker-field" />
 
-    <div class="slider-container">
-      <label>Giorni futuri: <strong>{{ daysAhead() }}</strong></label>
-      <mat-slider min="1" max="30" step="1" thumbLabel>
-        <input matSliderThumb [ngModel]="daysAhead()" (ngModelChange)="daysAhead.set($event)">
-      </mat-slider>
+      <div class="slider-wrapper">
+        <label>Giorni futuri: <strong>{{ daysAhead() }}</strong></label>
+        <mat-slider min="1" max="30" step="1" discrete>
+          <input matSliderThumb [ngModel]="daysAhead()" (ngModelChange)="daysAhead.set($event)">
+        </mat-slider>
+      </div>
+
+      <button mat-flat-button class="search-btn" (click)="search()">
+        <mat-icon>search</mat-icon> Cerca
+      </button>
     </div>
 
-    <button mat-raised-button color="primary" (click)="search()">
-      <mat-icon>search</mat-icon> Cerca Sessioni
-    </button>
-
-    <button mat-fab extended color="accent" (click)="openSessionForm()">
+    <button mat-stroked-button (click)="openSessionForm()" class="add-session-btn">
       <mat-icon>add</mat-icon> Nuova Sessione
     </button>
   </div>
 
-  <div class="sessions-list">
+  <div class="sessions-grid">
     @for (s of sessions(); track s.id) {
       <mat-card appearance="outlined" class="session-card">
         <mat-card-header>
-          <mat-card-title>{{ s.game.title }}</mat-card-title>
-          <mat-card-subtitle>
-            {{ s.date | date: 'EEEE d MMMM, HH:mm' }} 
-            • {{ s.table.pub.name }} ({{ s.table.name }})
+          <mat-card-title class="session-title">{{ s.game.title }}</mat-card-title>
+          <mat-card-subtitle class="session-details">
+            <div class="detail-row">
+              <mat-icon>calendar_today</mat-icon> 
+              {{ s.date | date: 'EEEE d MMMM, HH:mm' }}
+            </div>
+            <div class="detail-row">
+              <mat-icon>location_on</mat-icon> 
+              {{ s.table.pub.name }} — {{ s.table.name }}
+            </div>
           </mat-card-subtitle>
         </mat-card-header>
         
         <mat-card-actions align="end">
-          <button mat-button color="primary" (click)="openSessionForm(s)">
+          <button mat-icon-button class="edit-btn" (click)="openSessionForm(s)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-button color="warn" (click)="deleteSession(s)">
+          <button mat-icon-button color="warn" (click)="deleteSession(s)">
             <mat-icon>delete</mat-icon>
           </button>
         </mat-card-actions>
       </mat-card>
     } @empty {
       <div class="empty-state">
-        <p>Nessuna sessione trovata per i criteri selezionati.</p>
+        <mat-icon>event_busy</mat-icon>
+        <p>Nessuna sessione trovata.</p>
       </div>
     }
   </div>

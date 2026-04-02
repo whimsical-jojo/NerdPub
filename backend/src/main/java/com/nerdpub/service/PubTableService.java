@@ -10,10 +10,13 @@ import com.nerdpub.dto.PubTableDTO;
 import com.nerdpub.mapper.PubTableMapper;
 import com.nerdpub.model.Pub;
 import com.nerdpub.model.PubTable;
+import com.nerdpub.repository.GameSessionBookingRepository;
+import com.nerdpub.repository.GameSessionRepository;
 import com.nerdpub.repository.PubRepository;
 import com.nerdpub.repository.PubTableRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Service
@@ -27,6 +30,13 @@ public class PubTableService {
 
     @Autowired
     private PubTableMapper mapper;
+
+    @Autowired
+    private GameSessionRepository sessionRepository;
+
+    @Autowired
+    private GameSessionBookingRepository bookingRepository;
+
 
     public List<PubTableDTO> findAll() {
         return mapper.toDTOs(tableRepo.findAll());
@@ -60,9 +70,27 @@ public class PubTableService {
         return mapper.toDTO(table);
     }
 
-    public void deleteById(int id) {
-        tableRepo.deleteById(id);
+    @Transactional
+    public void deleteById(int tableId) {
+        
+        LocalDate today = LocalDate.now();
+
+        // 1. Delete all BOOKINGS for future sessions of this table
+        // We do this first because of the FK: Booking -> Session
+        bookingRepository.deleteBySessionTableIdAndSessionDateAfter(tableId, today);
+
+        // 2. Delete all future SESSIONS for this table
+        sessionRepository.deleteFutureSessionsByTable(tableId, today);
+
+        // 3. For PAST sessions: We need to "nullify" the table reference 
+        // OR the DB will still block the delete.
+        // Option: Point them to a "System/Deleted" table or set table_id to NULL
+        sessionRepository.detachPastSessionsFromTable(tableId, today);
+
+        // 4. Finally, delete the table
+        tableRepo.deleteById(tableId);
     }
+
 
     public List<PubTableDTO> findByNameContaining(String name) {
         return mapper.toDTOs(tableRepo.findByNameContaining(name));

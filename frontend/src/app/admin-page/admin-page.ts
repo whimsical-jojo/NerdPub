@@ -17,6 +17,7 @@ import {MatTab, MatTabLink, MatTabNav, MatTabNavPanel, MatTabsModule} from '@ang
   ],
   selector: 'app-admin-page',
   templateUrl: './admin-page.html',
+  styleUrl: './admin-page.css',
 })
 export class AdminPage {
   links = [

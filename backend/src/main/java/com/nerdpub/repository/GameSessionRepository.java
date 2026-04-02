@@ -4,17 +4,29 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.nerdpub.model.GameSession;
 
+import jakarta.transaction.Transactional;
+
 @Repository
 public interface GameSessionRepository extends JpaRepository<GameSession, Integer>{
 
     @Query("SELECT gs FROM GameSession gs WHERE gs.date >= CURRENT_DATE AND gs.date < :endDate")
     List<GameSession> findWithinDate(@Param("endDate") LocalDate endDate);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE GameSession s SET s.table = null WHERE s.table.id = :tableId AND s.date < :today")
+    void detachPastSessionsFromTable(int tableId, LocalDate today);
+
+    @Modifying
+    @Query("DELETE FROM GameSession s WHERE s.table.id = :tableId AND s.date >= :today")
+    void deleteFutureSessionsByTable(int tableId, LocalDate today);
 
 
     @Query("SELECT gs FROM GameSession gs JOIN gs.table t JOIN t.pub p WHERE p.city = ?1 AND gs.date = CURRENT_DATE")

@@ -11,6 +11,8 @@ import { MemberForm } from '../../member-form/member-form';
 import { MatDialog } from '@angular/material/dialog';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { combineLatest, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { MatDivider } from "@angular/material/divider";
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -21,8 +23,10 @@ import { combineLatest, debounceTime, distinctUntilChanged, switchMap } from 'rx
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule
-  ],
+    FormsModule,
+    MatDivider,
+    DatePipe
+],
   templateUrl: './members.html',
   styleUrl: './members.css',
 })

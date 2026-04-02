@@ -24,7 +24,7 @@
     <div class="w3-row w3-center info-grid">
       <div class="w3-col s4">
         <span class="info-label">Posti</span>
-        <div class="info-value">{{ table.capacity }}</div>
+        <div class="info-value">{{ table.capacity - gameSession().bookedSpots }} / {{ table.capacity }}</div>
       </div>
       <div class="w3-col s4">
         <span class="info-label">Data</span>

@@ -13,6 +13,8 @@ public class GameSessionDTO {
     private LocalDate date;
     private PubTableDTO table;
 
+    private int bookedSpots;
+
     private int gameId;
     private int tableId;
 

@@ -85,3 +85,40 @@ body {
   color: var(--color-accent); /* Verde Foresta per le sessioni */
   margin-bottom: 0;
 }
+
+.search-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* Centers everything vertically */
+  justify-content: center;   /* Centers everything horizontally */
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.search-header > div:first-child {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Adjust the city picker width so it doesn't stay tiny or huge */
+app-city-picker {
+  min-width: 300px;
+}
+
+.search-header button[mat-raised-button] {
+  background-color: var(--color-accent) !important;
+  color: white !important;
+  height: 48px;
+}
+
+.search-header button[mat-stroked-button] {
+  color: var(--color-accent) !important;
+  border-color: var(--color-border) !important;
+}
