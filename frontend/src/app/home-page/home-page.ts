@@ -1,24 +1,28 @@
 import { Component, inject, model, OnInit, signal } from '@angular/core';
 import { GameSessionsList } from '../game-sessions-list/game-sessions-list';
-import { GameSession } from '../model/entities';
+import { Game, GameSession } from '../model/entities';
 import { GameSessionService } from '../service/game-session-service';
 import { CommonModule } from '@angular/common';
 import { CityPicker } from '../city-picker/city-picker';
 import { FormsModule } from '@angular/forms';
-import { AdvancedSessionSearchAccordion } from "../advanced-session-search-accordion/advanced-session-search-accordion";
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { MatFormField, MatFormFieldModule, MatLabel } from "@angular/material/form-field";
+import { MatSlider, MatSliderModule } from "@angular/material/slider";
+import { MatIcon } from "@angular/material/icon";
+import { GamePicker } from '../game-picker/game-picker';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-home-page',
-  imports: [GameSessionsList, CommonModule, CityPicker, FormsModule, MatFormFieldModule, MatInputModule],
+  imports: [GameSessionsList, CommonModule, CityPicker, FormsModule, MatFormFieldModule, MatLabel, MatSliderModule, MatIcon, GamePicker,
+    MatButtonModule
+  ],
   templateUrl: './home-page.html',
   styleUrls: ['./home-page.css'],
 })
 export class HomePage{
   gameSessions = signal<GameSession[]>([]); // sessions to display
   city = model<string>('');
-  gameTitle = model<string>('');
+  selectedGame = model<Game | null>(null);
   daysAhead = model<number>(0);
   searchPerformed = false;                // track if search has been done
 
@@ -26,8 +30,8 @@ export class HomePage{
 
   searchSessions() {
   const city = this.city().trim();
-  const game = this.gameTitle().trim();
-  const days = this.daysAhead() > 0 ? this.daysAhead() : 0;
+  const game = this.selectedGame()!.title.trim();
+  const days = this.daysAhead();
 
   //Avoids empty search
   if (!city && !game && !days) {

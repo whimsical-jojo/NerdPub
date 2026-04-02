@@ -1,36 +1,28 @@
 <div class="homepage">
-  <div class="w3-content w3-container w3-padding-32">
-    <div class="w3-row">
-      <div class="w3-col s12 m10 l8" style="float:none;margin:auto;">
-        <h1 class="w3-center">NerdPub</h1>
-        <p class="w3-center">Mettiti in gioco: scopri il tavolo perfetto per la tua compagnia</p>
+  <div class="hero-section">
+    <h1 class="w3-center">NerdPub</h1>
+    <p class="w3-center">Trova il tavolo perfetto per la tua prossima sessione.</p>
 
-        <!-- SEARCH BAR -->
-        <div class="w3-center search-bar">
-          <app-city-picker [(city)]="city" />
-          <mat-form-field appearance="fill" class="search-field">
-            <mat-label>Titolo del gioco</mat-label>
-            <input matInput
-                   type="text"
-                   name="gameTitle"
-                   [(ngModel)]="gameTitle" />
-          </mat-form-field>
-          <mat-form-field appearance="fill" class="search-field">
-            <mat-label>Giorni avanti</mat-label>
-            <input matInput
-                   type="number"
-                   name="daysAhead"
-                   [(ngModel)]="daysAhead"
-                   min="0"
-                   max="60" />
-          </mat-form-field>
-          <button class="w3-button w3-blue w3-margin-top" (click)="searchSessions()">
-            Search
-          </button>
+    <div class="search-header">
+      <div class="filter-controls">
+        <app-city-picker [(city)]="city" class="filter-item" />
+        
+        <app-game-picker [(selectedGame)]="selectedGame" class="filter-item" />
+
+        <div class="slider-wrapper filter-item">
+          <label class="slider-label">Prossimi <strong>{{ daysAhead() }}</strong> giorni</label>
+          <mat-slider min="0" max="30" step="1">
+            <input matSliderThumb [ngModel]="daysAhead()" (ngModelChange)="daysAhead.set($event)">
+          </mat-slider>
         </div>
+
+        <button mat-flat-button class="home-search-btn" (click)="searchSessions()">
+          <mat-icon>search</mat-icon> CERCA
+        </button>
       </div>
     </div>
   </div>
+
 
   <!-- Only show list after search -->
   @if(gameSessions() && gameSessions().length > 0) {

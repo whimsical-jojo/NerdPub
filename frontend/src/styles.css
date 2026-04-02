@@ -115,7 +115,6 @@ app-city-picker {
 .search-header button[mat-raised-button] {
   background-color: var(--color-accent) !important;
   color: white !important;
-  height: 48px;
 }
 
 .search-header button[mat-stroked-button] {

@@ -1,13 +1,8 @@
-/* --- HOMEPAGE LAYOUT --- */
-.homepage {
-  min-height: 100vh;
-  font-family: var(--font-body);
-  color: var(--color-text);
-  background: radial-gradient(circle at top, var(--color-surface) 0%, var(--color-bg) 100%);
-  background-attachment: fixed;
+/* --- HERO SECTION --- */
+.hero-section {
+  padding: 4rem 1rem 2rem 1rem;
+  text-align: center;
 }
-
-/* --- TIPOGRAFIA --- */
 .homepage h1.w3-center {
   font-family: var(--font-display);
   color: var(--color-accent) !important;
@@ -27,121 +22,78 @@
   max-width: 600px;
 }
 
-/* --- CONTENITORE RICERCA (ALLINEAMENTO LATERALE) --- */
-/* Miriamo al div w3-center che contiene la search bar */
-.homepage .w3-col > .w3-center:has(app-city-picker) {
+/* --- THE SEARCH CONTAINER (The Background Box) --- */
+.homepage .search-header {
   display: flex;
+  flex-direction: row;      /* Force horizontal on desktop */
   justify-content: center;
-  align-items: center; /* Allineamento verticale perfetto */
-  gap: 12px;
-  margin-top: 0 !important; /* Elimina lo spazio extra sopra la barra */
+  align-items: center;
+  width: 100%;
+  max-width: 1100px;        /* Spreads the background out */
+  margin: 2rem auto;        /* Centers the whole box on the page */
+  padding: 1.5rem 2rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 10px 30px rgba(120, 53, 15, 0.1);
 }
 
-/* --- BARRA DI RICERCA UNICA (IN LINEA) --- */
-.search-bar {
+/* --- INNER CONTROLS --- */
+.filter-controls {
   display: flex;
-  flex-wrap: wrap; /* Permette wrap su schermi piccoli */
-  align-items: center; /* Allineamento verticale perfetto */
-  justify-content: center; /* Centra orizzontalmente */
-  gap: 0.5rem; /* Spazio tra elementi */
-  margin-top: 0 !important; /* Elimina margine extra */
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
 }
 
-/* City picker compatto */
-.search-bar app-city-picker {
-  flex: 0 1 300px; /* Larghezza flessibile, max 300px */
-  min-width: 200px; /* Minima per evitare compressione */
+/* Individual items spacing */
+.filter-item {
+  flex: 1;                 /* Allows pickers to grow equally */
+  min-width: 200px;        /* Prevents them from getting "tiny" */
 }
 
-/* Game title field compatto, simile a city-picker */
-.search-bar .search-field {
-  flex: 0 1 300px;
-  min-width: 200px;
+/* --- SLIDER STYLING --- */
+.slider-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 180px;
 }
 
-/* Advanced accordion compatto */
-.search-bar app-advanced-session-search-accordion {
-  flex: 0 1 400px; /* Più spazio per i campi */
-  min-width: 250px;
-}
-
-/* Bottone search */
-.search-bar .w3-button.w3-blue {
-  flex: 0 0 auto; /* Non si restringe */
-  height: 54px; /* Altezza fissa per allineamento */
-}
-
-/* --- BOTTONE SEARCH (COMPATTO) --- */
-.homepage .w3-button.w3-blue {
-  background-color: var(--color-accent) !important;
-  color: var(--color-bg) !important;
-  font-weight: 700;
-  font-size: 1.1rem; /* Aumentato leggermente per bilanciare l'altezza */
-
-  /* Reset del padding: lasciamo solo lo spazio laterale */
-  padding: 0 25px !important;
-
-  margin-top: 0 !important;
-  border-radius: var(--radius-sm) !important;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border: none !important;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(120, 53, 15, 0.2);
-  height: 54px;
-  display: inline-flex;
-  align-items: center;      /* Centra il testo verticalmente */
-  justify-content: center;   /* Centra il testo orizzontalmente */
-  line-height: normal;
-}
-
-.homepage .w3-button.w3-blue:hover {
-  background-color: var(--color-text) !important;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 15px rgba(45, 27, 14, 0.3);
-}
-
-/* --- LISTA RISULTATI --- */
-app-game-sessions-list {
-  display: block;
-  margin-top: 30px;
-}
-
-/* Messaggio "No sessions found" */
-.homepage div.w3-center.w3-padding {
+.slider-label {
+  font-size: 0.8rem;
+  font-weight: 600;
   color: var(--color-muted);
-  font-style: italic;
-  margin-top: 20px;
+  text-transform: uppercase;
+  margin-bottom: -5px;
 }
 
-/* --- RESPONSIVE MOBILE --- */
-@media (max-width: 600px) {
-  .homepage .w3-col > .w3-center:has(app-city-picker) {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 0 15px;
+/* --- SEARCH BUTTON --- */
+.home-search-btn {
+  background-color: var(--color-accent) !important;
+  color: white !important;
+  height: 54px !important;  /* Matches height of pickers */
+  padding: 0 2rem !important;
+  font-weight: 700 !important;
+  border-radius: var(--radius-sm) !important;
+  flex-shrink: 0;          /* Prevents button from squishing */
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 900px) {
+  .filter-controls {
+    flex-direction: column; /* Stack items on tablets/phones */
+    gap: 1rem;
+  }
+  
+  .filter-item, .home-search-btn {
+    width: 100%;           /* Full width on mobile */
   }
 
-  .homepage app-city-picker,
-  .homepage .w3-button.w3-blue {
-    width: 100%;
-    flex: none;
-    height: 48px;
-  }
-
-  .search-bar {
-    /* Rimosso flex-direction: column per mantenere in riga anche su mobile */
-    align-items: stretch; /* Elementi a larghezza piena */
-    gap: 0.5rem; /* Ridotto gap per mobile */
-    padding: 0 15px;
-  }
-
-  .search-bar app-city-picker,
-  .search-bar .search-field,
-  .search-bar .w3-button.w3-blue {
-    width: 100%;
-    flex: none;
-    height: 48px;
-    min-width: 150px; /* Ridotto per mobile */
+  .homepage .search-header {
+    padding: 1rem;
+    margin: 1rem;
+    width: calc(100% - 2rem);
   }
 }
