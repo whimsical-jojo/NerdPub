@@ -42,8 +42,8 @@ public class MemberService {
         return memberMapper.toDTO(member);
     }
 
-    public List<MemberDTO> findByUsernameContaining(String membername) {
-        return memberMapper.toDTOs(memberRepository.findByUsernameContaining(membername));
+    public List<MemberDTO> findByUsernameOrLastNameContaining(String name) {
+        return memberMapper.toDTOs(memberRepository.findByUsernameContainingOrLastNameContaining(name,name));
     }
 
     public MemberDTO toggleBan(int memberId) {

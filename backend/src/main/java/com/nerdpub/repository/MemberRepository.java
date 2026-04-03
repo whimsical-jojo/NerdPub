@@ -13,6 +13,6 @@ public interface MemberRepository extends JpaRepository<Member, Integer>{
 
     Optional<Member> findByUsername(String username);
 
-    List<Member> findByUsernameContaining(String username);
+    List<Member> findByUsernameContainingOrLastNameContaining(String username, String lastName);
     
 }

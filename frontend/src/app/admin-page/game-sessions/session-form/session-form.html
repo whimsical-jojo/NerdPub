@@ -14,9 +14,9 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-        <mat-label>Data e Ora</mat-label>
-        <input matInput [matDatepicker]="picker" [ngModel]="selectedDate()"
-            (dateChange)="selectedDate.set($event.value); loadTables()">
+        <mat-label>Data</mat-label>
+        <input matInput [matDatepicker]="picker" [ngModel]="selectedDate()" [min]="minDate" required
+            (dateChange)="selectedDate.set($event.value); loadTables()" readonly>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-datepicker #picker></mat-datepicker>

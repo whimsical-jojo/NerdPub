@@ -39,7 +39,7 @@ public class MemberAPI {
      */
     @GetMapping
     public List<MemberDTO> findByUsernameContaining(@RequestParam String username) {
-        return service.findByUsernameContaining(username);
+        return service.findByUsernameOrLastNameContaining(username);
     }
 
     /**

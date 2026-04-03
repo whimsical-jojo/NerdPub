@@ -37,7 +37,7 @@
     <div class="w3-container w3-padding-16 w3-center">
       <button type="button" class="session-cta" [class.session-cta--book]="!isBooked()"
         [class.session-cta--cancel]="isBooked()" (click)="onBookClick()"
-        [disabled]="gameSession().bookedSpots === table.capacity">
+        [disabled]="gameSession().bookedSpots === table.capacity && !isBooked()">
         @if (isBooked()) {
         Disdisci
         } @else if (gameSession().bookedSpots >= table.capacity) {

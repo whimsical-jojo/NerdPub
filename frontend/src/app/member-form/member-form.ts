@@ -25,8 +25,23 @@ export class MemberForm implements OnInit {
   private authService = inject(AuthService);
   dialogRef = inject(MatDialogRef<MemberForm>);
   private data = inject(MAT_DIALOG_DATA) as { mode: 'create' | 'edit' } | undefined;
-
+  //For deciding whether to open this to insert a new member, or modify an existing one.
   mode = signal<'create' | 'edit'>(this.data?.mode ?? 'create');
+
+  //So users can't enter an age below 18.
+  maxDate: Date;
+
+  constructor() {
+    const today = new Date();
+    //Set maxDate to today's date, but 18 years in the past
+    this.maxDate = new Date(
+      today.getFullYear() - 18,
+      today.getMonth(),
+      today.getDate()
+    );
+  }
+
+  
 
   //internal state as signal
   member = signal<Member>({

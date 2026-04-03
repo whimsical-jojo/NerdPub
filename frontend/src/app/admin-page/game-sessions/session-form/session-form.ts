@@ -58,6 +58,8 @@ export class SessionForm {
   availableTables = signal<PubTable[]>([]);
   allGames = signal<Game[]>([]); // Loaded once on init
 
+  minDate : Date = new Date();
+
   constructor() {
     // Load games immediately
     this.gameService.findAll().subscribe(games => this.allGames.set(games));

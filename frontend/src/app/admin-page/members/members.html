@@ -3,7 +3,7 @@
     <mat-form-field appearance="outline" class="search-bar">
       <mat-label>Cerca membri</mat-label>
       <mat-icon matPrefix>search</mat-icon>
-      <input matInput placeholder="Cerca per nome o username..." [(ngModel)]="search">
+      <input matInput placeholder="Cerca per cognome o username..." [(ngModel)]="search">
       @if (search()) {
         <button mat-icon-button matSuffix (click)="search.set('')">
           <mat-icon>close</mat-icon>
@@ -25,14 +25,14 @@
             {{ member.firstName[0] }}{{ member.lastName[0] }}
           </div>
           <mat-card-title>{{ member.firstName }} {{ member.lastName }}</mat-card-title>
-          <mat-card-subtitle>@{{ member.username }} • {{ member.role ?? 'USER' }}</mat-card-subtitle>
+          <mat-card-subtitle>@{{ member.username }} • {{ member.role ?? 'MEMBER' }}</mat-card-subtitle>
         </mat-card-header>
 
         <mat-card-content>
-          <div class="info-row">
+          <!--<div class="info-row">
             <mat-icon>email</mat-icon>
             <span>{{ member.email || 'No email provided' }}</span>
-          </div>
+          </div>-->
           <div class="info-row">
             <mat-icon>cake</mat-icon>
             <span>{{ member.dob | date:'dd/MM/yyyy' }}</span>
