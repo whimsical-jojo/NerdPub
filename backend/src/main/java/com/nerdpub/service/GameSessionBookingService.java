@@ -23,7 +23,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("bookingService")
 public class GameSessionBookingService {
     @Autowired
     private GameSessionBookingRepository bookingRepository;
@@ -101,10 +101,11 @@ public class GameSessionBookingService {
         return bookingMapper.toDTOs(bookingRepository.findByMember(member.getId()));
     }
 
-    public boolean isOwner(int bookingId, String username) {
-        return bookingRepository.findById(bookingId)
-                .map(b -> b.getMember().getUsername().equals(username))
-                .orElse(false);
+    public boolean isOwner(int sessionId, String username) {
+        Member member = memberRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("Member not found"));
+        return bookingRepository.findByMember(member.getId()).stream()
+                .anyMatch(booking -> booking.getSession().getId() == sessionId);
     }
 
 }

@@ -50,7 +50,7 @@ public class GameSessionBookingAPI {
     }
 
     @DeleteMapping("/{sessionId}")
-    @PreAuthorize("hasRole('ADMIN') or @bookingService.isOwner(#bookingId, authentication.name)")
+    @PreAuthorize("hasRole('ADMIN') or @bookingService.isOwner(#sessionId, authentication.name)")
     public ResponseEntity<?> deleteBooking(@PathVariable int sessionId, Authentication authentication) {
         try {
             bookingService.deleteBooking(sessionId, authentication.getName());
