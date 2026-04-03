@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { GameSessionService } from '../../service/game-session-service';
 import { MatDialog } from '@angular/material/dialog';
 import { GameSession } from '../../model/entities';
@@ -24,9 +24,15 @@ export class AdminSessionsComponent {
   // Search Filters
   selectedCity = signal<string>('');
   daysAhead = signal<number>(7); // Default to a week
-  
+
   // Results
   sessions = signal<GameSession[]>([]);
+
+  sortedSessions = computed(() => {
+    return [...this.sessions()].sort((a, b) =>
+      new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+  });
 
   search() {
     // We pass the current values of our signals to the service
@@ -51,7 +57,7 @@ export class AdminSessionsComponent {
     });
   }
 
-  deleteSession(session : GameSession) {
+  deleteSession(session: GameSession) {
     const id = session.id;
     if (!id) return;
     this.sessionService.deleteGameSession(id).subscribe({

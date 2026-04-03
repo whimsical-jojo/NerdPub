@@ -22,7 +22,7 @@
   </div>
 
   <div class="sessions-grid">
-    @for (s of sessions(); track s.id) {
+    @for (s of sortedSessions(); track s.id) {
       <mat-card appearance="outlined" class="session-card">
         <mat-card-header>
           <mat-card-title class="session-title">{{ s.game.title }}</mat-card-title>

@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, input, OnInit, signal } from '@angular/core';
 import { GameSessionPreview } from '../game-session-preview/game-session-preview';
 import { GameSessionService } from '../service/game-session-service';
 import { GameSession } from '../model/entities';
@@ -28,6 +28,12 @@ export class GameSessionsList {
 
   //The gameSessions that the list will display should be inputed from the parent component
   gameSessions = input.required<GameSession[]>();
+
+  sortedSessions = computed(() => {
+    return [...this.gameSessions()].sort((a, b) =>
+      new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+  });
 
   //Helper: check if booked
   isSessionBooked(sessionId: number | undefined): boolean {
